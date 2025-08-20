@@ -14,15 +14,15 @@ interface SchemaConfig {
 }
 
 const defaultConfig: SchemaConfig = {
-  baseUrl: process.env.NEXT_PUBLIC_BASE_URL || "https://blogkita.id",
+  baseUrl: process.env.NEXT_PUBLIC_BASE_URL || "https://archipelago.web.id",
   siteName: "BlogKita - Portal Komunikasi Digital Indonesia",
   author: {
     name: "Tim BlogKita",
-    url: "https://blogkita.id/tentang-kami",
+    url: "https://archipelago.web.id/tentang-kami",
   },
   publisher: {
     name: "BlogKita Indonesia",
-    logo: "https://blogkita.id/images/logo-blogkita.png",
+    logo: "https://archipelago.web.id/images/logo-blogkita.png",
   },
 };
 
@@ -191,7 +191,7 @@ export function generateOrganizationSchema(config: Partial<SchemaConfig> = {}) {
       "https://twitter.com/blogkita_id",
       "https://facebook.com/blogkita.indonesia",
       "https://linkedin.com/company/blogkita-indonesia",
-      "https://instagram.com/blogkita.id",
+      "https://instagram.com/archipelago.web.id",
       "https://youtube.com/@blogkitaindonesia",
     ],
     contactPoint: {

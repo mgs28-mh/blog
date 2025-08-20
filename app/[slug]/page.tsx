@@ -11,6 +11,7 @@ import ReadingProgressBar from "@/components/ui/reading";
 import SocialShareButtons from "@/components/ui/social";
 import AuthorCard from "@/components/ui/author";
 import RelatedArticles from "@/components/ui/related";
+import { generateArticleSchema, generateJsonLd } from "@/lib/schema";
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
   const allArticles = await getAllArticles();
@@ -206,6 +207,8 @@ export default async function BlogPostArticlePage(
     process.env.NEXT_PUBLIC_SITE_URL || "https://yoursite.com"
   }/${params.slug}`;
 
+  const articleSchema = generateArticleSchema(article);
+
   return (
     <main className="min-h-screen bg-white">
       <Suspense fallback={<ArticleSkeletonLoading />}>
@@ -316,6 +319,12 @@ export default async function BlogPostArticlePage(
             </aside>
           </div>
         </div>
+
+        {/* JSON-LD Schema Markup */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={generateJsonLd(articleSchema)}
+        />
       </Suspense>
     </main>
   );
