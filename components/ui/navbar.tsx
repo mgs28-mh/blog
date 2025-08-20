@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Search, ChevronDown } from "lucide-react";
+import { Menu, X, Search, ChevronDown, ChevronRight } from "lucide-react";
 
 interface NavItem {
   href: string;
@@ -30,6 +30,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [mobileDropdowns, setMobileDropdowns] = useState<string[]>([]);
   const pathname = usePathname();
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -59,6 +60,7 @@ export default function Navbar() {
   useEffect(() => {
     setIsOpen(false);
     setActiveDropdown(null);
+    setMobileDropdowns([]);
   }, [pathname]);
 
   // Handle escape key to close menus
@@ -67,6 +69,7 @@ export default function Navbar() {
       if (event.key === "Escape") {
         setIsOpen(false);
         setActiveDropdown(null);
+        setMobileDropdowns([]);
       }
     };
 
@@ -74,9 +77,30 @@ export default function Navbar() {
     return () => document.removeEventListener("keydown", handleEscape);
   }, []);
 
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
+
   const isActiveLink = (href: string) => {
     if (href === "/") return pathname === "/";
     return pathname.startsWith(href);
+  };
+
+  const toggleMobileDropdown = (label: string) => {
+    setMobileDropdowns(prev => 
+      prev.includes(label) 
+        ? prev.filter(item => item !== label)
+        : [...prev, label]
+    );
   };
 
   const NavLink = ({ item, mobile = false }: { item: NavItem; mobile?: boolean }) => {
@@ -107,13 +131,21 @@ export default function Navbar() {
             />
           </button>
 
-          {/* Dropdown Menu */}
-          {activeDropdown === item.label && (
-            <div className="absolute top-full left-0 mt-2 w-48 bg-neutral-800 border border-neutral-700 rounded-lg shadow-xl py-2 animate-in slide-in-from-top-2 duration-200">
-              {item.children?.map((child) => {
+          {/* Desktop Dropdown Menu */}
+          <div className={`absolute top-full left-0 mt-2 w-48 bg-neutral-800 border border-neutral-700 rounded-lg shadow-xl overflow-hidden transition-all duration-300 ease-out transform origin-top ${
+            activeDropdown === item.label 
+              ? "opacity-100 scale-y-100 translate-y-0 visible" 
+              : "opacity-0 scale-y-95 -translate-y-2 invisible"
+          }`}>
+            <div className="py-2">
+              {item.children?.map((child, index) => {
                 const childActive = isActiveLink(child.href);
-                const childClasses = `block px-4 py-2 text-sm transition-colors hover:text-emerald-400 hover:bg-neutral-700/50 ${
+                const childClasses = `block px-4 py-2 text-sm transition-all duration-300 hover:text-emerald-400 hover:bg-neutral-700/50 transform ${
                   childActive ? "text-emerald-400 bg-neutral-700/30" : ""
+                } ${
+                  activeDropdown === item.label 
+                    ? "translate-x-0 opacity-100" 
+                    : "translate-x-2 opacity-0"
                 }`;
                 
                 return (
@@ -121,21 +153,79 @@ export default function Navbar() {
                     key={child.href}
                     href={child.href}
                     className={childClasses}
+                    style={{
+                      transitionDelay: activeDropdown === item.label ? `${index * 50}ms` : '0ms'
+                    }}
                   >
                     {child.label}
                   </Link>
                 );
               })}
             </div>
-          )}
+          </div>
+        </div>
+      );
+    }
+
+    // Mobile view with children
+    if (hasChildren && mobile) {
+      const isExpanded = mobileDropdowns.includes(item.label);
+      
+      return (
+        <div>
+          <button
+            className={`flex items-center justify-between w-full px-4 py-3 text-left transition-colors hover:text-emerald-400 hover:bg-neutral-800/50 ${activeClasses}`}
+            onClick={() => toggleMobileDropdown(item.label)}
+            aria-expanded={isExpanded}
+          >
+            <span className="text-lg">{item.label}</span>
+            <ChevronRight
+              size={20}
+              className={`transition-transform duration-200 ${
+                isExpanded ? "rotate-90" : ""
+              }`}
+            />
+          </button>
+          
+          {/* Mobile Submenu */}
+          <div className={`overflow-hidden transition-all duration-300 ease-in-out ${
+            isExpanded ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+          }`}>
+            <div className={`bg-neutral-800/30 ml-4 mr-2 rounded-lg mt-1 transform transition-all duration-200 ${
+              isExpanded ? "translate-y-0 scale-100" : "-translate-y-2 scale-95"
+            }`}>
+              {item.children?.map((child, index) => {
+                const childActive = isActiveLink(child.href);
+                return (
+                  <Link
+                    key={child.href}
+                    href={child.href}
+                    className={`block px-4 py-3 text-base transition-all duration-200 hover:text-emerald-400 hover:bg-neutral-700/50 first:rounded-t-lg last:rounded-b-lg transform ${
+                      childActive ? "text-emerald-400 bg-neutral-700/50" : ""
+                    } ${
+                      isExpanded 
+                        ? "translate-x-0 opacity-100" 
+                        : "translate-x-4 opacity-0"
+                    }`}
+                    style={{
+                      transitionDelay: isExpanded ? `${index * 100}ms` : '0ms'
+                    }}
+                  >
+                    {child.label}
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
         </div>
       );
     }
 
     const linkClasses = `${baseClasses} ${activeClasses} ${mobileClasses}`;
+    const mobileLinkClasses = mobile ? "block px-4 py-3 text-lg transition-colors hover:text-emerald-400 hover:bg-neutral-800/50" : linkClasses;
 
     return (
-      <Link href={item.href} className={linkClasses}>
+      <Link href={item.href} className={mobile ? `${mobileLinkClasses} ${activeClasses}` : linkClasses}>
         {item.label}
       </Link>
     );
@@ -153,94 +243,105 @@ export default function Navbar() {
 
   const searchButtonClasses = "p-2 rounded-lg transition-all duration-200 hover:bg-neutral-800 hover:text-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/50";
 
-  const mobileMenuClasses = `lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-    isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-  }`;
-
   return (
-    <nav className={navClasses}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* Left - Navigation Links (Desktop) */}
-          <div className="hidden lg:flex items-center space-x-1">
-            {navItems.map((item) => (
-              <NavLink key={item.href} item={item} />
-            ))}
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            className={menuButtonClasses}
-            onClick={() => setIsOpen(!isOpen)}
-            aria-expanded={isOpen}
-            aria-label="Toggle navigation menu"
-          >
-            <div className="relative w-6 h-6">
-              <Menu
-                size={24}
-                className={`absolute inset-0 transition-all duration-200 ${
-                  isOpen 
-                    ? "opacity-0 rotate-45 scale-75" 
-                    : "opacity-100 rotate-0 scale-100"
-                }`}
-              />
-              <X
-                size={24}
-                className={`absolute inset-0 transition-all duration-200 ${
-                  isOpen 
-                    ? "opacity-100 rotate-0 scale-100" 
-                    : "opacity-0 -rotate-45 scale-75"
-                }`}
-              />
+    <>
+      <nav className={navClasses}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-20">
+            {/* Left - Navigation Links (Desktop) */}
+            <div className="hidden lg:flex items-center space-x-1">
+              {navItems.map((item) => (
+                <NavLink key={item.href} item={item} />
+              ))}
             </div>
-          </button>
 
-          {/* Center - Logo */}
-          <div className="absolute left-1/2 transform -translate-x-1/2">
-            <Link href="/" className={logoClasses}>
-              BlogKita
-            </Link>
+            {/* Mobile Menu Button */}
+            <button
+              className={menuButtonClasses}
+              onClick={() => setIsOpen(!isOpen)}
+              aria-expanded={isOpen}
+              aria-label="Toggle navigation menu"
+            >
+              <div className="relative w-6 h-6">
+                <Menu
+                  size={24}
+                  className={`absolute inset-0 transition-all duration-200 ${
+                    isOpen 
+                      ? "opacity-0 rotate-45 scale-75" 
+                      : "opacity-100 rotate-0 scale-100"
+                  }`}
+                />
+                <X
+                  size={24}
+                  className={`absolute inset-0 transition-all duration-200 ${
+                    isOpen 
+                      ? "opacity-100 rotate-0 scale-100" 
+                      : "opacity-0 -rotate-45 scale-75"
+                  }`}
+                />
+              </div>
+            </button>
+
+            {/* Center - Logo */}
+            <div className="absolute left-1/2 transform -translate-x-1/2">
+              <Link href="/" className={logoClasses}>
+                BlogKita
+              </Link>
+            </div>
+
+            {/* Right - Search and Actions */}
+            <div className="flex items-center space-x-2">
+              <button className={searchButtonClasses} aria-label="Search">
+                <Search size={20} />
+              </button>
+            </div>
           </div>
+        </div>
+      </nav>
 
-          {/* Right - Search and Actions */}
-          <div className="flex items-center space-x-2">
-            <button className={searchButtonClasses} aria-label="Search">
+      {/* Mobile Overlay */}
+      {isOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
+
+      {/* Mobile Slide Panel */}
+      <div className={`fixed top-0 left-0 h-full w-80 bg-neutral-900 border-r border-neutral-800 z-50 lg:hidden transform transition-transform duration-300 ease-in-out ${
+        isOpen ? "translate-x-0" : "-translate-x-full"
+      }`}>
+        {/* Panel Header */}
+        <div className="flex items-center justify-between p-4 border-b border-neutral-800">
+          <Link href="/" className="text-xl font-bold text-emerald-400" onClick={() => setIsOpen(false)}>
+            BlogKita
+          </Link>
+          <button
+            onClick={() => setIsOpen(false)}
+            className="p-2 rounded-lg hover:bg-neutral-800 transition-colors"
+            aria-label="Close menu"
+          >
+            <X size={24} />
+          </button>
+        </div>
+
+        {/* Panel Navigation */}
+        <div className="py-4 overflow-y-auto h-full">
+          <nav className="space-y-1">
+            {navItems.map((item) => (
+              <NavLink key={item.href} item={item} mobile />
+            ))}
+          </nav>
+
+          {/* Additional mobile menu items */}
+          <div className="mt-8 px-4 pt-4 border-t border-neutral-800">
+            <button className="flex items-center gap-3 w-full px-4 py-3 text-lg transition-colors hover:text-emerald-400 hover:bg-neutral-800/50 rounded-lg">
               <Search size={20} />
+              Search
             </button>
           </div>
         </div>
-
-        {/* Mobile Menu */}
-        <div className={mobileMenuClasses}>
-          <div className="py-4 space-y-2 border-t border-neutral-800">
-            {navItems.map((item) => (
-              <div key={item.href}>
-                <NavLink item={item} mobile />
-                {item.children && (
-                  <div className="ml-4 mt-2 space-y-1">
-                    {item.children.map((child) => {
-                      const childActive = isActiveLink(child.href);
-                      const childMobileClasses = `block px-3 py-2 text-sm rounded-lg transition-colors hover:text-emerald-400 hover:bg-neutral-800/50 ${
-                        childActive ? "text-emerald-400 bg-neutral-800/30" : ""
-                      }`;
-                      
-                      return (
-                        <Link
-                          key={child.href}
-                          href={child.href}
-                          className={childMobileClasses}
-                        >
-                          {child.label}
-                        </Link>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
-    </nav>
+    </>
   );
 }

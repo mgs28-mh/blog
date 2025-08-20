@@ -66,7 +66,7 @@ export default function CTASection() {
             <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight">
               Dapatkan Artikel dan Informasi{' '}
               <span className="text-transparent bg-clip-text bg-emerald-500">
-                Terbaru Lainya
+                Terbaru Lainnya
               </span>
             </h2>
           </motion.div>

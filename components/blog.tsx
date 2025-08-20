@@ -62,7 +62,7 @@ export default function BlogSection() {
           animate={isInView ? "visible" : "hidden"}
         >
           {/* Section Header */}
-          <div className="mb-6">
+          <div className="mb-6 text-center">
             <h2 className="text-3xl md:text-6xl font-bold text-slate-900 mb-2">
               Artikel & Informasi Terbaru
             </h2>
