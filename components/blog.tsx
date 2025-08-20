@@ -15,7 +15,7 @@ export default function BlogSection() {
 
   useEffect(() => {
     const fetchArticles = async () => {
-      const data = await getAllArticles(10);
+      const data = await getAllArticles(8);
       setArticles(data);
     };
     fetchArticles();
@@ -227,26 +227,28 @@ export default function BlogSection() {
           </div>
 
           {/* View All Posts Button */}
-          <motion.div
-            variants={cardVariants}
-            className="text-center mt-12 lg:mt-16"
-          >
-            <motion.button
-              className="inline-flex items-center justify-center px-6 py-3 text-base sm:text-lg font-semibold text-emerald-600 bg-white border-2 border-emerald-600 hover:bg-emerald-600 hover:text-white transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-emerald-500/50"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          <Link href={`/blog`}>
+            <motion.div
+              variants={cardVariants}
+              className="text-center mt-12 lg:mt-16"
             >
-              View All Posts
-              <motion.div
-                className="ml-2"
-                whileHover={{ x: 4 }}
+              <motion.button
+                className="inline-flex items-center justify-center px-6 py-3 text-base sm:text-lg font-semibold text-emerald-600 bg-white border-2 border-emerald-600 hover:bg-emerald-600 hover:text-white transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-emerald-500/50 cursor-pointer"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
-                <HiOutlineArrowRight className="w-5 h-5" />
-              </motion.div>
-            </motion.button>
-          </motion.div>
+                View All Posts
+                <motion.div
+                  className="ml-2"
+                  whileHover={{ x: 4 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                >
+                  <HiOutlineArrowRight className="w-5 h-5" />
+                </motion.div>
+              </motion.button>
+            </motion.div>
+          </Link>
         </motion.div>
       </div>
     </section>

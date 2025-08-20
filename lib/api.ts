@@ -36,6 +36,23 @@ export interface Article {
 
 export interface ArticleCollection {
   items: Article[];
+  total?: number;
+  skip?: number;
+  limit?: number;
+}
+
+export interface PaginationInfo {
+  currentPage: number;
+  totalPages: number;
+  totalItems: number;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+  itemsPerPage: number;
+}
+
+export interface PaginatedArticles {
+  articles: Article[];
+  pagination: PaginationInfo;
 }
 
 export interface GraphQLResponse {
@@ -104,6 +121,10 @@ function extractArticleEntries(fetchResponse: GraphQLResponse): Article[] {
   return fetchResponse?.data?.artikelPostCollection?.items || [];
 }
 
+function extractArticleCollection(fetchResponse: GraphQLResponse): ArticleCollection {
+  return fetchResponse?.data?.artikelPostCollection || { items: [] };
+}
+
 export async function getAllArticles(
   // For this demo set the default limit to always return 3 articles.
   limit = 6,
@@ -143,4 +164,213 @@ export async function getArticle(
 
   const response = await fetchGraphQL(query, isDraftMode);
   return extractArticleEntries(response)[0];
+}
+
+// Paginated version of getAllArticles
+export async function getArticlesPaginated(
+  page = 1,
+  itemsPerPage = 6,
+  isDraftMode = false
+): Promise<PaginatedArticles> {
+  const skip = (page - 1) * itemsPerPage;
+  
+  const query = `
+    query {
+      artikelPostCollection(
+        where: {slug_exists: true}, 
+        order: date_DESC, 
+        limit: ${itemsPerPage},
+        skip: ${skip},
+        preview: ${isDraftMode ? "true" : "false"}
+      ) {
+        total
+        items {
+          ${ARTICLE_GRAPHQL_FIELDS}
+        }
+      }
+    }`;
+
+  const response = await fetchGraphQL(query, isDraftMode);
+  const collection = extractArticleCollection(response);
+  
+  const totalItems = collection.total || 0;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  
+  return {
+    articles: collection.items,
+    pagination: {
+      currentPage: page,
+      totalPages,
+      totalItems,
+      hasNextPage: page < totalPages,
+      hasPreviousPage: page > 1,
+      itemsPerPage,
+    },
+  };
+}
+
+// Get featured articles with pagination
+export async function getFeaturedArticles(
+  limit = 3,
+  isDraftMode = false
+): Promise<Article[]> {
+  const query = `
+    query {
+      artikelPostCollection(
+        where: {slug_exists: true, featured: true}, 
+        order: date_DESC, 
+        limit: ${limit},
+        preview: ${isDraftMode ? "true" : "false"}
+      ) {
+        items {
+          ${ARTICLE_GRAPHQL_FIELDS}
+        }
+      }
+    }`;
+
+  const response = await fetchGraphQL(query, isDraftMode);
+  return extractArticleEntries(response);
+}
+
+// Get articles by author with pagination
+export async function getArticlesByAuthor(
+  author: string,
+  page = 1,
+  itemsPerPage = 6,
+  isDraftMode = false
+): Promise<PaginatedArticles> {
+  const skip = (page - 1) * itemsPerPage;
+  
+  const query = `
+    query {
+      artikelPostCollection(
+        where: {slug_exists: true, author: "${author}"}, 
+        order: date_DESC, 
+        limit: ${itemsPerPage},
+        skip: ${skip},
+        preview: ${isDraftMode ? "true" : "false"}
+      ) {
+        total
+        items {
+          ${ARTICLE_GRAPHQL_FIELDS}
+        }
+      }
+    }`;
+
+  const response = await fetchGraphQL(query, isDraftMode);
+  const collection = extractArticleCollection(response);
+  
+  const totalItems = collection.total || 0;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  
+  return {
+    articles: collection.items,
+    pagination: {
+      currentPage: page,
+      totalPages,
+      totalItems,
+      hasNextPage: page < totalPages,
+      hasPreviousPage: page > 1,
+      itemsPerPage,
+    },
+  };
+}
+
+// Get recent articles (duplicate of getAllArticles with different naming)
+export async function getRecentArticles(
+  limit = 6,
+  isDraftMode = false
+): Promise<Article[]> {
+  return getAllArticles(limit, isDraftMode);
+}
+
+// Get articles for search with pagination
+export async function searchArticles(
+  searchTerm: string,
+  page = 1,
+  itemsPerPage = 6,
+  isDraftMode = false
+): Promise<PaginatedArticles> {
+  const skip = (page - 1) * itemsPerPage;
+  
+  const query = `
+    query {
+      artikelPostCollection(
+        where: {
+          slug_exists: true,
+          OR: [
+            {title_contains: "${searchTerm}"},
+            {excerpt_contains: "${searchTerm}"}
+          ]
+        }, 
+        order: date_DESC, 
+        limit: ${itemsPerPage},
+        skip: ${skip},
+        preview: ${isDraftMode ? "true" : "false"}
+      ) {
+        total
+        items {
+          ${ARTICLE_GRAPHQL_FIELDS}
+        }
+      }
+    }`;
+
+  const response = await fetchGraphQL(query, isDraftMode);
+  const collection = extractArticleCollection(response);
+  
+  const totalItems = collection.total || 0;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  
+  return {
+    articles: collection.items,
+    pagination: {
+      currentPage: page,
+      totalPages,
+      totalItems,
+      hasNextPage: page < totalPages,
+      hasPreviousPage: page > 1,
+      itemsPerPage,
+    },
+  };
+}
+
+// Get total article count
+export async function getTotalArticleCount(isDraftMode = false): Promise<number> {
+  const query = `
+    query {
+      artikelPostCollection(
+        where: {slug_exists: true}, 
+        limit: 0,
+        preview: ${isDraftMode ? "true" : "false"}
+      ) {
+        total
+      }
+    }`;
+
+  const response = await fetchGraphQL(query, isDraftMode);
+  return response?.data?.artikelPostCollection?.total || 0;
+}
+
+// Get related articles (duplicate with enhanced logic)
+export async function getRelatedArticles(
+  currentSlug: string,
+  limit = 3,
+  isDraftMode = false
+): Promise<Article[]> {
+  const query = `
+    query {
+      artikelPostCollection(
+        where: {slug_exists: true, slug_not: "${currentSlug}"}, 
+        order: date_DESC, 
+        limit: ${limit},
+        preview: ${isDraftMode ? "true" : "false"}
+      ) {
+        items {
+          ${ARTICLE_GRAPHQL_FIELDS}
+        }
+      }
+    }`;
+
+  const response = await fetchGraphQL(query, isDraftMode);
+  return extractArticleEntries(response);
 }
