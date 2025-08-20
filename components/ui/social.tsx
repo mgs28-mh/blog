@@ -1,25 +1,20 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Link from 'next/link';
-import {
-  FaFacebookF,
-  FaLinkedinIn,
-  FaLink,
-  FaCheck
-} from 'react-icons/fa';
+import { useState } from "react";
+import Link from "next/link";
+import { FaFacebookF, FaLinkedinIn, FaLink, FaCheck } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 
 interface SocialShareButtonsProps {
   url: string;
   title: string;
-  variant?: 'hero' | 'inline' | 'sidebar';
+  variant?: "hero" | "inline" | "sidebar";
 }
 
 export default function SocialShareButtons({
   url,
   title,
-  variant = 'inline'
+  variant = "inline",
 }: SocialShareButtonsProps) {
   const [copied, setCopied] = useState(false);
 
@@ -35,7 +30,7 @@ export default function SocialShareButtons({
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
-      console.error('Failed to copy: ', err);
+      console.error("Failed to copy: ", err);
     }
   };
 
@@ -43,48 +38,86 @@ export default function SocialShareButtons({
 
   const iconClass = "w-4 h-4";
 
-  const IconWrapper = ({ Icon }: { Icon: React.ElementType }) => <Icon className={iconClass} />;
+  const IconWrapper = ({ Icon }: { Icon: React.ElementType }) => (
+    <Icon className={iconClass} />
+  );
 
-  if (variant === 'hero') {
+  if (variant === "hero") {
     return (
       <div className="flex items-center gap-3">
-        <Link href={shareLinks.x} target="_blank" rel="noopener noreferrer" title="Share on Twitter"
-          className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-emerald-500 flex items-center justify-center transition-all duration-200 transform hover:scale-105">
+        <Link
+          href={shareLinks.x}
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Share on Twitter"
+          className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-emerald-500 flex items-center justify-center transition-all duration-200 transform hover:scale-105"
+        >
           <IconWrapper Icon={FaXTwitter} />
         </Link>
-        <Link href={shareLinks.facebook} target="_blank" rel="noopener noreferrer" title="Share on Facebook"
-          className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-emerald-500 flex items-center justify-center transition-all duration-200 transform hover:scale-105">
+        <Link
+          href={shareLinks.facebook}
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Share on Facebook"
+          className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-emerald-500 flex items-center justify-center transition-all duration-200 transform hover:scale-105"
+        >
           <IconWrapper Icon={FaFacebookF} />
         </Link>
-        <Link href={shareLinks.linkedin} target="_blank" rel="noopener noreferrer" title="Share on LinkedIn"
-          className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-emerald-500 flex items-center justify-center transition-all duration-200 transform hover:scale-105">
+        <Link
+          href={shareLinks.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Share on LinkedIn"
+          className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-emerald-500 flex items-center justify-center transition-all duration-200 transform hover:scale-105"
+        >
           <IconWrapper Icon={FaLinkedinIn} />
         </Link>
-        <button onClick={copyToClipboard} title={copied ? "Copied!" : "Copy link"}
-          className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-emerald-500 flex items-center justify-center transition-all duration-200 transform hover:scale-105 cursor-pointer">
+        <button
+          onClick={copyToClipboard}
+          title={copied ? "Copied!" : "Copy link"}
+          className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-emerald-500 flex items-center justify-center transition-all duration-200 transform hover:scale-105 cursor-pointer"
+        >
           <CopyIcon className={iconClass} />
         </button>
       </div>
     );
   }
 
-  if (variant === 'sidebar') {
+  if (variant === "sidebar") {
     return (
       <div className="flex items-center gap-4">
-        <Link href={shareLinks.x} target="_blank" rel="noopener noreferrer" title="Share on Twitter"
-          className="w-8 h-8 rounded-full bg-black text-white hover:bg-emerald-500 flex items-center justify-center transition-all duration-200 transform hover:scale-105">
+        <Link
+          href={shareLinks.x}
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Share on Twitter"
+          className="w-8 h-8 rounded-full bg-black text-white hover:bg-emerald-500 flex items-center justify-center transition-all duration-200 transform hover:scale-105"
+        >
           <IconWrapper Icon={FaXTwitter} />
         </Link>
-        <Link href={shareLinks.facebook} target="_blank" rel="noopener noreferrer" title="Share on Facebook"
-          className="w-8 h-8 rounded-full bg-black text-white hover:bg-emerald-500 flex items-center justify-center transition-all duration-200 transform hover:scale-105">
+        <Link
+          href={shareLinks.facebook}
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Share on Facebook"
+          className="w-8 h-8 rounded-full bg-black text-white hover:bg-emerald-500 flex items-center justify-center transition-all duration-200 transform hover:scale-105"
+        >
           <IconWrapper Icon={FaFacebookF} />
         </Link>
-        <Link href={shareLinks.linkedin} target="_blank" rel="noopener noreferrer" title="Share on LinkedIn"
-          className="w-8 h-8 rounded-full bg-black text-white hover:bg-emerald-500 flex items-center justify-center transition-all duration-200 transform hover:scale-105">
+        <Link
+          href={shareLinks.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Share on LinkedIn"
+          className="w-8 h-8 rounded-full bg-black text-white hover:bg-emerald-500 flex items-center justify-center transition-all duration-200 transform hover:scale-105"
+        >
           <IconWrapper Icon={FaLinkedinIn} />
         </Link>
-        <button onClick={copyToClipboard} title={copied ? "Copied!" : "Copy link"}
-          className="w-8 h-8 rounded-full bg-black text-white hover:bg-emerald-500 flex items-center justify-center transition-all duration-200 transform hover:scale-105 cursor-pointer">
+        <button
+          onClick={copyToClipboard}
+          title={copied ? "Copied!" : "Copy link"}
+          className="w-8 h-8 rounded-full bg-black text-white hover:bg-emerald-500 flex items-center justify-center transition-all duration-200 transform hover:scale-105 cursor-pointer"
+        >
           <CopyIcon className={iconClass} />
         </button>
       </div>
@@ -94,20 +127,38 @@ export default function SocialShareButtons({
   // inline variant
   return (
     <div className="flex items-center gap-3">
-      <Link href={shareLinks.x} target="_blank" rel="noopener noreferrer" title="Share on Twitter"
-        className="w-8 h-8 rounded-full bg-blue-500 hover:bg-blue-600 text-white flex items-center justify-center transition-all duration-200 transform hover:scale-105">
+      <Link
+        href={shareLinks.x}
+        target="_blank"
+        rel="noopener noreferrer"
+        title="Share on Twitter"
+        className="w-8 h-8 rounded-full bg-blue-500 hover:bg-blue-600 text-white flex items-center justify-center transition-all duration-200 transform hover:scale-105"
+      >
         <IconWrapper Icon={FaXTwitter} />
       </Link>
-      <Link href={shareLinks.facebook} target="_blank" rel="noopener noreferrer" title="Share on Facebook"
-        className="w-8 h-8 rounded-full bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center transition-all duration-200 transform hover:scale-105">
+      <Link
+        href={shareLinks.facebook}
+        target="_blank"
+        rel="noopener noreferrer"
+        title="Share on Facebook"
+        className="w-8 h-8 rounded-full bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center transition-all duration-200 transform hover:scale-105"
+      >
         <IconWrapper Icon={FaFacebookF} />
       </Link>
-      <Link href={shareLinks.linkedin} target="_blank" rel="noopener noreferrer" title="Share on LinkedIn"
-        className="w-8 h-8 rounded-full bg-blue-700 hover:bg-blue-800 text-white flex items-center justify-center transition-all duration-200 transform hover:scale-105">
+      <Link
+        href={shareLinks.linkedin}
+        target="_blank"
+        rel="noopener noreferrer"
+        title="Share on LinkedIn"
+        className="w-8 h-8 rounded-full bg-blue-700 hover:bg-blue-800 text-white flex items-center justify-center transition-all duration-200 transform hover:scale-105"
+      >
         <IconWrapper Icon={FaLinkedinIn} />
       </Link>
-      <button onClick={copyToClipboard} title={copied ? "Copied!" : "Copy link"}
-          className="w-8 h-8 rounded-full bg-black text-white hover:bg-emerald-500 flex items-center justify-center transition-all duration-200 transform hover:scale-105 cursor-pointer">
+      <button
+        onClick={copyToClipboard}
+        title={copied ? "Copied!" : "Copy link"}
+        className="w-8 h-8 rounded-full bg-black text-white hover:bg-emerald-500 flex items-center justify-center transition-all duration-200 transform hover:scale-105 cursor-pointer"
+      >
         <CopyIcon className={iconClass} />
       </button>
     </div>

@@ -8,7 +8,6 @@ import { HiOutlineArrowRight, HiOutlineUser } from "react-icons/hi";
 import { Article, getAllArticles } from "@/lib/api";
 import Link from "next/link";
 
-
 export default function BlogSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
@@ -67,7 +66,8 @@ export default function BlogSection() {
               Artikel & Informasi Terbaru
             </h2>
             <p className="text-neutral-900 mt-1">
-              Mengupas teori, praktik, dan fenomena komunikasi dari berbagai sudut pandang.
+              Mengupas teori, praktik, dan fenomena komunikasi dari berbagai
+              sudut pandang.
             </p>
             <div className="border-b border-neutral-700 mt-4"></div>
           </div>
@@ -75,10 +75,7 @@ export default function BlogSection() {
           {/* Featured Posts - First Row with Background Overlay */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 mb-12">
             {featuredPosts.map((post) => (
-              <Link
-                key={post.sys.id}
-                href={`/${post.slug}`}
-              >
+              <Link key={post.sys.id} href={`/${post.slug}`}>
                 <motion.article
                   variants={cardVariants}
                   className="group relative h-80 sm:h-96 overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
@@ -153,10 +150,7 @@ export default function BlogSection() {
           {/* Regular Posts Grid - Same Style as Original */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {regularPosts.map((post) => (
-              <Link
-                key={post.sys.id}
-                href={`/${post.slug}`}
-              >
+              <Link key={post.sys.id} href={`/${post.slug}`}>
                 <motion.article
                   variants={cardVariants}
                   className="group bg-white overflow-hidden transition-all duration-300"
@@ -198,8 +192,6 @@ export default function BlogSection() {
                     >
                       {post.title}
                     </h3>
-
-
 
                     {/* Excerpt */}
                     <p className="text-gray-600 text-sm sm:text-base leading-relaxed mb-4 line-clamp-3">

@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { motion, Variants } from 'framer-motion';
-import { useInView } from 'framer-motion';
-import { useRef } from 'react';
-import Image from 'next/image';
-import { HiOutlineArrowRight } from 'react-icons/hi';
+import { motion, Variants } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
+import Image from "next/image";
+import { HiOutlineArrowRight } from "react-icons/hi";
 
 export default function CTASection() {
   const ref = useRef(null);
@@ -22,9 +22,9 @@ export default function CTASection() {
   };
 
   const itemVariants: Variants = {
-    hidden: { 
-      opacity: 0, 
-      y: 20 
+    hidden: {
+      opacity: 0,
+      y: 20,
     },
     visible: {
       opacity: 1,
@@ -37,7 +37,10 @@ export default function CTASection() {
   };
 
   return (
-    <section ref={ref} className="relative py-16 sm:py-20 lg:py-24 overflow-hidden">
+    <section
+      ref={ref}
+      className="relative py-16 sm:py-20 lg:py-24 overflow-hidden"
+    >
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
@@ -62,9 +65,12 @@ export default function CTASection() {
           className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-16"
         >
           {/* Left Side - Headline */}
-          <motion.div variants={itemVariants} className="flex-1 text-center lg:text-left">
+          <motion.div
+            variants={itemVariants}
+            className="flex-1 text-center lg:text-left"
+          >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight">
-              Dapatkan Artikel dan Informasi{' '}
+              Dapatkan Artikel dan Informasi{" "}
               <span className="text-transparent bg-clip-text bg-emerald-500">
                 Terbaru Lainnya
               </span>
@@ -94,13 +100,13 @@ export default function CTASection() {
 
       {/* Bottom Decorative Wave */}
       <div className="absolute bottom-0 left-0 right-0">
-        <svg 
-          className="w-full h-12 text-white/10" 
-          viewBox="0 0 1200 120" 
+        <svg
+          className="w-full h-12 text-white/10"
+          viewBox="0 0 1200 120"
           preserveAspectRatio="none"
         >
-          <path 
-            d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" 
+          <path
+            d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
             fill="currentColor"
           />
         </svg>

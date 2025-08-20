@@ -114,8 +114,8 @@ export async function getAllArticles(
   const articles = await fetchGraphQL(
     `query {
           artikelPostCollection(where:{slug_exists: true}, order: date_DESC, limit: ${limit}, preview: ${
-      isDraftMode ? "true" : "false"
-    }) {
+            isDraftMode ? "true" : "false"
+          }) {
             items {
               ${ARTICLE_GRAPHQL_FIELDS}
             }

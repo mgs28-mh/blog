@@ -47,7 +47,10 @@ export default function Navbar() {
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setActiveDropdown(null);
       }
     };
@@ -80,13 +83,13 @@ export default function Navbar() {
   // Prevent body scroll when mobile menu is open
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
 
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     };
   }, [isOpen]);
 
@@ -96,29 +99,40 @@ export default function Navbar() {
   };
 
   const toggleMobileDropdown = (label: string) => {
-    setMobileDropdowns(prev => 
-      prev.includes(label) 
-        ? prev.filter(item => item !== label)
+    setMobileDropdowns((prev) =>
+      prev.includes(label)
+        ? prev.filter((item) => item !== label)
         : [...prev, label]
     );
   };
 
-  const NavLink = ({ item, mobile = false }: { item: NavItem; mobile?: boolean }) => {
+  const NavLink = ({
+    item,
+    mobile = false,
+  }: {
+    item: NavItem;
+    mobile?: boolean;
+  }) => {
     const active = isActiveLink(item.href);
     const hasChildren = item.children && item.children.length > 0;
 
-    const baseClasses = "px-3 py-2 rounded-lg transition-all duration-200 hover:text-emerald-400 hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-emerald-400/50";
+    const baseClasses =
+      "px-3 py-2 rounded-lg transition-all duration-200 hover:text-emerald-400 hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-emerald-400/50";
     const activeClasses = active ? "text-emerald-400 bg-white/5" : "";
     const mobileClasses = mobile ? "block w-full text-left" : "";
 
     if (hasChildren && !mobile) {
       const buttonClasses = `flex items-center gap-1 ${baseClasses} ${activeClasses}`;
-      
+
       return (
         <div className="relative" ref={dropdownRef}>
           <button
             className={buttonClasses}
-            onClick={() => setActiveDropdown(activeDropdown === item.label ? null : item.label)}
+            onClick={() =>
+              setActiveDropdown(
+                activeDropdown === item.label ? null : item.label
+              )
+            }
             aria-expanded={activeDropdown === item.label}
             aria-haspopup="true"
           >
@@ -132,29 +146,34 @@ export default function Navbar() {
           </button>
 
           {/* Desktop Dropdown Menu */}
-          <div className={`absolute top-full left-0 mt-2 w-48 bg-neutral-800 border border-neutral-700 rounded-lg shadow-xl overflow-hidden transition-all duration-300 ease-out transform origin-top ${
-            activeDropdown === item.label 
-              ? "opacity-100 scale-y-100 translate-y-0 visible" 
-              : "opacity-0 scale-y-95 -translate-y-2 invisible"
-          }`}>
+          <div
+            className={`absolute top-full left-0 mt-2 w-48 bg-neutral-800 border border-neutral-700 rounded-lg shadow-xl overflow-hidden transition-all duration-300 ease-out transform origin-top ${
+              activeDropdown === item.label
+                ? "opacity-100 scale-y-100 translate-y-0 visible"
+                : "opacity-0 scale-y-95 -translate-y-2 invisible"
+            }`}
+          >
             <div className="py-2">
               {item.children?.map((child, index) => {
                 const childActive = isActiveLink(child.href);
                 const childClasses = `block px-4 py-2 text-sm transition-all duration-300 hover:text-emerald-400 hover:bg-neutral-700/50 transform ${
                   childActive ? "text-emerald-400 bg-neutral-700/30" : ""
                 } ${
-                  activeDropdown === item.label 
-                    ? "translate-x-0 opacity-100" 
+                  activeDropdown === item.label
+                    ? "translate-x-0 opacity-100"
                     : "translate-x-2 opacity-0"
                 }`;
-                
+
                 return (
                   <Link
                     key={child.href}
                     href={child.href}
                     className={childClasses}
                     style={{
-                      transitionDelay: activeDropdown === item.label ? `${index * 50}ms` : '0ms'
+                      transitionDelay:
+                        activeDropdown === item.label
+                          ? `${index * 50}ms`
+                          : "0ms",
                     }}
                   >
                     {child.label}
@@ -170,7 +189,7 @@ export default function Navbar() {
     // Mobile view with children
     if (hasChildren && mobile) {
       const isExpanded = mobileDropdowns.includes(item.label);
-      
+
       return (
         <div>
           <button
@@ -186,14 +205,20 @@ export default function Navbar() {
               }`}
             />
           </button>
-          
+
           {/* Mobile Submenu */}
-          <div className={`overflow-hidden transition-all duration-300 ease-in-out ${
-            isExpanded ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-          }`}>
-            <div className={`bg-neutral-800/30 ml-4 mr-2 rounded-lg mt-1 transform transition-all duration-200 ${
-              isExpanded ? "translate-y-0 scale-100" : "-translate-y-2 scale-95"
-            }`}>
+          <div
+            className={`overflow-hidden transition-all duration-300 ease-in-out ${
+              isExpanded ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+            }`}
+          >
+            <div
+              className={`bg-neutral-800/30 ml-4 mr-2 rounded-lg mt-1 transform transition-all duration-200 ${
+                isExpanded
+                  ? "translate-y-0 scale-100"
+                  : "-translate-y-2 scale-95"
+              }`}
+            >
               {item.children?.map((child, index) => {
                 const childActive = isActiveLink(child.href);
                 return (
@@ -203,12 +228,12 @@ export default function Navbar() {
                     className={`block px-4 py-3 text-base transition-all duration-200 hover:text-emerald-400 hover:bg-neutral-700/50 first:rounded-t-lg last:rounded-b-lg transform ${
                       childActive ? "text-emerald-400 bg-neutral-700/50" : ""
                     } ${
-                      isExpanded 
-                        ? "translate-x-0 opacity-100" 
+                      isExpanded
+                        ? "translate-x-0 opacity-100"
                         : "translate-x-4 opacity-0"
                     }`}
                     style={{
-                      transitionDelay: isExpanded ? `${index * 100}ms` : '0ms'
+                      transitionDelay: isExpanded ? `${index * 100}ms` : "0ms",
                     }}
                   >
                     {child.label}
@@ -222,10 +247,17 @@ export default function Navbar() {
     }
 
     const linkClasses = `${baseClasses} ${activeClasses} ${mobileClasses}`;
-    const mobileLinkClasses = mobile ? "block px-4 py-3 text-lg transition-colors hover:text-emerald-400 hover:bg-neutral-800/50" : linkClasses;
+    const mobileLinkClasses = mobile
+      ? "block px-4 py-3 text-lg transition-colors hover:text-emerald-400 hover:bg-neutral-800/50"
+      : linkClasses;
 
     return (
-      <Link href={item.href} className={mobile ? `${mobileLinkClasses} ${activeClasses}` : linkClasses}>
+      <Link
+        href={item.href}
+        className={
+          mobile ? `${mobileLinkClasses} ${activeClasses}` : linkClasses
+        }
+      >
         {item.label}
       </Link>
     );
@@ -239,9 +271,11 @@ export default function Navbar() {
     isOpen ? "bg-neutral-800" : ""
   }`;
 
-  const logoClasses = "text-2xl font-bold transition-all duration-200 hover:text-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/50 rounded-lg px-2 py-1 bg-gradient-to-r from-white to-emerald-100 bg-clip-text text-transparent hover:from-emerald-400 hover:to-emerald-300";
+  const logoClasses =
+    "text-2xl font-bold transition-all duration-200 hover:text-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/50 rounded-lg px-2 py-1 bg-gradient-to-r from-white to-emerald-100 bg-clip-text text-transparent hover:from-emerald-400 hover:to-emerald-300";
 
-  const searchButtonClasses = "p-2 rounded-lg transition-all duration-200 hover:bg-neutral-800 hover:text-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/50";
+  const searchButtonClasses =
+    "p-2 rounded-lg transition-all duration-200 hover:bg-neutral-800 hover:text-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/50";
 
   return (
     <>
@@ -266,16 +300,16 @@ export default function Navbar() {
                 <Menu
                   size={24}
                   className={`absolute inset-0 transition-all duration-200 ${
-                    isOpen 
-                      ? "opacity-0 rotate-45 scale-75" 
+                    isOpen
+                      ? "opacity-0 rotate-45 scale-75"
                       : "opacity-100 rotate-0 scale-100"
                   }`}
                 />
                 <X
                   size={24}
                   className={`absolute inset-0 transition-all duration-200 ${
-                    isOpen 
-                      ? "opacity-100 rotate-0 scale-100" 
+                    isOpen
+                      ? "opacity-100 rotate-0 scale-100"
                       : "opacity-0 -rotate-45 scale-75"
                   }`}
                 />
@@ -301,19 +335,25 @@ export default function Navbar() {
 
       {/* Mobile Overlay */}
       {isOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/50 z-40 lg:hidden"
           onClick={() => setIsOpen(false)}
         />
       )}
 
       {/* Mobile Slide Panel */}
-      <div className={`fixed top-0 left-0 h-full w-80 bg-neutral-900 border-r border-neutral-800 z-50 lg:hidden transform transition-transform duration-300 ease-in-out ${
-        isOpen ? "translate-x-0" : "-translate-x-full"
-      }`}>
+      <div
+        className={`fixed top-0 left-0 h-full w-80 bg-neutral-900 border-r border-neutral-800 z-50 lg:hidden transform transition-transform duration-300 ease-in-out ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
         {/* Panel Header */}
         <div className="flex items-center justify-between p-4 border-b border-neutral-800">
-          <Link href="/" className="text-xl font-bold text-emerald-400" onClick={() => setIsOpen(false)}>
+          <Link
+            href="/"
+            className="text-xl font-bold text-emerald-400"
+            onClick={() => setIsOpen(false)}
+          >
             BlogKita
           </Link>
           <button

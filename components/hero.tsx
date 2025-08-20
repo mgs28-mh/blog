@@ -23,7 +23,7 @@ export default function Hero() {
           <span className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent">
             Cerita yang
           </span>
-          <br/>
+          <br />
           <span className="bg-gradient-to-r from-emerald-600 to-emerald-500 bg-clip-text text-transparent">
             Menginspirasi
           </span>
@@ -36,7 +36,9 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-xl md:text-2xl max-w-3xl mx-auto mb-12 text-gray-600 leading-relaxed"
         >
-          Temukan wawasan mendalam tentang komunikasi digital, tren teknologi, dan pengembangan profesional melalui cerita menarik dan perspektif ahli.
+          Temukan wawasan mendalam tentang komunikasi digital, tren teknologi,
+          dan pengembangan profesional melalui cerita menarik dan perspektif
+          ahli.
         </motion.p>
 
         {/* CTA Buttons */}

@@ -19,12 +19,8 @@ export default function AuthorCard() {
             />
           </div>
           <div>
-            <h4 className="font-bold text-gray-900 text-lg">
-              Galang Saputra
-            </h4>
-            <p className="text-gray-600 text-sm">
-              Content Writer
-            </p>
+            <h4 className="font-bold text-gray-900 text-lg">Galang Saputra</h4>
+            <p className="text-gray-600 text-sm">Content Writer</p>
           </div>
         </div>
       </div>
