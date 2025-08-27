@@ -38,7 +38,7 @@ export default function AboutSection() {
             <div className="relative w-full h-96 overflow-hidden">
               {/* Replace with your actual image */}
               <Image
-                src="/image-3.jpg"
+                src="/about-me.jpg"
                 alt="mgs28-mh - Writer and Developer"
                 fill
                 className="w-full h-[600px] object-cover"
