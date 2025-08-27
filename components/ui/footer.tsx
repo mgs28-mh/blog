@@ -70,7 +70,7 @@ export default function Footer() {
                 <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center">
                   <div className="w-4 h-4 bg-white rounded-full" />
                 </div>
-                <span className="text-xl font-semibold">BlogKita</span>
+                <span className="text-xl font-semibold">Archipelago</span>
               </Link>
             </div>
 
@@ -115,7 +115,7 @@ export default function Footer() {
           {/* ====== BOTTOM SECTION ====== */}
           <div className="flex items-center justify-center text-gray-400 text-sm">
             {/* Copyright */}
-            <p>© {currentYear} BlogKita. All Rights Reserved.</p>
+            <p>© {currentYear} Archipelago.</p>
           </div>
         </div>
       </div>

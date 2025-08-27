@@ -1,83 +1,11 @@
 "use client";
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles, TrendingUp, Globe, Star } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import Link from "next/link";
 
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center bg-emerald-50 overflow-hidden">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0">
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            rotate: [0, 180, 360],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-          className="absolute top-20 right-20 w-64 h-64 bg-emerald-200 rounded-full opacity-30 blur-xl"
-        />
-        <motion.div
-          animate={{
-            scale: [1.2, 1, 1.2],
-            rotate: [360, 180, 0],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-          className="absolute bottom-20 left-20 w-80 h-80 bg-emerald-300 rounded-full opacity-25 blur-2xl"
-        />
-
-        {/* Floating Icons */}
-        <motion.div
-          animate={{
-            y: [-10, 10, -10],
-            rotate: [0, 5, 0, -5, 0]
-          }}
-          transition={{
-            duration: 6,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute top-32 left-1/4 text-emerald-300"
-        >
-          <Sparkles size={24} />
-        </motion.div>
-        <motion.div
-          animate={{
-            y: [10, -10, 10],
-            rotate: [0, -5, 0, 5, 0]
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute bottom-40 right-1/4 text-emerald-400"
-        >
-          <Star size={20} />
-        </motion.div>
-        <motion.div
-          animate={{
-            y: [-5, 15, -5],
-            x: [-5, 5, -5]
-          }}
-          transition={{
-            duration: 7,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute top-1/2 right-20 text-emerald-300"
-        >
-          <Globe size={28} />
-        </motion.div>
-      </div>
-
       <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
         {/* Main Headline with Staggered Animation */}
         <div className="mb-6">
@@ -115,9 +43,6 @@ export default function Hero() {
         >
           <p className="text-xl md:text-2xl text-gray-700 leading-relaxed mb-4">
             Kumpulan tulisan yang membahas dinamika komunikasi digital, perkembangan teknologi informasi, serta dampaknya terhadap masyarakat modern.
-          </p>
-          <p className="text-lg text-gray-600">
-            Disajikan dengan analisis yang terarah, ringkas, dan mudah dipahami.
           </p>
         </motion.div>
 

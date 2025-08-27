@@ -319,7 +319,7 @@ export default function Navbar() {
             {/* Center - Logo */}
             <div className="absolute left-1/2 transform -translate-x-1/2">
               <Link href="/" className={logoClasses}>
-                BlogKita
+                Archipelago
               </Link>
             </div>
 

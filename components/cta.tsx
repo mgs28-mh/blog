@@ -69,7 +69,7 @@ export default function CTASection() {
             variants={itemVariants}
             className="flex-1 text-center lg:text-left"
           >
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-white leading-tight">
               Dapatkan Artikel dan Informasi{" "}
               <span className="text-transparent bg-clip-text bg-emerald-500">
                 Terbaru Lainnya
@@ -80,7 +80,7 @@ export default function CTASection() {
           {/* Right Side - CTA Button */}
           <motion.div variants={itemVariants} className="flex-shrink-0">
             <motion.button
-              className="inline-flex items-center justify-center px-8 py-4 text-base sm:text-lg font-semibold text-black bg-emerald-400 hover:bg-emerald-300 rounded-full transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-yellow-400/50 shadow-xl hover:shadow-2xl"
+              className="inline-flex items-center justify-center px-8 py-4 text-base sm:text-lg font-semibold text-black bg-emerald-400 hover:bg-emerald-300 rounded-full transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-yellow-400/50 shadow-xl hover:shadow-2xl cursor-pointer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
