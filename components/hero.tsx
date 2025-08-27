@@ -1,19 +1,19 @@
 "use client";
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center bg-emerald-50 overflow-hidden">
-      <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
+      <div className="max-w-6xl mx-auto px-6 text-center">
         {/* Main Headline with Staggered Animation */}
         <div className="mb-6">
           <motion.h1
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-5xl md:text-7xl font-black mb-4 leading-tight"
+            className="text-3xl md:text-6xl font-black mb-4 leading-tight"
           >
             <motion.span
               initial={{ opacity: 0, x: -50 }}
@@ -55,7 +55,7 @@ export default function Hero() {
         >
           <Link
             href="/blog"
-            className="group relative inline-flex items-center gap-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-10 py-5 rounded-2xl shadow-2xl hover:shadow-emerald-500/25 transition-all duration-300 transform hover:-translate-y-2 hover:scale-105"
+            className="group relative inline-flex justify-center items-center text-center gap-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-10 py-5 rounded-2xl shadow-2xl hover:shadow-emerald-500/25 transition-all duration-300 transform hover:-translate-y-2 hover:scale-105"
           >
             <div className="absolute inset-0 bg-emerald-400 rounded-2xl blur opacity-50 group-hover:opacity-75 transition-opacity"></div>
             <span className="relative z-10">Mulai Eksplorasi</span>
@@ -63,10 +63,10 @@ export default function Hero() {
           </Link>
           <Link
             href="/about"
-            className="group inline-flex items-center gap-3 bg-white/90 backdrop-blur-sm hover:bg-white text-gray-900 font-bold px-10 py-5 rounded-2xl border-2 border-emerald-200 hover:border-emerald-400 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+            className="group inline-flex justify-center items-center text-center gap-3 bg-white/90 backdrop-blur-sm hover:bg-white text-gray-900 font-bold px-10 py-5 rounded-2xl border-2 border-emerald-200 hover:border-emerald-400 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
           >
-            <Sparkles className="w-5 h-5 text-emerald-600 group-hover:rotate-12 transition-transform" />
             <span>Tentang Saya</span>
+            <ArrowRight className="relative z-10 w-5 h-5 group-hover:translate-x-2 transition-transform" />
           </Link>
         </motion.div>
       </div>
