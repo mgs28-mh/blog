@@ -2,31 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { BookOpen, Coffee, Pen } from "lucide-react";
-
-interface Stat {
-  icon: React.ReactNode;
-  value: string;
-  label: string;
-}
-
-const stats: Stat[] = [
-  {
-    icon: <BookOpen size={20} />,
-    value: "150+",
-    label: "Articles Written",
-  },
-  {
-    icon: <Coffee size={20} />,
-    value: "3",
-    label: "Years Writing",
-  },
-  {
-    icon: <Pen size={20} />,
-    value: "50k+",
-    label: "Words Published",
-  },
-];
+import { motion } from "framer-motion";
 
 export default function AboutSection() {
   return (
@@ -34,51 +10,66 @@ export default function AboutSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left - Image */}
-          <div className="relative">
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="relative"
+          >
             <div className="relative w-full h-96 overflow-hidden">
-              {/* Replace with your actual image */}
               <Image
                 src="/about-me.jpg"
-                alt="mgs28-mh - Writer and Developer"
+                alt="Galang Saputra - Penulis dan Pengembang"
                 fill
                 className="w-full h-[600px] object-cover"
                 priority
               />
             </div>
-          </div>
+          </motion.div>
 
           {/* Right - Content */}
-          <div className="space-y-8">
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="space-y-8"
+          >
             {/* Header */}
             <div className="space-y-4">
-              <h2 className="text-4xl lg:text-5xl font-bold text-neutral-900 leading-tight">
-                Hi, I'm{" "}
+              <h2 className="text-3xl lg:text-4xl font-bold text-neutral-900 leading-tight">
+                Halo, saya{" "}
                 <span className="bg-gradient-to-r from-emerald-600 to-emerald-400 bg-clip-text text-transparent">
                   Galang Saputra
                 </span>
               </h2>
               <p className="text-xl text-neutral-600 leading-relaxed">
-                A passionate writer and developer sharing insights about
-                technology, creativity, and life.
-              </p>
-              <p className="text-xl text-neutral-600 leading-relaxed">
-                With a degree in Communication Studies, my journey began in
-                understanding how messages shape audiences. Over time, that
-                curiosity evolved into a passion for building digital
-                experiences that communicate clearly and function beautifully.
+                Seorang penulis dan pengembang yang senang berbagi wawasan
+                tentang teknologi, kreativitas, dan kehidupan sehari-hari.
+                Berawal dari studi di bidang Ilmu Komunikasi, saya belajar
+                bagaimana pesan dapat membentuk cara orang melihat dunia.
+                Perjalanan itu berkembang menjadi ketertarikan untuk membangun
+                pengalaman digital yang komunikatif, fungsional, dan indah.
               </p>
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              viewport={{ once: true }}
+              className="flex flex-col sm:flex-row"
+            >
               <Link
-                href="/blog"
-                className="inline-flex items-center justify-center px-6 py-3 bg-emerald-600 text-white font-medium rounded-lg hover:bg-emerald-700 transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+                href="mailto:gsaputra880@gmail.com"
+                className="inline-flex items-center justify-center px-4 py-4 bg-emerald-600 text-white font-medium rounded-lg hover:bg-emerald-700 transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
               >
-                Get in Touch
+                Hubungi Saya
               </Link>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </section>
