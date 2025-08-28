@@ -13,6 +13,8 @@ import AuthorCard from "@/components/ui/author";
 import RelatedArticles from "@/components/ui/related";
 import { generateArticleSchema, generateJsonLd } from "@/lib/schema";
 
+export const revalidate = 60; 
+
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
   const allArticles = await getAllArticles();
   return allArticles.map((article) => ({
