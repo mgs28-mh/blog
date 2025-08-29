@@ -63,7 +63,7 @@ export default function AboutSection() {
               className="flex flex-col sm:flex-row"
             >
               <Link
-                href="mailto:gsaputra880@gmail.com"
+                href="https://mgalangs.web.id" target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center justify-center px-4 py-4 bg-emerald-600 text-white font-medium rounded-lg hover:bg-emerald-700 transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
               >
                 Hubungi Saya
