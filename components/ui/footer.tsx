@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { FaFacebook, FaGithub, FaInstagram, FaXTwitter } from "react-icons/fa6";
 
@@ -66,9 +67,13 @@ export default function Footer() {
                 href="/"
                 className="flex items-center space-x-3 hover:opacity-80 transition-opacity duration-200"
               >
-                <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center">
-                  <div className="w-4 h-4 bg-white rounded-full" />
-                </div>
+                <Image
+                  src="/logo.webp"
+                  alt="Archipelago Logo"
+                  width={38}
+                  height={38}
+                  className="rounded-none"
+                />
                 <span className="text-xl font-semibold">Archipelago</span>
               </Link>
             </div>
@@ -81,9 +86,8 @@ export default function Footer() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`text-gray-300 hover:text-white transition-colors duration-200 text-base font-medium ${
-                      active ? "text-white" : ""
-                    }`}
+                    className={`text-gray-300 hover:text-white transition-colors duration-200 text-base font-medium ${active ? "text-white" : ""
+                      }`}
                   >
                     {item.label}
                   </Link>

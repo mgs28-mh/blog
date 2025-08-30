@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X, Search, ChevronDown, ChevronRight } from "lucide-react";
 
@@ -282,49 +283,57 @@ export default function Navbar() {
       <nav className={navClasses}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
-            {/* Left - Navigation Links (Desktop) */}
-            <div className="hidden lg:flex items-center space-x-1">
+            {/* Left - Logo */}
+            <div className="flex items-center">
+              <Link href="/" className={`${logoClasses} flex items-center gap-3`}>
+                <Image
+                  src="/logo.webp"
+                  alt="Archipelago Logo"
+                  width={38}
+                  height={38}
+                  className="rounded-none"
+                />
+                <span>Archipelago</span>
+              </Link>
+            </div>
+
+            {/* Center - Navigation Links (Desktop) */}
+            <div className="hidden lg:flex items-center space-x-1 absolute left-1/2 transform -translate-x-1/2">
               {navItems.map((item) => (
                 <NavLink key={item.href} item={item} />
               ))}
             </div>
 
-            {/* Mobile Menu Button */}
-            <button
-              className={menuButtonClasses}
-              onClick={() => setIsOpen(!isOpen)}
-              aria-expanded={isOpen}
-              aria-label="Toggle navigation menu"
-            >
-              <div className="relative w-6 h-6">
-                <Menu
-                  size={24}
-                  className={`absolute inset-0 transition-all duration-200 ${
-                    isOpen
-                      ? "opacity-0 rotate-45 scale-75"
-                      : "opacity-100 rotate-0 scale-100"
-                  }`}
-                />
-                <X
-                  size={24}
-                  className={`absolute inset-0 transition-all duration-200 ${
-                    isOpen
-                      ? "opacity-100 rotate-0 scale-100"
-                      : "opacity-0 -rotate-45 scale-75"
-                  }`}
-                />
-              </div>
-            </button>
-
-            {/* Center - Logo */}
-            <div className="absolute left-1/2 transform -translate-x-1/2">
-              <Link href="/" className={logoClasses}>
-                Archipelago
-              </Link>
-            </div>
-
-            {/* Right - Search and Actions */}
+            {/* Right - Mobile Menu Button and Search */}
             <div className="flex items-center space-x-2">
+              {/* Mobile Menu Button */}
+              <button
+                className={menuButtonClasses}
+                onClick={() => setIsOpen(!isOpen)}
+                aria-expanded={isOpen}
+                aria-label="Toggle navigation menu"
+              >
+                <div className="relative w-6 h-6">
+                  <Menu
+                    size={24}
+                    className={`absolute inset-0 transition-all duration-200 ${
+                      isOpen
+                        ? "opacity-0 rotate-45 scale-75"
+                        : "opacity-100 rotate-0 scale-100"
+                    }`}
+                  />
+                  <X
+                    size={24}
+                    className={`absolute inset-0 transition-all duration-200 ${
+                      isOpen
+                        ? "opacity-100 rotate-0 scale-100"
+                        : "opacity-0 -rotate-45 scale-75"
+                    }`}
+                  />
+                </div>
+              </button>
+
+              {/* Search Button */}
               <button className={searchButtonClasses} aria-label="Search">
                 <Search size={20} />
               </button>

@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     siteName: "Archipelago",
     images: [
       {
-        url: "https://archipelago.web.id/og-image.jpg",
+        url: "https://archipelago.web.id/logo.webp",
         width: 1200,
         height: 630,
         alt: "Archipelago - Informasi Komunikasi",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     title: "Archipelago - Informasi Komunikasi",
     description:
       "Artikel, tips, dan wawasan terbaru seputar komunikasi digital maupun klasik.",
-    images: ["https://archipelago.web.id/og-image.jpg"],
+    images: ["https://archipelago.web.id/logo.webp"],
   },
 };
 
