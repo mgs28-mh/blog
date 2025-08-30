@@ -66,6 +66,7 @@ export interface GraphQLResponse {
 const ARTICLE_GRAPHQL_FIELDS = `
     sys {
       id
+      createdAt
     }
     title
     slug
@@ -90,6 +91,16 @@ const ARTICLE_GRAPHQL_FIELDS = `
     }
     featured
   `;
+
+  const ARTICLE_SITEMAP_FIELDS = `
+    sys {
+      id
+      createdAt
+    }
+    slug
+    date
+    featured
+`;
 
 async function fetchGraphQL(
   query: string,
@@ -373,4 +384,32 @@ export async function getRelatedArticles(
 
   const response = await fetchGraphQL(query, isDraftMode);
   return extractArticleEntries(response);
+}
+
+export async function getAllArticleSitemap(
+  limit = 100,
+  isDraftMode = false
+): Promise<Article[]> {
+  try {
+    const articles = await fetchGraphQL(
+      `query {
+        artikelPostCollection(
+          where: {slug_exists: true}, 
+          order: date_DESC, 
+          limit: ${limit},
+          preview: ${isDraftMode ? "true" : "false"}
+        ) {
+          items {
+            ${ARTICLE_SITEMAP_FIELDS}
+          }
+        }
+      }`,
+      isDraftMode
+    );
+    
+    return extractArticleEntries(articles);
+  } catch (error) {
+    console.error('Failed to fetch articles for sitemap:', error);
+    return [];
+  }
 }
