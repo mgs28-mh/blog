@@ -1,75 +1,56 @@
-import type { MetadataRoute } from 'next'
-import { getAllArticleSitemap } from '@/lib/api'
+import { getAllArticleSitemap } from "@/lib/api";
+import { MetadataRoute } from "next";
 
-const baseUrl = 'https://archipelago.web.id'
+const baseUrl = 'https://archipelago.web.id';
 
-interface StaticPage {
-  slug: string;
-  updatedAt: string;
-  priority?: number;
-  changeFrequency?: MetadataRoute.Sitemap[0]['changeFrequency'];
+export const revalidate = 3600;
+
+async function getRoutes(): Promise<MetadataRoute.Sitemap> {
+
+  let routes: MetadataRoute.Sitemap = [];
+
+  // Static routes
+  const staticRoutes = [
+    { path: "/", priority: 1.0, changeFrequency: "monthly" as const },
+    { path: "/about", priority: 0.8, changeFrequency: "monthly" as const },
+    { path: "/blog", priority: 0.9, changeFrequency: "weekly" as const },
+  ];
+
+  // Add static routes
+  routes = staticRoutes.map(route => ({
+    url: `${baseUrl}${route.path}`,
+    lastModified: new Date(),
+    changeFrequency: route.changeFrequency,
+    priority: route.priority,
+  }));
+
+  // Add dynamic blog routes
+  try {
+    const articles = await getAllArticleSitemap(100);
+
+    const blogRoutes: MetadataRoute.Sitemap = articles
+      .filter(article => article.slug) // hanya artikel yang punya slug
+      .map(article => {
+        const lastModified = article.date
+          ? new Date(article.date)
+          : new Date();
+
+        return {
+          url: `${baseUrl}/blog/${article.slug}`,
+          lastModified,
+          changeFrequency: "weekly" as const,
+          priority: article.featured ? 0.9 : 0.7,
+        };
+      });
+
+    routes = [...routes, ...blogRoutes];
+  } catch (error) {
+    console.error("Failed to fetch blog articles for sitemap:", error);
+  }
+
+  return routes;
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const sitemap: MetadataRoute.Sitemap = []
-
-  // Halaman statis
-  const pages: StaticPage[] = [
-    {
-      slug: 'home',
-      updatedAt: new Date().toISOString(),
-      priority: 1,
-      changeFrequency: 'monthly'
-    },
-    {
-      slug: 'about',
-      updatedAt: new Date().toISOString(),
-      priority: 0.8,
-      changeFrequency: 'monthly'
-    },
-    {
-      slug: 'blog',
-      updatedAt: new Date().toISOString(),
-      priority: 0.9,
-      changeFrequency: 'weekly'
-    },
-  ]
-
-  for (const page of pages) {
-    sitemap.push({
-      changeFrequency: page.changeFrequency || 'monthly',
-      lastModified: page.updatedAt,
-      priority: page.priority || 0.7,
-      url: `${baseUrl}/${page.slug === 'home' ? '' : page.slug}`,
-    })
-  }
-
-  // Ambil artikel dari Contentful
-  try {
-    const articles = await getAllArticleSitemap(50)
-
-    for (const article of articles) {
-      // Pastikan article memiliki slug
-      if (!article.slug) continue;
-
-      // Determine last modified date
-      const lastModified = article.date
-        ? new Date(article.date)
-        : article.sys?.createdAt
-          ? new Date(article.sys.createdAt)
-          : new Date();
-
-      sitemap.push({
-        changeFrequency: 'weekly',
-        lastModified: lastModified.toISOString(),
-        priority: article.featured ? 0.9 : 0.7,
-        url: `${baseUrl}/blog/${article.slug}`,
-      });
-    }
-  } catch (error) {
-    console.error('Error fetching articles for sitemap:', error)
-    // Continue with static pages only
-  }
-
-  return sitemap
+  return getRoutes();
 }

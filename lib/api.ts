@@ -56,6 +56,7 @@ export interface PaginatedArticles {
 }
 
 export interface GraphQLResponse {
+  errors: any;
   data?: {
     artikelPostCollection?: ArticleCollection;
   };
@@ -66,7 +67,6 @@ export interface GraphQLResponse {
 const ARTICLE_GRAPHQL_FIELDS = `
     sys {
       id
-      createdAt
     }
     title
     slug
@@ -91,16 +91,6 @@ const ARTICLE_GRAPHQL_FIELDS = `
     }
     featured
   `;
-
-  const ARTICLE_SITEMAP_FIELDS = `
-    sys {
-      id
-      createdAt
-    }
-    slug
-    date
-    featured
-`;
 
 async function fetchGraphQL(
   query: string,
@@ -391,25 +381,45 @@ export async function getAllArticleSitemap(
   isDraftMode = false
 ): Promise<Article[]> {
   try {
-    const articles = await fetchGraphQL(
-      `query {
-        artikelPostCollection(
-          where: {slug_exists: true}, 
-          order: date_DESC, 
-          limit: ${limit},
-          preview: ${isDraftMode ? "true" : "false"}
-        ) {
-          items {
-            ${ARTICLE_SITEMAP_FIELDS}
+    const query = `query {
+      artikelPostCollection(
+        where: {slug_exists: true}, 
+        order: date_DESC, 
+        limit: ${limit},
+        preview: ${isDraftMode ? "true" : "false"}
+      ) {
+        items {
+          sys {
+            id
           }
+          slug
+          date
+          featured
         }
-      }`,
-      isDraftMode
-    );
+      }
+    }`;
+
+    const response = await fetchGraphQL(query, isDraftMode);
+
+    if (response.errors) {
+      return [];
+    }
+
+    const items = response?.data?.artikelPostCollection?.items || [];
+
+    return items.map(item => ({
+      sys: { id: item.sys?.id || '' },
+      slug: item.slug || '',
+      date: item.date || new Date().toISOString(),
+      featured: item.featured || false,
+      author: '',
+      title: '',
+      excerpt: '',
+      details: { json: {} },
+      image: { url: '' }
+    }));
     
-    return extractArticleEntries(articles);
-  } catch (error) {
-    console.error('Failed to fetch articles for sitemap:', error);
+  } catch {
     return [];
   }
 }
