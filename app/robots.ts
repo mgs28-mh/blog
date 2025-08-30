@@ -1,7 +1,8 @@
 import { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://archipelago.web.id";
+  const baseUrl =
+    process.env.NEXT_PUBLIC_BASE_URL || "https://archipelago.web.id";
 
   return {
     rules: [
@@ -13,8 +14,6 @@ export default function robots(): MetadataRoute.Robots {
           "/admin/",
           "/_next/",
           "/private/",
-          "*.json",
-          "*.xml",
         ],
       },
     ],
