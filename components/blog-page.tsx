@@ -123,7 +123,7 @@ export default function BlogPage() {
           {!loading && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
               {articles.map((post: Article) => (
-                <Link key={post.sys.id} href={`/${post.slug}`}>
+                <Link key={post.sys.id} href={`/blog/${post.slug}`}>
                   <motion.article
                     variants={cardVariants}
                     className="group bg-white overflow-hidden transition-all duration-300"

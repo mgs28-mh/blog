@@ -206,8 +206,8 @@ export default async function BlogPostArticlePage(
 
   const readingTime = calculateReadingTime(article.details);
   const articleUrl = `${
-    process.env.NEXT_PUBLIC_SITE_URL || "https://yoursite.com"
-  }/${params.slug}`;
+    process.env.NEXT_PUBLIC_SITE_URL || "https://archipelago.web.id"
+  }/blog/${params.slug}`;
 
   const articleSchema = generateArticleSchema(article);
 
@@ -241,6 +241,8 @@ export default async function BlogPostArticlePage(
               <Link href="/" className="hover:underline text-white/80">
                 Beranda
               </Link>
+              <span className="text-white/50">/</span>
+              <span className="text-white/80">Blog</span>
               <span className="text-white/50">/</span>
               <span className="text-sm text-white">{article.title}</span>
             </div>

@@ -34,7 +34,7 @@ export default async function RelatedArticles({
         {relatedArticles.map((article) => (
           <Link
             key={article.slug}
-            href={`/${article.slug}`}
+            href={`/blog/${article.slug}`}
             className="group block bg-white overflow-hidden transition-all duration-300 transform hover:-translate-y-1"
           >
             {article.image && (
