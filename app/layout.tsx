@@ -23,6 +23,9 @@ export const metadata: Metadata = {
     "strategi komunikasi",
     "artikel komunikasi",
   ],
+  alternates: {
+    canonical: "https://archipelago.web.id",
+  },
   openGraph: {
     title: "Archipelago - Informasi Komunikasi",
     description:

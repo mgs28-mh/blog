@@ -363,7 +363,7 @@ export default function Navbar() {
             className="text-xl font-bold text-emerald-400"
             onClick={() => setIsOpen(false)}
           >
-            BlogKita
+            Archipelago
           </Link>
           <button
             onClick={() => setIsOpen(false)}
