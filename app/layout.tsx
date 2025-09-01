@@ -15,7 +15,7 @@ const fonts = IBM_Plex_Sans({
 export const metadata: Metadata = {
   title: "Archipelago - Informasi Komunikasi",
   description:
-    "Temukan artikel, wawasan, dan tips terbaru seputar komunikasi digital maupun klasik. Archipelago menghadirkan informasi yang relevan untuk mendukung perkembangan komunikasi di era modern.",
+    "Archipelago menyajikan artikel, wawasan, dan tips komunikasi digital maupun klasik yang relevan di era modern.",
   keywords: [
     "komunikasi digital",
     "komunikasi klasik",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Archipelago - Informasi Komunikasi",
     description:
-      "Artikel terbaru seputar komunikasi digital dan klasik. Dapatkan wawasan dan inspirasi di Archipelago.",
+      "Dapatkan artikel, wawasan, dan tips seputar komunikasi digital maupun klasik di Archipelago, sumber informasi relevan untuk mendukung perkembangan komunikasi di era modern.",
     url: "https://archipelago.web.id",
     siteName: "Archipelago",
     images: [
@@ -46,9 +46,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    site: "https://archipelago.web.id",
     title: "Archipelago - Informasi Komunikasi",
     description:
-      "Artikel, tips, dan wawasan terbaru seputar komunikasi digital maupun klasik.",
+      "Dapatkan artikel dan wawasan seputar komunikasi digital maupun klasik untuk mendukung perkembangan di era modern.",
     images: ["https://archipelago.web.id/logo.webp"],
   },
 };
