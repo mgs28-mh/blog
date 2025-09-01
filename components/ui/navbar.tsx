@@ -273,7 +273,7 @@ export default function Navbar() {
   }`;
 
   const logoClasses =
-    "text-2xl font-bold transition-all duration-200 hover:text-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/50 rounded-lg px-2 py-1 bg-gradient-to-r from-white to-emerald-100 bg-clip-text text-transparent hover:from-emerald-400 hover:to-emerald-300";
+    "text-2xl font-bold transition-all duration-200 hover:text-emerald-400 focus:ring-emerald-400/50 rounded-lg px-2 py-1 bg-gradient-to-r from-white to-emerald-100 bg-clip-text text-transparent hover:from-emerald-400 hover:to-emerald-300";
 
   const searchButtonClasses =
     "p-2 rounded-lg transition-all duration-200 hover:bg-neutral-800 hover:text-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/50";
