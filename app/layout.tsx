@@ -3,6 +3,7 @@ import { IBM_Plex_Sans } from "next/font/google";
 import type { Metadata } from "next";
 import Navbar from "@/components/ui/navbar";
 import Footer from "@/components/ui/footer";
+import Script from "next/script";
 
 const fonts = IBM_Plex_Sans({
   subsets: ["latin"],
@@ -59,6 +60,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" data-scroll-behavior="smooth">
+      <head>
+        {/* ahrefs analytics pakai next/script */}
+        <Script
+          src="https://analytics.ahrefs.com/analytics.js"
+          data-key="nCZwxPo3mN754U1NAe84aQ"
+          strategy="afterInteractive"
+        />
+      </head>
       <body className={`${fonts.className} bg-white text-slate-900`}>
         <Navbar />
         <main className="min-h-screen">{children}</main>
