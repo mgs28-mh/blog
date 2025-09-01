@@ -15,7 +15,7 @@ const fonts = IBM_Plex_Sans({
 export const metadata: Metadata = {
   title: "Archipelago - Informasi Komunikasi",
   description:
-    "Archipelago menyajikan artikel, wawasan, dan tips komunikasi digital maupun klasik yang relevan di era modern.",
+    "Dapatkan artikel, wawasan, dan tips komunikasi digital maupun klasik yang relevan di era modern.",
   keywords: [
     "komunikasi digital",
     "komunikasi klasik",
