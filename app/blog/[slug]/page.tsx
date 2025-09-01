@@ -34,7 +34,7 @@ function calculateReadingTime(content: any): string {
 const richTextRenderOptions = {
   renderNode: {
     [BLOCKS.PARAGRAPH]: (_node: any, children: ReactNode) => (
-      <p className="mb-6 text-xl font-base leading-relaxed text-slate-900 md:text-justify">
+      <p className="mb-6 text-lg lg:text-xl font-base leading-relaxed text-slate-900 md:text-justify">
         {children}
       </p>
     ),
@@ -44,12 +44,12 @@ const richTextRenderOptions = {
       </h1>
     ),
     [BLOCKS.HEADING_2]: (_node: any, children: ReactNode) => (
-      <h2 className="text-4xl font-extrabold mt-12 mb-4 text-gray-900">
+      <h2 className="text-4xl font-extrabold mt-12 mb-2 text-gray-900">
         {children}
       </h2>
     ),
     [BLOCKS.HEADING_3]: (_node: any, children: ReactNode) => (
-      <h3 className="text-2xl font-bold mt-10 mb-5 text-gray-900">
+      <h3 className="text-2xl font-bold mt-10 mb-3 text-gray-900">
         {children}
       </h3>
     ),
