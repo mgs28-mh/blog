@@ -16,15 +16,6 @@ const navItems: NavItem[] = [
   { href: "/", label: "Home" },
   { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
-  {
-    href: "/services",
-    label: "Services",
-    children: [
-      { href: "/services/web-design", label: "Web Design" },
-      { href: "/services/development", label: "Development" },
-      { href: "/services/consulting", label: "Consulting" },
-    ],
-  },
 ];
 
 export default function Navbar() {

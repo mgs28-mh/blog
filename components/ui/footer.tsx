@@ -20,7 +20,6 @@ const navItems: NavItem[] = [
   { href: "/", label: "Home" },
   { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
-  { href: "/services", label: "Services" },
 ];
 
 const socialLinks: SocialLink[] = [
