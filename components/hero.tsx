@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center bg-emerald-50 overflow-hidden">
+    <section className="relative py-25 sm:py-20 flex flex-col items-center justify-center bg-teal-50 overflow-hidden">
       <div className="max-w-6xl mx-auto px-6 text-center">
         {/* Main Headline with Staggered Animation */}
         <div className="mb-6">
@@ -27,7 +27,7 @@ export default function Hero() {
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="block text-emerald-600"
+              className="block text-teal-600"
             >
               di Era Teknologi Informasi
             </motion.span>

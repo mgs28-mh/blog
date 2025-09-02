@@ -55,7 +55,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-slate-900 text-white">
+    <footer className="bg-teal-950 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* ====== TOP SECTION ====== */}
         <div className="py-16">
@@ -73,7 +73,7 @@ export default function Footer() {
                   height={38}
                   className="rounded-none"
                 />
-                <span className="text-xl font-semibold">Archipelago</span>
+                <span className="text-xl font-semibold uppercase">Archipelago</span>
               </Link>
             </div>
 

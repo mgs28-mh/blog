@@ -65,7 +65,7 @@ export default function BlogSection() {
             <h2 className="text-3xl md:text-6xl font-bold text-slate-900 mb-2">
               Artikel & Informasi Terbaru
             </h2>
-            <p className="text-neutral-900 mt-1 mb-10">
+            <p className="text-xl text-neutral-900 mt-5 mb-10">
               Mengupas teori, praktik, dan fenomena komunikasi dari berbagai
               sudut pandang.
             </p>
