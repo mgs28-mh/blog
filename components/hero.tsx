@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function Hero() {
   return (
     <section className="relative py-25 sm:py-20 flex flex-col items-center justify-center bg-teal-50 overflow-hidden">
-      <div className="max-w-6xl mx-auto px-6 text-center">
+      <div className="max-w-7xl mx-auto px-6 text-center">
         {/* Main Headline with Staggered Animation */}
         <div className="mb-6">
           <motion.h1
@@ -41,7 +41,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.8 }}
           className="max-w-4xl mx-auto mb-12"
         >
-          <p className="text-xl md:text-2xl text-gray-700 leading-relaxed mb-4">
+          <p className="text-lg md:text-2xl text-gray-700 leading-relaxed mb-4">
             Kumpulan tulisan yang membahas dinamika komunikasi digital, perkembangan teknologi informasi, serta dampaknya terhadap masyarakat modern.
           </p>
         </motion.div>
