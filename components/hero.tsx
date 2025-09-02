@@ -57,7 +57,7 @@ export default function Hero() {
             href="/blog"
             className="group relative inline-flex justify-center items-center text-center gap-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-10 py-5 rounded-2xl shadow-2xl hover:shadow-emerald-500/25 transition-all duration-300 transform hover:-translate-y-2 hover:scale-105"
           >
-            <div className="absolute inset-0 bg-emerald-400 rounded-2xl blur opacity-50 group-hover:opacity-75 transition-opacity"></div>
+            <div className="absolute inset-0 bg-emerald-600 rounded-2xl transition-opacity"></div>
             <span className="relative z-10">Mulai Eksplorasi</span>
             <ArrowRight className="relative z-10 w-5 h-5 group-hover:translate-x-2 transition-transform" />
           </Link>

@@ -109,7 +109,7 @@ export default function Navbar() {
     const hasChildren = item.children && item.children.length > 0;
 
     const baseClasses =
-      "px-3 py-2 rounded-lg transition-all duration-200 hover:text-emerald-400 hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-emerald-400/50";
+      "px-3 py-2 rounded-lg transition-all duration-200 hover:text-emerald-400 hover:bg-white/5";
     const activeClasses = active ? "text-emerald-400 bg-white/5" : "";
     const mobileClasses = mobile ? "block w-full text-left" : "";
 
@@ -259,15 +259,15 @@ export default function Navbar() {
     isScrolled ? "bg-neutral-900/95 backdrop-blur-md shadow-lg" : "bg-slate-900"
   }`;
 
-  const menuButtonClasses = `lg:hidden p-2 rounded-lg transition-all duration-200 hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-emerald-400/50 ${
+  const menuButtonClasses = `lg:hidden p-2 rounded-lg transition-all duration-200 hover:bg-neutral-800 ${
     isOpen ? "bg-neutral-800" : ""
   }`;
 
   const logoClasses =
-    "text-2xl font-bold transition-all duration-200 hover:text-emerald-400 focus:ring-emerald-400/50 rounded-lg px-2 py-1 bg-gradient-to-r from-white to-emerald-100 bg-clip-text text-transparent hover:from-emerald-400 hover:to-emerald-300";
+    "text-2xl font-bold transition-all duration-200 hover:text-emerald-400 rounded-lg px-2 py-1 bg-gradient-to-r from-white to-emerald-100 bg-clip-text text-transparent hover:from-emerald-400 hover:to-emerald-300";
 
   const searchButtonClasses =
-    "p-2 rounded-lg transition-all duration-200 hover:bg-neutral-800 hover:text-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/50";
+    "p-2 rounded-lg transition-all duration-200 hover:bg-neutral-800 hover:text-emerald-400";
 
   return (
     <>
