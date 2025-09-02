@@ -1,11 +1,11 @@
 import "./globals.css";
-import { IBM_Plex_Sans } from "next/font/google";
+import { Rubik } from "next/font/google";
 import type { Metadata } from "next";
 import Navbar from "@/components/ui/navbar";
 import Footer from "@/components/ui/footer";
 import Script from "next/script";
 
-const fonts = IBM_Plex_Sans({
+const fonts = Rubik({
   subsets: ["latin"],
   display: "swap",
   preload: true,
