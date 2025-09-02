@@ -13,7 +13,7 @@ import AuthorCard from "@/components/ui/author";
 import RelatedArticles from "@/components/ui/related";
 import { generateArticleSchema, generateJsonLd } from "@/lib/schema";
 
-export const revalidate = 60; 
+export const revalidate = 60;
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
   const allArticles = await getAllArticles();
@@ -34,22 +34,22 @@ function calculateReadingTime(content: any): string {
 const richTextRenderOptions = {
   renderNode: {
     [BLOCKS.PARAGRAPH]: (_node: any, children: ReactNode) => (
-      <p className="mb-6 text-lg lg:text-xl font-base leading-relaxed text-slate-900 md:text-justify">
+      <p className="mb-4 text-lg font-base leading-relaxed text-slate-950 md:text-justify">
         {children}
       </p>
     ),
     [BLOCKS.HEADING_1]: (_node: any, children: ReactNode) => (
-      <h1 className="text-4xl font-bold mt-16 mb-8 text-gray-900 border-b border-gray-200 pb-4">
+      <h1 className="text-4xl font-bold mt-16 mb-8 text-gray-900 pb-4">
         {children}
       </h1>
     ),
     [BLOCKS.HEADING_2]: (_node: any, children: ReactNode) => (
-      <h2 className="text-4xl font-extrabold mt-12 mb-2 text-gray-900">
+      <h2 className="text-4xl font-extrabold mt-5 mb-5 text-gray-900">
         {children}
       </h2>
     ),
     [BLOCKS.HEADING_3]: (_node: any, children: ReactNode) => (
-      <h3 className="text-2xl font-bold mt-10 mb-3 text-gray-900">
+      <h3 className="text-2xl font-bold mt-5 mb-3 text-gray-900">
         {children}
       </h3>
     ),
@@ -57,20 +57,20 @@ const richTextRenderOptions = {
       <h4 className="text-xl font-bold mt-8 mb-4 text-gray-900">{children}</h4>
     ),
     [BLOCKS.UL_LIST]: (_node: any, children: ReactNode) => (
-      <ul className="list-disc pl-6 mb-8 space-y-3 text-gray-700">
+      <ul className="list-disc pl-6 mb-3 space-y-3 text-slate-900">
         {children}
       </ul>
     ),
     [BLOCKS.OL_LIST]: (_node: any, children: ReactNode) => (
-      <ol className="list-decimal pl-6 mb-8 space-y-3 text-gray-700">
+      <ol className="list-decimal pl-6 mb-3 space-y-3 text-slate-900">
         {children}
       </ol>
     ),
     [BLOCKS.LIST_ITEM]: (_node: any, children: ReactNode) => (
-      <li className="text-lg leading-relaxed">{children}</li>
+      <li className="text-lg leading-normal">{children}</li>
     ),
     [BLOCKS.QUOTE]: (_node: any, children: ReactNode) => (
-      <blockquote className="border-l-4 border-emerald-500 pl-6 py-4 my-8 italic text-gray-700 bg-blue-50 rounded-r-lg">
+      <blockquote className="border-l-4 rounded-l-md border-emerald-500 p-4 py-4 italic text-gray-700 bg-blue-50">
         {children}
       </blockquote>
     ),
@@ -205,9 +205,8 @@ export default async function BlogPostArticlePage(
   }
 
   const readingTime = calculateReadingTime(article.details);
-  const articleUrl = `${
-    process.env.NEXT_PUBLIC_SITE_URL || "https://archipelago.web.id"
-  }/blog/${params.slug}`;
+  const articleUrl = `${process.env.NEXT_PUBLIC_SITE_URL || "https://archipelago.web.id"
+    }/blog/${params.slug}`;
 
   const articleSchema = generateArticleSchema(article);
 
@@ -218,7 +217,7 @@ export default async function BlogPostArticlePage(
         <ReadingProgressBar />
 
         {/* Hero Section */}
-        <div className="relative h-[70vh] overflow-hidden">
+        <div className="relative h-[80vh] overflow-hidden">
           {article.image ? (
             <div className="absolute inset-0">
               <Image
@@ -242,7 +241,9 @@ export default async function BlogPostArticlePage(
                 Beranda
               </Link>
               <span className="text-white/50">/</span>
-              <span className="text-white/80">Blog</span>
+              <Link href="/blog" className="hover:underline text-white/80">
+                Blog
+              </Link>
               <span className="text-white/50">/</span>
               <span className="text-sm text-white">{article.title}</span>
             </div>
@@ -275,7 +276,7 @@ export default async function BlogPostArticlePage(
             </div>
 
             {/* Social Share Buttons in Hero */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-4">
               <Share2 className="w-5 h-5 text-white/80" />
               <SocialShareButtons
                 url={articleUrl}
@@ -291,8 +292,8 @@ export default async function BlogPostArticlePage(
           <div className="flex flex-col lg:flex-row gap-12">
             {/* Main Content - Takes remaining space */}
             <main className="flex-1 min-w-0 max-w-5xl order-2 lg:order-2">
-              <article className="bg-white mb-12">
-                <div className="prose prose-base prose-gray max-w-none leading-relaxed">
+              <article className="bg-white mb-15">
+                <div className="prose prose-base prose-white max-w-none leading-relaxed">
                   {documentToReactComponents(
                     article.details.json,
                     richTextRenderOptions

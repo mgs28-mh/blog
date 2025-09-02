@@ -22,7 +22,7 @@ export default async function RelatedArticles({
       <div className="flex items-center justify-between mb-8">
         <h2 className="text-3xl font-bold text-gray-900">Related Articles</h2>
         <Link
-          href="/"
+          href="/blog"
           className="hidden md:flex items-center gap-2 text-emerald-600 hover:text-emerald-700 transition-colors text-sm font-medium"
         >
           View all articles
