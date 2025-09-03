@@ -77,7 +77,7 @@ export default function BlogSection() {
               <Link key={post.sys.id} href={`/blog/${post.slug}`}>
                 <motion.article
                   variants={cardVariants}
-                  className="group relative h-80 sm:h-96 overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
+                  className="group relative h-90 sm:h-96 overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
                 >
                   {/* Background Image */}
                   <div className="absolute inset-0">
@@ -112,11 +112,6 @@ export default function BlogSection() {
                     <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 line-clamp-2">
                       {post.title}
                     </h3>
-
-                    {/* Excerpt */}
-                    <p className="text-white/90 text-sm sm:text-base leading-relaxed mb-4 line-clamp-2">
-                      {post.excerpt}
-                    </p>
 
                     {/* Author and Read More */}
                     <div className="flex items-center justify-between">
@@ -155,7 +150,7 @@ export default function BlogSection() {
                   className="group bg-white overflow-hidden transition-all duration-300"
                 >
                   {/* Blog Image */}
-                  <div className="relative h-48 sm:h-56 overflow-hidden">
+                  <div className="relative h-64 sm:h-56 overflow-hidden">
                     <div className="relative w-full h-full">
                       <Image
                         src={post.image?.url || "fallback,jpg"}

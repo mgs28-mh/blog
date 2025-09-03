@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className="relative py-25 sm:py-20 flex flex-col items-center justify-center bg-teal-50 overflow-hidden">
+    <section className="relative py-25 sm:py-20 flex flex-col items-center justify-center bg-lime-100 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 text-center">
         {/* Main Headline with Staggered Animation */}
         <div className="mb-6">
@@ -27,7 +27,7 @@ export default function Hero() {
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="block text-teal-600"
+              className="block text-green-600"
             >
               di Era Teknologi Informasi
             </motion.span>
@@ -55,15 +55,15 @@ export default function Hero() {
         >
           <Link
             href="/blog"
-            className="group relative inline-flex justify-center items-center text-center gap-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-10 py-5 rounded-2xl shadow-2xl hover:shadow-emerald-500/25 transition-all duration-300 transform hover:-translate-y-2 hover:scale-105"
+            className="group relative inline-flex justify-center items-center text-center gap-3 bg-green-600 hover:bg-green-700 text-white font-bold px-10 py-5 rounded-2xl shadow-2xl hover:shadow-emerald-500/25 transition-all duration-300 transform hover:-translate-y-2 hover:scale-105"
           >
-            <div className="absolute inset-0 bg-emerald-600 rounded-2xl transition-opacity"></div>
+            <div className="absolute inset-0 bg-green-600 rounded-2xl transition-opacity"></div>
             <span className="relative z-10">Mulai Eksplorasi</span>
             <ArrowRight className="relative z-10 w-5 h-5 group-hover:translate-x-2 transition-transform" />
           </Link>
           <Link
             href="/about"
-            className="group inline-flex justify-center items-center text-center gap-3 bg-white/90 backdrop-blur-sm hover:bg-white text-gray-900 font-bold px-10 py-5 rounded-2xl border-2 border-emerald-200 hover:border-emerald-400 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+            className="group inline-flex justify-center items-center text-center gap-3 bg-white/90 backdrop-blur-sm hover:bg-white text-gray-900 font-bold px-10 py-5 rounded-2xl border-2 border-green-200 hover:border-emerald-400 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
           >
             <span>Tentang Saya</span>
             <ArrowRight className="relative z-10 w-5 h-5 group-hover:translate-x-2 transition-transform" />
