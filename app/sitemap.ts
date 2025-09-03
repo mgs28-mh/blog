@@ -3,7 +3,7 @@ import { MetadataRoute } from "next";
 
 const baseUrl = 'https://archipelago.web.id';
 
-export const revalidate = 3600;
+export const revalidate = 60;
 
 async function getRoutes(): Promise<MetadataRoute.Sitemap> {
 
@@ -29,7 +29,7 @@ async function getRoutes(): Promise<MetadataRoute.Sitemap> {
     const articles = await getAllArticleSitemap(100);
 
     const blogRoutes: MetadataRoute.Sitemap = articles
-      .filter(article => article.slug) // hanya artikel yang punya slug
+      .filter(article => article.slug)
       .map(article => {
         const lastModified = article.date
           ? new Date(article.date)
