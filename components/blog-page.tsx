@@ -19,7 +19,7 @@ export default function BlogPage() {
       totalItems: 0,
       hasNextPage: false,
       hasPreviousPage: false,
-      itemsPerPage: 9,
+      itemsPerPage: 6,
     },
   });
   const [loading, setLoading] = useState(false);
@@ -27,7 +27,7 @@ export default function BlogPage() {
   const fetchArticles = async (page: number) => {
     setLoading(true);
     try {
-      const data = await getArticlesPaginated(page, 9);
+      const data = await getArticlesPaginated(page, 6);
       setPaginatedData(data);
     } catch (error) {
       console.error("Error fetching articles:", error);
@@ -229,7 +229,6 @@ export default function BlogPage() {
                   whileTap={pagination.hasPreviousPage ? { scale: 0.95 } : {}}
                 >
                   <HiChevronLeft className="w-4 h-4 mr-1" />
-                  Sebelumnya
                 </motion.button>
 
                 {/* Page Numbers */}
@@ -276,7 +275,6 @@ export default function BlogPage() {
                   whileHover={pagination.hasNextPage ? { scale: 1.05 } : {}}
                   whileTap={pagination.hasNextPage ? { scale: 0.95 } : {}}
                 >
-                  Selanjutnya
                   <HiChevronRight className="w-4 h-4 ml-1" />
                 </motion.button>
               </div>

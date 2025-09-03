@@ -222,7 +222,7 @@ export async function getArticlesPaginated(
       ) {
         total
         items {
-          ${ARTICLE_GRAPHQL_FIELDS}
+          ${ARTICLE_GRAPHQL_HOMEPAGE}
         }
       }
     }`;
