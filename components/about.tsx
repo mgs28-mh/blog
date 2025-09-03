@@ -6,23 +6,23 @@ import { motion } from "framer-motion";
 
 export default function AboutSection() {
   return (
-    <section className="py-16 bg-neutral-50">
+    <section className="py-16 bg-neutral-50 overflow-x-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
           {/* Left - Image */}
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="relative"
+            className="relative col-span-1 flex justify-center"
           >
-            <div className="relative w-full h-96 overflow-hidden">
+            <div className="relative w-full max-w-sm aspect-[4/3] overflow-hidden">
               <Image
                 src="/about-me.jpg"
                 alt="Galang Saputra - Penulis dan Pengembang"
                 fill
-                className="w-full h-[600px] object-cover"
+                className="object-cover"
                 priority
               />
             </div>
@@ -30,13 +30,12 @@ export default function AboutSection() {
 
           {/* Right - Content */}
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
-            className="space-y-8"
+            className="space-y-8 col-span-1 lg:col-span-2"
           >
-            {/* Header */}
             <div className="space-y-4">
               <h2 className="text-3xl lg:text-4xl font-bold text-neutral-900 leading-tight">
                 Halo, saya{" "}
@@ -44,7 +43,7 @@ export default function AboutSection() {
                   Galang Saputra
                 </span>
               </h2>
-              <p className="text-xl text-neutral-600 leading-relaxed">
+              <p className="text-lg text-neutral-600 leading-relaxed">
                 Seorang penulis dan pengembang yang senang berbagi wawasan
                 tentang teknologi, kreativitas, dan kehidupan sehari-hari.
                 Berawal dari studi di bidang Ilmu Komunikasi, saya belajar
@@ -54,16 +53,16 @@ export default function AboutSection() {
               </p>
             </div>
 
-            {/* CTA Buttons */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
               viewport={{ once: true }}
-              className="flex flex-col sm:flex-row"
             >
               <Link
-                href="https://mgalangs.web.id" target="_blank" rel="noopener noreferrer"
+                href="https://mgalangs.web.id"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center px-4 py-4 bg-emerald-600 text-white font-medium rounded-lg hover:bg-emerald-700 transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
               >
                 Hubungi Saya
