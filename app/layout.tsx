@@ -1,11 +1,11 @@
 import "./globals.css";
-import { Rubik } from "next/font/google";
+import { Bricolage_Grotesque, Rubik } from "next/font/google";
 import type { Metadata } from "next";
 import Navbar from "@/components/ui/navbar";
 import Footer from "@/components/ui/footer";
 import Script from "next/script";
 
-const fonts = Rubik({
+const fonts = Bricolage_Grotesque({
   subsets: ["latin"],
   display: "swap",
   preload: true,
