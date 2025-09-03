@@ -109,8 +109,8 @@ export default function Navbar() {
     const hasChildren = item.children && item.children.length > 0;
 
     const baseClasses =
-      "px-3 py-2 transition-all duration-200 hover:text-emerald-400";
-    const activeClasses = active ? "text-emerald-400" : "";
+      "px-3 py-2 transition-all duration-200 hover:text-green-800";
+    const activeClasses = active ? "text-green-800" : "";
     const mobileClasses = mobile ? "block w-full text-left" : "";
 
     if (hasChildren && !mobile) {
@@ -256,10 +256,10 @@ export default function Navbar() {
   };
 
   const navClasses = `sticky top-0 z-50 transition-all duration-300 ${
-    isScrolled ? "bg-teal-900 shadow-lg" : "bg-teal-900"
+    isScrolled ? "bg-white" : "bg-lime-100"
   }`;
 
-  const menuButtonClasses = `lg:hidden p-2 rounded-lg transition-all duration-200 hover:bg-neutral-800 ${
+  const menuButtonClasses = `lg:hidden p-2 rounded-lg transition-all duration-200 text-slate-950 hover:bg-neutral-800 ${
     isOpen ? "bg-neutral-800" : ""
   }`;
 
@@ -267,13 +267,13 @@ export default function Navbar() {
     "text-2xl font-bold transition-all duration-200 hover:text-emerald-400 rounded-lg px-2 py-1 bg-gradient-to-r from-white to-emerald-100 bg-clip-text hover:from-emerald-400 hover:to-emerald-300";
 
   const searchButtonClasses =
-    "p-2 rounded-lg transition-all duration-200 hover:bg-neutral-800 hover:text-emerald-400";
+    "p-2 rounded-lg transition-all duration-200 hover:text-emerald-400 text-slate-950";
 
   return (
     <>
       <nav className={navClasses}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
+          <div className="flex items-center justify-between h-18">
             {/* Left - Logo */}
             <div className="flex items-center">
               <Link href="/" className={`${logoClasses} flex items-center gap-3`}>
@@ -284,12 +284,12 @@ export default function Navbar() {
                   height={38}
                   className="rounded-none"
                 />
-                <span className="text-xl font-semibold uppercase">Archipelago</span>
+                <span className="text-xl font-semibold uppercase text-slate-950">Archipelago</span>
               </Link>
             </div>
 
             {/* Center - Navigation Links (Desktop) */}
-            <div className="hidden lg:flex items-center space-x-1 absolute left-1/2 transform -translate-x-1/2 text-lg font-semibold uppercase">
+            <div className="hidden lg:flex items-center space-x-1 absolute left-1/2 transform -translate-x-1/2 text-slate-950 text-md font-medium uppercase">
               {navItems.map((item) => (
                 <NavLink key={item.href} item={item} />
               ))}

@@ -50,7 +50,7 @@ export default function SocialShareButtons({
           target="_blank"
           rel="noopener noreferrer"
           title="Share on Twitter"
-          className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-emerald-500 flex items-center justify-center transition-all duration-200 transform hover:scale-105"
+          className="w-10 h-10 rounded-full bg-slate-950/10 backdrop-blur-sm text-slate-950 hover:bg-emerald-500 flex items-center justify-center transition-all duration-200 transform hover:scale-105"
         >
           <IconWrapper Icon={FaXTwitter} />
         </Link>
@@ -59,7 +59,7 @@ export default function SocialShareButtons({
           target="_blank"
           rel="noopener noreferrer"
           title="Share on Facebook"
-          className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-emerald-500 flex items-center justify-center transition-all duration-200 transform hover:scale-105"
+          className="w-10 h-10 rounded-full bg-slate-950/10 backdrop-blur-sm text-slate-950 hover:bg-emerald-500 flex items-center justify-center transition-all duration-200 transform hover:scale-105"
         >
           <IconWrapper Icon={FaFacebookF} />
         </Link>
@@ -68,14 +68,14 @@ export default function SocialShareButtons({
           target="_blank"
           rel="noopener noreferrer"
           title="Share on LinkedIn"
-          className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-emerald-500 flex items-center justify-center transition-all duration-200 transform hover:scale-105"
+          className="w-10 h-10 rounded-full bg-slate-950/10 backdrop-blur-sm text-slate-950 hover:bg-emerald-500 flex items-center justify-center transition-all duration-200 transform hover:scale-105"
         >
           <IconWrapper Icon={FaLinkedinIn} />
         </Link>
         <button
           onClick={copyToClipboard}
           title={copied ? "Copied!" : "Copy link"}
-          className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-emerald-500 flex items-center justify-center transition-all duration-200 transform hover:scale-105 cursor-pointer"
+          className="w-10 h-10 rounded-full bg-slate-950/10 backdrop-blur-sm text-slate-950 hover:bg-emerald-500 flex items-center justify-center transition-all duration-200 transform hover:scale-105 cursor-pointer"
         >
           <CopyIcon className={iconClass} />
         </button>
