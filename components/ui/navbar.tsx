@@ -23,18 +23,50 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [mobileDropdowns, setMobileDropdowns] = useState<string[]>([]);
+  const [shouldStick, setShouldStick] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const pathname = usePathname();
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Handle scroll effect for navbar background
+  // Handle scroll effect for navbar background and sticky behavior
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
+      const currentScrollY = window.scrollY;
+      const scrollDifference = Math.abs(currentScrollY - lastScrollY);
+      
+      // Only process if scroll difference is significant to avoid jittery behavior
+      if (scrollDifference < 8) return;
+      
+      setIsScrolled(currentScrollY > 10);
+      
+      // Make navbar sticky only when scrolling back up after having scrolled down
+      if (currentScrollY < lastScrollY && currentScrollY > 200) {
+        // Scrolling up and not at the very top
+        setShouldStick(true);
+      } else if (currentScrollY <= 150) {
+        // Near the top, remove sticky with some buffer
+        setShouldStick(false);
+      } else if (currentScrollY > lastScrollY && currentScrollY > 250) {
+        // Scrolling down significantly, remove sticky
+        setShouldStick(false);
+      }
+      
+      setLastScrollY(currentScrollY);
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    // Debounce scroll events for better performance and stability
+    let timeoutId: NodeJS.Timeout;
+    const debouncedHandleScroll = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(handleScroll, 10);
+    };
+
+    window.addEventListener("scroll", debouncedHandleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", debouncedHandleScroll);
+      clearTimeout(timeoutId);
+    };
+  }, [lastScrollY]);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -255,8 +287,8 @@ export default function Navbar() {
     );
   };
 
-  const navClasses = `sticky top-0 z-50 transition-all duration-300 ${
-    isScrolled ? "bg-white" : "bg-lime-100"
+  const navClasses = `${shouldStick ? 'fixed top-0 left-0 right-0 w-full transform translate-x-0' : 'relative'} z-50 transition-all duration-300 ease-in-out ${
+    isScrolled ? "bg-white shadow-lg" : "bg-lime-100"
   }`;
 
   const menuButtonClasses = `lg:hidden p-2 rounded-lg transition-all duration-200 text-slate-950 hover:bg-neutral-800 ${
@@ -271,6 +303,21 @@ export default function Navbar() {
 
   return (
     <>
+      <style jsx>{`
+        @keyframes slideDown {
+          from {
+            transform: translateY(-100%);
+            opacity: 0;
+          }
+          to {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+        .animate-slideDown {
+          animation: slideDown 0.3s ease-out;
+        }
+      `}</style>
       <nav className={navClasses}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-18">
@@ -346,6 +393,11 @@ export default function Navbar() {
         className={`fixed top-0 left-0 h-full w-80 bg-neutral-900 border-r border-neutral-800 z-50 lg:hidden transform transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
+        style={{ 
+          position: 'fixed',
+          transform: isOpen ? 'translateX(0)' : 'translateX(-100%)',
+          willChange: 'transform'
+        }}
       >
         {/* Panel Header */}
         <div className="flex items-center justify-between p-4 border-b border-neutral-800">
