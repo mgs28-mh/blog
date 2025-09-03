@@ -92,6 +92,20 @@ const ARTICLE_GRAPHQL_FIELDS = `
     featured
   `;
 
+const ARTICLE_GRAPHQL_HOMEPAGE = `
+    sys {
+      id
+    }
+    title
+    slug
+    excerpt
+    date
+    image {
+      url
+    }
+    featured
+`;
+
 async function fetchGraphQL(
   query: string,
   preview = false
@@ -140,6 +154,28 @@ export async function getAllArticles(
           }) {
             items {
               ${ARTICLE_GRAPHQL_FIELDS}
+            }
+          }
+        }`,
+    isDraftMode
+  );
+  return extractArticleEntries(articles);
+}
+
+export async function getArticlesPreview(
+  // For this demo set the default limit to always return 3 articles.
+  limit = 6,
+  // By default this function will return published content but will provide an option to
+  // return draft content for reviewing articles before they are live
+  isDraftMode = false
+): Promise<Article[]> {
+  const articles = await fetchGraphQL(
+    `query {
+          artikelPostCollection(where:{slug_exists: true}, order: date_DESC, limit: ${limit}, preview: ${
+            isDraftMode ? "true" : "false"
+          }) {
+            items {
+              ${ARTICLE_GRAPHQL_HOMEPAGE}
             }
           }
         }`,
