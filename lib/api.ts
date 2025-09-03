@@ -215,7 +215,7 @@ export async function getArticlesPaginated(
     query {
       artikelPostCollection(
         where: {slug_exists: true}, 
-        order: date_DESC, 
+        order: [date_DESC, sys_id_DESC],
         limit: ${itemsPerPage},
         skip: ${skip},
         preview: ${isDraftMode ? "true" : "false"}

@@ -135,7 +135,7 @@ export default function BlogPage() {
                           src={post.image?.url || "/placeholder-image.jpg"}
                           alt={post.title}
                           fill
-                          className="object-cover transition-transform duration-700 group-hover:scale-110"
+                          className="object-cover"
                           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
                         />
                       </div>
