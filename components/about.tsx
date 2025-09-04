@@ -15,13 +15,14 @@ export default function AboutSection() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="relative col-span-1 flex justify-center"
+            className="relative col-span-1 flex justify-start"
           >
-            <div className="relative w-full max-w-sm aspect-[4/3] overflow-hidden">
+            <div className="relative w-full h-96 max-w-sm aspect-[3/4] overflow-hidden">
               <Image
                 src="/about-me.jpg"
                 alt="Galang Saputra - Penulis dan Pengembang"
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="object-cover"
                 priority
               />
@@ -42,8 +43,9 @@ export default function AboutSection() {
                 <span className="bg-gradient-to-r from-emerald-600 to-emerald-400 bg-clip-text text-transparent">
                   Galang Saputra
                 </span>
+                
               </h2>
-              <p className="text-lg text-neutral-600 leading-relaxed">
+              <p className="text-md lg:text-lg text-slate-900 leading-relaxed">
                 Seorang penulis dan pengembang yang senang berbagi wawasan
                 tentang teknologi, kreativitas, dan kehidupan sehari-hari.
                 Berawal dari studi di bidang Ilmu Komunikasi, saya belajar

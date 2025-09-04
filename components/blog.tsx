@@ -37,8 +37,8 @@ export default function BlogSection() {
 
   // Loading skeleton component
   const SkeletonCard = ({ featured = false }: { featured?: boolean }) => (
-    <div className={`animate-pulse ${featured ? 'h-90 sm:h-96' : ''}`}>
-      <div className={`bg-gray-200 rounded-lg ${featured ? 'h-full' : 'h-64 sm:h-56'}`} />
+    <div className={`animate-pulse ${featured ? 'relative h-90 sm:h-96 rounded-lg overflow-hidden' : ''}`}>
+      <div className={`bg-gray-200 rounded-lg ${featured ? 'h-full w-full' : 'h-64 sm:h-56'}`} />
       {!featured && (
         <div className="p-6">
           <div className="h-4 bg-gray-200 rounded mb-3" />
@@ -52,7 +52,7 @@ export default function BlogSection() {
         </div>
       )}
       {featured && (
-        <div className="absolute bottom-0 left-0 right-0 p-6">
+        <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
           <div className="h-4 bg-gray-300 rounded mb-3 w-1/3" />
           <div className="h-6 bg-gray-300 rounded mb-3" />
           <div className="h-4 bg-gray-300 rounded w-1/2 mb-3" />
@@ -114,7 +114,7 @@ export default function BlogSection() {
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
         >
-          {/* Section Header */}
+          {/* Section Header - Always visible */}
           <div className="mb-6 text-center">
             <h2 className="text-3xl md:text-6xl font-bold text-slate-900 mb-2">
               Artikel & Informasi Terbaru
@@ -128,7 +128,7 @@ export default function BlogSection() {
           {/* Error State */}
           {error && <ErrorState />}
 
-          {/* Loading State */}
+          {/* Loading State - Only for content, not header */}
           {loading && !error && (
             <>
               {/* Featured Posts Skeleton */}

@@ -331,7 +331,7 @@ export default function Navbar() {
                   height={38}
                   className="rounded-none"
                 />
-                <span className="text-xl font-semibold uppercase text-slate-950">Archipelago</span>
+                <span className="text-xl lg:text-2xl font-extrabold uppercase text-slate-950">Archipelago</span>
               </Link>
             </div>
 

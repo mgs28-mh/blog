@@ -41,7 +41,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.8 }}
           className="max-w-4xl mx-auto mb-12"
         >
-          <p className="text-lg md:text-2xl text-gray-700 leading-normal mb-4">
+          <p className="text-lg md:text-xl text-gray-700 leading-normal mb-4">
             Kumpulan tulisan yang membahas dinamika komunikasi digital, perkembangan teknologi informasi, serta dampaknya terhadap masyarakat modern.
           </p>
         </motion.div>

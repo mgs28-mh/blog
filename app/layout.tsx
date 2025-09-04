@@ -1,5 +1,5 @@
 import "./globals.css";
-import { Bricolage_Grotesque, Rubik } from "next/font/google";
+import { Bricolage_Grotesque } from "next/font/google";
 import type { Metadata } from "next";
 import Navbar from "@/components/ui/navbar";
 import Footer from "@/components/ui/footer";
@@ -9,7 +9,7 @@ const fonts = Bricolage_Grotesque({
   subsets: ["latin"],
   display: "swap",
   preload: true,
-  weight: ["400", "500", "700"],
+  weight: ["400", "500", "700", "800"],
 });
 
 export const metadata: Metadata = {
