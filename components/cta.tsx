@@ -44,17 +44,19 @@ export default function CTASection() {
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
-          src="/cta.jpg" // Replace with your background image
-          alt="Travel adventure background"
+          src="/cta.jpg"
+          alt="colored pencils"
           fill
-          className="object-contain object-bottom-right"
-          sizes="100vw"
+          className="object-cover object-top-right"
+          sizes="(max-width: 768px) 100vw, 
+           (max-width: 1200px) 50vw, 
+           33vw"
           priority
         />
       </div>
 
       {/* Background Overlay */}
-      <div className="absolute inset-0 bg-black/10" />
+      <div className="absolute inset-0 bg-slate-800/30" />
 
       {/* Content */}
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
