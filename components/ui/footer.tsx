@@ -67,13 +67,12 @@ export default function Footer() {
                 className="flex items-center space-x-3 hover:opacity-80 transition-opacity duration-200"
               >
                 <Image
-                  src="/logo.webp"
+                  src="/logo-kk.webp"
                   alt="Archipelago Logo"
-                  width={38}
-                  height={38}
+                  width={200}
+                  height={200}
                   className="rounded-none"
                 />
-                <span className="text-xl font-semibold uppercase">Kata Komunikasi</span>
               </Link>
             </div>
 
