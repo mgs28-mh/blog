@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Code, FileText } from "lucide-react";
 import Link from "next/link";
 
 export default function Hero() {
@@ -21,7 +21,7 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="block text-gray-900"
             >
-              Memahami Komunikasi Digital
+              Mengeksplorasi Teknologi &
             </motion.span>
             <motion.span
               initial={{ opacity: 0, x: 50 }}
@@ -29,7 +29,7 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.6 }}
               className="block text-green-600"
             >
-              di Era Teknologi Informasi
+              Komunikasi Digital
             </motion.span>
           </motion.h1>
         </div>
@@ -42,7 +42,8 @@ export default function Hero() {
           className="max-w-4xl mx-auto mb-12"
         >
           <p className="text-lg md:text-xl text-gray-700 leading-normal mb-4">
-            Kumpulan tulisan yang membahas dinamika komunikasi digital, perkembangan teknologi informasi, serta dampaknya terhadap masyarakat modern.
+            Platform untuk berbagi wawasan mendalam tentang perkembangan teknologi informasi, 
+            strategi komunikasi digital, dan analisis tren industri teknologi terkini.
           </p>
         </motion.div>
 
@@ -58,14 +59,16 @@ export default function Hero() {
             className="group relative inline-flex justify-center items-center text-center gap-3 bg-green-600 hover:bg-green-700 text-white font-bold px-10 py-5 rounded-2xl shadow-2xl hover:shadow-emerald-500/25 transition-all duration-300 transform hover:-translate-y-2 hover:scale-105"
           >
             <div className="absolute inset-0 bg-green-600 rounded-2xl transition-opacity"></div>
-            <span className="relative z-10">Mulai Eksplorasi</span>
+            <FileText className="relative z-10 w-5 h-5" />
+            <span className="relative z-10">Eksplorasi Artikel</span>
             <ArrowRight className="relative z-10 w-5 h-5 group-hover:translate-x-2 transition-transform" />
           </Link>
           <Link
             href="/about"
             className="group inline-flex justify-center items-center text-center gap-3 bg-white/90 backdrop-blur-sm hover:bg-white text-gray-900 font-bold px-10 py-5 rounded-2xl border-2 border-green-200 hover:border-emerald-400 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
           >
-            <span>Tentang Saya</span>
+            <Code className="relative z-10 w-5 h-5" />
+            <span>Profil Penulis</span>
             <ArrowRight className="relative z-10 w-5 h-5 group-hover:translate-x-2 transition-transform" />
           </Link>
         </motion.div>

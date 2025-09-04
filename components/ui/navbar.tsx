@@ -331,12 +331,12 @@ export default function Navbar() {
                   height={38}
                   className="rounded-none"
                 />
-                <span className="text-xl lg:text-2xl font-extrabold uppercase text-slate-950">Archipelago</span>
+                <span className="text-xl lg:text-2xl font-extrabold uppercase text-slate-950">Kata Komunikasi</span>
               </Link>
             </div>
 
             {/* Center - Navigation Links (Desktop) */}
-            <div className="hidden lg:flex items-center space-x-1 absolute left-1/2 transform -translate-x-1/2 text-slate-950 text-md font-medium uppercase">
+            <div className="hidden lg:flex items-center space-x-1 absolute left-1/2 transform -translate-x-1/2 text-slate-950 text-md font-semibold uppercase">
               {navItems.map((item) => (
                 <NavLink key={item.href} item={item} />
               ))}

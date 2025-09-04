@@ -73,7 +73,7 @@ export default function Footer() {
                   height={38}
                   className="rounded-none"
                 />
-                <span className="text-xl font-semibold uppercase">Archipelago</span>
+                <span className="text-xl font-semibold uppercase">Kata Komunikasi</span>
               </Link>
             </div>
 
@@ -117,7 +117,7 @@ export default function Footer() {
           {/* ====== BOTTOM SECTION ====== */}
           <div className="flex items-center justify-center text-gray-400 text-sm">
             {/* Copyright */}
-            <p>© {currentYear} Archipelago.</p>
+            <p>© {currentYear} Kata Komunikasi.</p>
           </div>
         </div>
       </div>
