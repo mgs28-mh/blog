@@ -75,15 +75,10 @@ export default function BlogFeature({ featuredPosts, cardVariants }: BlogFeature
               {post.title}
             </h2>
 
-            {/* Excerpt */}
-            <p className="text-sm lg:text-base text-white/90 leading-relaxed line-clamp-2">
-              {post.excerpt}
-            </p>
-
-            {/* Author */}
+            {/* Author 
             <div className="text-xs text-white/70 font-medium">
               By {post.author}
-            </div>
+            </div>*/}
 
             {/* Read More */}
             <motion.div

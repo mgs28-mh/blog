@@ -42,10 +42,10 @@ export default function BlogPost({ regularPosts, cardVariants }: BlogPostProps) 
     <Link href={`/blog/${post.slug}`}>
       <motion.article
         variants={cardVariants}
-        className="group grid grid-cols-1 lg:grid-cols-3 gap-8 py-5 transition-colors duration-200 cursor-pointer"
+        className="group grid grid-cols-1 lg:grid-cols-12 gap-8 py-5 transition-colors duration-200 cursor-pointer"
       >
         {/* Large Image - Left Side */}
-        <div className="w-full h-full overflow-hidden">
+        <div className="w-full h-full overflow-hidden col-span-5">
           <Image
             src={post.image?.url || "/fallback.jpg"}
             alt={post.title}
@@ -57,7 +57,7 @@ export default function BlogPost({ regularPosts, cardVariants }: BlogPostProps) 
         </div>
 
         {/* Content - Right Side */}
-        <div className="flex flex-col col-span-2 justify-center space-y-4">
+        <div className="flex flex-col col-span-7 justify-center space-y-4">
           {/* Category/Date */}
           <div>
             <span className="text-sm font-medium text-gray-500 uppercase tracking-wider">
@@ -70,12 +70,12 @@ export default function BlogPost({ regularPosts, cardVariants }: BlogPostProps) 
           </div>
 
           {/* Title */}
-          <h3 className="text-xl lg:text-2xl font-bold text-gray-900 line-clamp-3 lg:line-clamp-2 group-hover:text-emerald-500 group-hover:underline group-hover:underline-offset-4 transition-colors duration-200 leading-tight">
+          <h3 className="text-xl lg:text-3xl font-bold text-gray-900 line-clamp-3 lg:line-clamp-2 group-hover:text-emerald-500 group-hover:underline group-hover:underline-offset-4 transition-colors duration-200 leading-tight">
             {post.title}
           </h3>
 
           {/* Excerpt */}
-          <p className="text-md text-gray-600 line-clamp-4 leading-relaxed">
+          <p className="text-md lg:text-lg text-gray-600 line-clamp-4 leading-relaxed">
             {post.excerpt}
           </p>
 
