@@ -29,7 +29,7 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.6 }}
               className="block text-green-600"
             >
-              Komunikasi Digital
+              Komunikasi
             </motion.span>
           </motion.h1>
         </div>
