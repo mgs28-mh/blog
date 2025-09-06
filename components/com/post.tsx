@@ -101,7 +101,7 @@ export default function BlogPost({ regularPosts, cardVariants }: BlogPostProps) 
                 </div>
 
                 <motion.button
-                  className="inline-flex items-center text-emerald-600 font-medium text-sm hover:text-emerald-700 transition-colors duration-200"
+                  className="inline-flex items-center gap-2 text-emerald-700 font-medium text-sm hover:text-emerald-700 transition-colors duration-200 px-3 py-2 rounded-md"
                   whileHover={{ x: 4 }}
                   transition={{
                     type: "spring",
@@ -109,8 +109,8 @@ export default function BlogPost({ regularPosts, cardVariants }: BlogPostProps) 
                     damping: 20,
                   }}
                 >
-                  Read More
-                  <HiOutlineArrowRight className="ml-1 w-4 h-4" />
+                  <span>Read More</span>
+                  <HiOutlineArrowRight className="w-4 h-4" />
                 </motion.button>
               </div>
             </div>

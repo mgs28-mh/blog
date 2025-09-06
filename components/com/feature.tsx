@@ -36,7 +36,7 @@ export default function BlogFeature({ featuredPosts, cardVariants }: BlogFeature
   }
 
   const FeaturedCard = ({ post, index }: { post: Article; index: number }) => (
-    <Link href={`/blog/${post.slug}`}>
+    <Link href={`/blog/${post.slug}`} aria-label={`Read full article: ${post.title}`}>
       <motion.article
         variants={cardVariants}
         className="group relative h-[300px] lg:h-[400px] overflow-hidden cursor-pointer"
@@ -45,7 +45,7 @@ export default function BlogFeature({ featuredPosts, cardVariants }: BlogFeature
         <div className="absolute inset-0">
           <Image
             src={post.image?.url || "/fallback.jpg"}
-            alt={post.title}
+            alt="" // dekoratif karena judul sudah ada
             fill
             className="object-cover"
             sizes="(max-width: 1024px) 100vw, 50vw"
@@ -60,35 +60,25 @@ export default function BlogFeature({ featuredPosts, cardVariants }: BlogFeature
         <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8 text-white">
           <div className="space-y-3">
             {/* Meta Information */}
-            <div>
-              <span className="text-xs font-medium text-white/80 uppercase tracking-wider">
-                {new Date(post.date).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "short",
-                  day: "numeric",
-                })}
-              </span>
-            </div>
+            <span className="text-xs font-medium text-white/80 uppercase tracking-wider">
+              {new Date(post.date).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+              })}
+            </span>
 
-            {/* Title */}
+            {/* Title (jadi teks link utama) */}
             <h2 className="text-xl lg:text-2xl font-bold text-white leading-tight line-clamp-2 group-hover:text-white/90 transition-colors duration-200">
               {post.title}
             </h2>
 
-            {/* Author 
-            <div className="text-xs text-white/70 font-medium">
-              By {post.author}
-            </div>*/}
-
-            {/* Read More */}
+            {/* Read More (visually helpful, hidden for screen readers) */}
             <motion.div
+              aria-hidden="true"
               className="inline-flex items-center text-white/90 font-medium hover:text-white transition-colors duration-200 pt-2"
               whileHover={{ x: 4 }}
-              transition={{
-                type: "spring",
-                stiffness: 300,
-                damping: 20,
-              }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
               <span className="text-sm">Read Article</span>
               <HiOutlineArrowRight className="ml-2 w-4 h-4" />
