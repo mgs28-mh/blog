@@ -8,16 +8,6 @@ const nextConfig: NextConfig = {
         hostname: "images.ctfassets.net",
         pathname: "/w30cm42007nv/**",
       },
-      {
-        protocol: "https",
-        hostname: "images.unsplash.com",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "i.pravatar.cc",
-        pathname: "/**",
-      },
     ],
   },
   env: {
