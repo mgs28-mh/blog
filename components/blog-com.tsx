@@ -79,16 +79,16 @@ export default function BlogComSection() {
 
   return (
     <section ref={ref} className="py-16 sm:py-20 lg:py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
         >
           {/* Section Header - Always visible */}
-          <div className="mb-6 text-left">
+          <div className="mb-6 text-center">
             <h2 className="text-3xl md:text-6xl font-bold text-slate-900 mb-2">
-              Artikel & Informasi Komunikasi
+              Artikel <span className="text-emerald-600">Komunikasi</span>
             </h2>
             <p className="text-xl text-neutral-900 mt-5 mb-10">
               Mengupas teori, praktik, dan fenomena komunikasi dari berbagai
@@ -115,14 +115,50 @@ export default function BlogComSection() {
               {/* Featured Posts */}
               <BlogFeature featuredPosts={featuredPosts} cardVariants={cardVariants} />
 
+              {/* Regular Posts Header */}
+              {regularPosts.length > 0 && (
+                <motion.div
+                  variants={cardVariants}
+                  className="mb-8 mt-12"
+                >
+                  <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+                    <div className="text-left">
+                      <h3 className="text-2xl md:text-3xl font-bold text-slate-900 mb-3">
+                        Artikel Terbaru
+                      </h3>
+                      <p className="text-lg text-neutral-700">
+                        Temukan artikel komunikasi terbaru dan terkini
+                      </p>
+                    </div>
+                    
+                    {/* View All Posts Button - Desktop Only */}
+                    <Link href={`/blog`} className="hidden md:block">
+                      <motion.button
+                        className="inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-slate-950 hover:text-green-500 transition-all duration-300 cursor-pointer mt-4 md:mt-0"
+                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                      >
+                        View All Posts
+                        <motion.div
+                          className="ml-2"
+                          whileHover={{ x: 4 }}
+                          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                        >
+                          <HiOutlineArrowRight className="w-5 h-5" />
+                        </motion.div>
+                      </motion.button>
+                    </Link>
+                  </div>
+                </motion.div>
+              )}
+
               {/* Regular Posts  */}
               <BlogPost regularPosts={regularPosts} cardVariants={cardVariants} />
 
-              {/* View All Posts Button */}
+              {/* View All Posts Button - Mobile Only */}
               <Link href={`/blog`}>
                 <motion.div
                   variants={cardVariants}
-                  className="text-center mt-12 lg:mt-16"
+                  className="text-center mt-12 lg:mt-16 md:hidden"
                 >
                   <motion.button
                     className="inline-flex items-center justify-center px-6 py-3 text-base sm:text-lg font-semibold text-emerald-600 bg-white border-2 border-emerald-600 hover:bg-emerald-600 hover:text-white transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-emerald-500/50 cursor-pointer"

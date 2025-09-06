@@ -52,6 +52,7 @@ export default function BlogPost({ regularPosts, cardVariants }: BlogPostProps) 
             width={600}
             height={400}
             className="object-cover w-full h-full"
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
             loading="lazy"
           />
         </div>

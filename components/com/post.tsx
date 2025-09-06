@@ -81,7 +81,7 @@ export default function BlogPost({ regularPosts, cardVariants }: BlogPostProps) 
                 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 
                  group-hover:text-emerald-600 group-hover:underline 
                  group-hover:underline-offset-2 transition-colors duration-300 
-                 line-clamp-2"
+                 line-clamp-3"
               >
                 {post.title}
               </h3>

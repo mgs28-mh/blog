@@ -39,7 +39,7 @@ export default function BlogFeature({ featuredPosts, cardVariants }: BlogFeature
     <Link href={`/blog/${post.slug}`}>
       <motion.article
         variants={cardVariants}
-        className="group relative h-[400px] lg:h-[450px] overflow-hidden cursor-pointer"
+        className="group relative h-[300px] lg:h-[400px] overflow-hidden cursor-pointer"
       >
         {/* Background Image */}
         <div className="absolute inset-0">
