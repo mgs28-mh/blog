@@ -101,7 +101,7 @@ export default function BlogPost({ regularPosts, cardVariants }: BlogPostProps) 
                 </div>
 
                 <motion.button
-                  className="inline-flex items-center gap-2 text-emerald-700 font-medium text-sm hover:text-emerald-700 transition-colors duration-200 px-3 py-2 rounded-md"
+                  className="inline-flex items-center gap-2 text-emerald-700 font-medium text-sm hover:text-emerald-700 transition-colors duration-200 px-3 py-2 rounded-md cursor-pointer"
                   whileHover={{ x: 4 }}
                   transition={{
                     type: "spring",

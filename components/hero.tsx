@@ -41,19 +41,34 @@ export default function Hero() {
         >
           <Link
             href="/blog"
-            className="group relative inline-flex justify-center items-center text-center gap-3 bg-emerald-700 hover:bg-emerald-700 text-white font-bold px-10 py-5 rounded-2xl shadow-2xl hover:shadow-emerald-500/25 transition-all duration-300 transform hover:-translate-y-2 hover:scale-105"
+            className="group relative inline-flex justify-center items-center text-center gap-3 
+               bg-emerald-700 hover:bg-emerald-700 text-white font-bold 
+               px-10 py-5 min-h-[44px] min-w-[44px] 
+               rounded-2xl shadow-2xl hover:shadow-emerald-500/25 
+               transition-all duration-300 transform hover:-translate-y-2 hover:scale-105"
           >
-            <FileText className="relative z-10 w-5 h-5" />
+            <FileText aria-hidden="true" className="relative z-10 w-5 h-5" />
             <span className="relative z-10">Eksplorasi Artikel</span>
-            <ArrowRight className="relative z-10 w-5 h-5 group-hover:translate-x-2 transition-transform" />
+            <ArrowRight
+              aria-hidden="true"
+              className="relative z-10 w-5 h-5 group-hover:translate-x-2 transition-transform"
+            />
           </Link>
+
           <Link
             href="/about"
-            className="group inline-flex justify-center items-center text-center gap-3 bg-white/90 backdrop-blur-sm hover:bg-white text-gray-900 font-bold px-10 py-5 rounded-2xl border-2 border-green-200 hover:border-emerald-400 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+            className="group inline-flex justify-center items-center text-center gap-3 
+               bg-white/90 backdrop-blur-sm hover:bg-white text-gray-900 font-bold 
+               px-10 py-5 min-h-[44px] min-w-[44px] 
+               rounded-2xl border-2 border-green-200 hover:border-emerald-400 
+               shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
           >
-            <Code className="relative z-10 w-5 h-5" />
+            <Code aria-hidden="true" className="relative z-10 w-5 h-5" />
             <span>Profil Penulis</span>
-            <ArrowRight className="relative z-10 w-5 h-5 group-hover:translate-x-2 transition-transform" />
+            <ArrowRight
+              aria-hidden="true"
+              className="relative z-10 w-5 h-5 group-hover:translate-x-2 transition-transform"
+            />
           </Link>
         </motion.div>
       </div>

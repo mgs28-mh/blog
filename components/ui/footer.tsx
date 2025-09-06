@@ -55,7 +55,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-slate-800/50 text-white">
+    <footer className="bg-neutral-800/50 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* ====== TOP SECTION ====== */}
         <div className="py-16">
@@ -64,7 +64,7 @@ export default function Footer() {
             <div className="mb-8 lg:mb-0">
               <Link
                 href="/"
-                className="flex items-center space-x-3 hover:opacity-80 transition-opacity duration-200"
+                className="flex items-center space-x-3 transition-opacity duration-200"
               >
                 <Image
                   src="/logo-kk.webp"
@@ -84,7 +84,7 @@ export default function Footer() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`text-gray-300 hover:text-white transition-colors duration-200 text-md uppercase font-medium ${active ? "text-white" : ""
+                    className={`text-white hover:text-emerald-500 transition-colors duration-200 text-md uppercase font-medium ${active ? "text-white" : ""
                       }`}
                   >
                     {item.label}
@@ -101,7 +101,7 @@ export default function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 text-white/90 hover:text-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-lg"
+                  className="p-2 text-white hover:text-emerald-500 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-lg"
                   aria-label={social.label}
                 >
                   {social.icon}
@@ -114,7 +114,7 @@ export default function Footer() {
           <div className="border-t border-slate-700 mb-8" />
 
           {/* ====== BOTTOM SECTION ====== */}
-          <div className="flex items-center justify-center text-gray-400 text-md">
+          <div className="flex items-center justify-center text-white text-md">
             {/* Copyright */}
             <p>© {currentYear} Kata Komunikasi.</p>
           </div>
