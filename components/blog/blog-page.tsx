@@ -8,7 +8,11 @@ import { HiOutlineArrowRight, HiOutlineUser, HiChevronLeft, HiChevronRight } fro
 import { Article, getArticlesPaginated, PaginatedArticles } from "@/lib/api";
 import Link from "next/link";
 
-export default function BlogPage() {
+interface BlogListProps {
+  currentPage: number;
+}
+
+export default function BlogList({ currentPage }: BlogListProps) {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
   const [paginatedData, setPaginatedData] = useState<PaginatedArticles>({
@@ -37,14 +41,8 @@ export default function BlogPage() {
   };
 
   useEffect(() => {
-    fetchArticles(1);
-  }, []);
-
-  const handlePageChange = (page: number) => {
-    fetchArticles(page);
-    // Scroll to top of articles section
-    ref.current?.scrollIntoView({ behavior: 'smooth' });
-  };
+    fetchArticles(currentPage);
+  }, [currentPage]);
 
   const { articles, pagination } = paginatedData;
 
@@ -105,7 +103,7 @@ export default function BlogPage() {
           {/* Loading State */}
           {loading && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-              {[...Array(9)].map((_, index) => (
+              {[...Array(6)].map((_, index) => (
                 <div key={index} className="animate-pulse">
                   <div className="bg-gray-200 h-48 sm:h-56 rounded-lg mb-4"></div>
                   <div className="space-y-3">
@@ -119,7 +117,7 @@ export default function BlogPage() {
             </div>
           )}
 
-          {/* Regular Posts Grid - Same Style as Original */}
+          {/* Articles Grid */}
           {!loading && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
               {articles.map((post: Article) => (
@@ -217,19 +215,23 @@ export default function BlogPage() {
               {/* Pagination Buttons */}
               <div className="flex items-center space-x-2">
                 {/* Previous Button */}
-                <motion.button
-                  onClick={() => handlePageChange(pagination.currentPage - 1)}
-                  disabled={!pagination.hasPreviousPage}
-                  className={`flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
-                    pagination.hasPreviousPage
-                      ? "text-emerald-600 bg-white border border-emerald-600 hover:bg-emerald-600 hover:text-white"
-                      : "text-gray-400 bg-gray-100 border border-gray-200 cursor-not-allowed"
-                  }`}
-                  whileHover={pagination.hasPreviousPage ? { scale: 1.05 } : {}}
-                  whileTap={pagination.hasPreviousPage ? { scale: 0.95 } : {}}
-                >
-                  <HiChevronLeft className="w-4 h-4 mr-1" />
-                </motion.button>
+                {pagination.hasPreviousPage && (
+                  <Link 
+                    href={pagination.currentPage === 2 ? "/blog" : `/blog/page/${pagination.currentPage - 1}`}
+                    className="flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 text-emerald-600 bg-white border border-emerald-600 hover:bg-emerald-600 hover:text-white"
+                  >
+                    <HiChevronLeft className="w-4 h-4 mr-1" />
+                  </Link>
+                )}
+
+                {!pagination.hasPreviousPage && (
+                  <button
+                    disabled
+                    className="flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 text-gray-400 bg-gray-100 border border-gray-200 cursor-not-allowed"
+                  >
+                    <HiChevronLeft className="w-4 h-4 mr-1" />
+                  </button>
+                )}
 
                 {/* Page Numbers */}
                 <div className="flex items-center space-x-1">
@@ -246,37 +248,39 @@ export default function BlogPage() {
                     }
                     
                     return (
-                      <motion.button
+                      <Link
                         key={pageNum}
-                        onClick={() => handlePageChange(pageNum)}
-                        className={`w-10 h-10 text-sm font-medium rounded-lg transition-all duration-200 ${
+                        href={pageNum === 1 ? "/blog" : `/blog/page/${pageNum}`}
+                        className={`w-10 h-10 flex items-center justify-center text-sm font-medium rounded-lg transition-all duration-200 ${
                           pageNum === pagination.currentPage
                             ? "bg-emerald-600 text-white"
                             : "text-gray-600 bg-white border border-gray-200 hover:bg-emerald-50 hover:text-emerald-600"
                         }`}
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
                       >
                         {pageNum}
-                      </motion.button>
+                      </Link>
                     );
                   })}
                 </div>
 
                 {/* Next Button */}
-                <motion.button
-                  onClick={() => handlePageChange(pagination.currentPage + 1)}
-                  disabled={!pagination.hasNextPage}
-                  className={`flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
-                    pagination.hasNextPage
-                      ? "text-emerald-600 bg-white border border-emerald-600 hover:bg-emerald-600 hover:text-white"
-                      : "text-gray-400 bg-gray-100 border border-gray-200 cursor-not-allowed"
-                  }`}
-                  whileHover={pagination.hasNextPage ? { scale: 1.05 } : {}}
-                  whileTap={pagination.hasNextPage ? { scale: 0.95 } : {}}
-                >
-                  <HiChevronRight className="w-4 h-4 ml-1" />
-                </motion.button>
+                {pagination.hasNextPage && (
+                  <Link 
+                    href={`/blog/page/${pagination.currentPage + 1}`}
+                    className="flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 text-emerald-600 bg-white border border-emerald-600 hover:bg-emerald-600 hover:text-white"
+                  >
+                    <HiChevronRight className="w-4 h-4 ml-1" />
+                  </Link>
+                )}
+
+                {!pagination.hasNextPage && (
+                  <button
+                    disabled
+                    className="flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 text-gray-400 bg-gray-100 border border-gray-200 cursor-not-allowed"
+                  >
+                    <HiChevronRight className="w-4 h-4 ml-1" />
+                  </button>
+                )}
               </div>
             </motion.div>
           )}

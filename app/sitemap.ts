@@ -1,4 +1,4 @@
-import { getAllArticleSitemap } from "@/lib/api";
+import { getAllArticleSitemap, getArticlesPaginated } from "@/lib/api";
 import { MetadataRoute } from "next";
 
 const baseUrl = 'https://archipelago.web.id';
@@ -24,8 +24,21 @@ async function getRoutes(): Promise<MetadataRoute.Sitemap> {
     priority: route.priority,
   }));
 
-  // Add dynamic blog routes
   try {
+    // Add pagination routes
+    const firstPageData = await getArticlesPaginated(1, 6);
+    const totalPages = firstPageData.pagination.totalPages;
+
+    for (let i = 2; i <= totalPages; i++) {
+      routes.push({
+        url: `${baseUrl}/blog/page/${i}`,
+        lastModified: new Date(),
+        changeFrequency: "weekly" as const,
+        priority: 0.8,
+      });
+    }
+
+    // Add dynamic blog article routes
     const articles = await getAllArticleSitemap(100);
 
     const blogRoutes: MetadataRoute.Sitemap = articles
