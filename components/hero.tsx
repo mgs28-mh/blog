@@ -41,7 +41,7 @@ export default function Hero() {
         >
           <Link
             href="/blog"
-            className="group relative inline-flex justify-center items-center text-center gap-3 bg-green-600 hover:bg-green-700 text-white font-bold px-10 py-5 rounded-2xl shadow-2xl hover:shadow-emerald-500/25 transition-all duration-300 transform hover:-translate-y-2 hover:scale-105"
+            className="group relative inline-flex justify-center items-center text-center gap-3 bg-emerald-700 hover:bg-emerald-700 text-white font-bold px-10 py-5 rounded-2xl shadow-2xl hover:shadow-emerald-500/25 transition-all duration-300 transform hover:-translate-y-2 hover:scale-105"
           >
             <FileText className="relative z-10 w-5 h-5" />
             <span className="relative z-10">Eksplorasi Artikel</span>
