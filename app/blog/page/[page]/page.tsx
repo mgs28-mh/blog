@@ -1,5 +1,6 @@
 import BlogList from "@/components/blog/blog-page";
 import Hero from "@/components/blog/hero";
+import PaginationLinks from "@/components/blog/pagination-links";
 import type { Metadata } from "next";
 import { getArticlesPaginated } from "@/lib/api";
 import { notFound } from "next/navigation";
@@ -40,7 +41,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       return { title: "Page Not Found" };
     }
 
-    return {
+    const baseUrl = "https://archipelago.web.id";
+    const metadata: Metadata = {
       title: `Blog - Kata Komunikasi | Page ${pageNumber}`,
       description: `Dapatkan artikel, wawasan, dan tips komunikasi & teknologi. Halaman ${pageNumber} dari artikel terbaru di Kata Komunikasi.`,
       keywords: [
@@ -52,12 +54,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         "artikel komunikasi",
       ],
       alternates: {
-        canonical: `https://archipelago.web.id/blog/page/${pageNumber}`,
+        canonical: `${baseUrl}/blog/page/${pageNumber}`,
       },
       openGraph: {
         title: `Blog - Kata Komunikasi | Page ${pageNumber}`,
         description: `Artikel, wawasan, dan tips komunikasi & teknologi – Halaman ${pageNumber}.`,
-        url: `https://archipelago.web.id/blog/page/${pageNumber}`,
+        url: `${baseUrl}/blog/page/${pageNumber}`,
         siteName: "Archipelago",
         images: [
           {
@@ -78,6 +80,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         images: ["https://archipelago.web.id/logo.webp"],
       },
     };
+
+    return metadata;
   } catch (error) {
     return { title: "Page Not Found" };
   }
@@ -96,14 +100,22 @@ export default async function BlogPage({ params }: PageProps) {
     if (pageNumber > data.pagination.totalPages) {
       notFound();
     }
+
+    return (
+      <>
+        <PaginationLinks
+          currentPage={pageNumber}
+          hasNextPage={data.pagination.hasNextPage}
+          hasPreviousPage={data.pagination.hasPreviousPage}
+          baseUrl="https://archipelago.web.id"
+        />
+        <main>
+          <Hero />
+          <BlogList currentPage={pageNumber} />
+        </main>
+      </>
+    );
   } catch (error) {
     notFound();
   }
-
-  return (
-    <main>
-      <Hero />
-      <BlogList currentPage={pageNumber} />
-    </main>
-  );
 }

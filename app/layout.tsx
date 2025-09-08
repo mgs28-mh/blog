@@ -13,9 +13,11 @@ const fonts = Bricolage_Grotesque({
 });
 
 export const metadata: Metadata = {
-  title: "Kata Komunikasi - Komunikasi dan Teknologi",
-  description:
-    "Dapatkan artikel, wawasan, dan tips komunikasi dan informasi teknologi.",
+  title: {
+    default: "Kata Komunikasi - Komunikasi dan Teknologi",
+    template: "%s | Kata Komunikasi"
+  },
+  description: "Dapatkan artikel, wawasan, dan tips komunikasi dan informasi teknologi.",
   keywords: [
     "komunikasi digital",
     "komunikasi klasik",
@@ -24,33 +26,14 @@ export const metadata: Metadata = {
     "strategi komunikasi",
     "artikel komunikasi",
   ],
-  alternates: {
-    canonical: "https://archipelago.web.id",
-  },
   openGraph: {
-    title: "Kata Komunikasi - Komunikasi dan Teknologi",
-    description:
-      "Dapatkan artikel, wawasan, dan tips seputar komunikasi digital maupun klasik di Archipelago, sumber informasi relevan untuk mendukung perkembangan komunikasi di era modern.",
-    url: "https://archipelago.web.id",
     siteName: "Archipelago",
-    images: [
-      {
-        url: "https://archipelago.web.id/logo.webp",
-        width: 1200,
-        height: 630,
-        alt: "Kata Komunikasi - Komunikasi dan Teknologi",
-      },
-    ],
     locale: "id_ID",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     site: "https://archipelago.web.id",
-    title: "Kata Komunikasi - Komunikasi dan Teknologi",
-    description:
-      "Dapatkan artikel dan wawasan seputar komunikasi digital maupun klasik untuk mendukung perkembangan di era modern.",
-    images: ["https://archipelago.web.id/logo.webp"],
   },
 };
 
@@ -61,15 +44,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" data-scroll-behavior="smooth">
-      <head>
-        {/* ahrefs analytics pakai next/script */}
+      <body className={`${fonts.className} bg-white text-slate-900`}>
         <Script
           src="https://analytics.ahrefs.com/analytics.js"
           data-key="nCZwxPo3mN754U1NAe84aQ"
           strategy="afterInteractive"
         />
-      </head>
-      <body className={`${fonts.className} bg-white text-slate-900`}>
         <Navbar />
         <main className="min-h-screen">{children}</main>
         <Footer />

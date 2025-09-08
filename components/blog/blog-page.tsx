@@ -159,7 +159,7 @@ export default function BlogList({ currentPage }: BlogListProps) {
                         className="text-lg sm:text-xl font-bold text-gray-900 mb-3 
                group-hover:text-emerald-600 group-hover:underline 
                group-hover:underline-offset-2 transition-colors duration-300 
-               line-clamp-2"
+               line-clamp-3"
                       >
                         {post.title}
                       </h3>
@@ -218,6 +218,7 @@ export default function BlogList({ currentPage }: BlogListProps) {
                 {pagination.hasPreviousPage && (
                   <Link 
                     href={pagination.currentPage === 2 ? "/blog" : `/blog/page/${pagination.currentPage - 1}`}
+                    rel="prev"
                     className="flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 text-emerald-600 bg-white border border-emerald-600 hover:bg-emerald-600 hover:text-white"
                   >
                     <HiChevronLeft className="w-4 h-4 mr-1" />
@@ -267,6 +268,7 @@ export default function BlogList({ currentPage }: BlogListProps) {
                 {pagination.hasNextPage && (
                   <Link 
                     href={`/blog/page/${pagination.currentPage + 1}`}
+                    rel="next"
                     className="flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 text-emerald-600 bg-white border border-emerald-600 hover:bg-emerald-600 hover:text-white"
                   >
                     <HiChevronRight className="w-4 h-4 ml-1" />
