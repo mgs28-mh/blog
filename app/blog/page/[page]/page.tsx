@@ -60,7 +60,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         title: `Blog - Kata Komunikasi | Page ${pageNumber}`,
         description: `Artikel, wawasan, dan tips komunikasi & teknologi – Halaman ${pageNumber}.`,
         url: `${baseUrl}/blog/page/${pageNumber}`,
-        siteName: "Archipelago",
+        siteName: "Kata Komunikasi",
         images: [
           {
             url: "https://archipelago.web.id/logo.webp",

@@ -29,7 +29,7 @@ export async function generateMetadata(): Promise<Metadata> {
         description:
           "Dapatkan artikel, wawasan, dan tips seputar komunikasi digital maupun klasik di Archipelago, sumber informasi relevan untuk mendukung perkembangan komunikasi di era modern.",
         url: "https://archipelago.web.id/blog",
-        siteName: "Archipelago",
+        siteName: "Kata Komunikasi",
         images: [
           {
             url: "https://archipelago.web.id/logo.webp",

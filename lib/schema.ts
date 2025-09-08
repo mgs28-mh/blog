@@ -15,7 +15,7 @@ interface SchemaConfig {
 
 const defaultConfig: SchemaConfig = {
   baseUrl: "https://archipelago.web.id",
-  siteName: "Kata Komunikasi - Komunikasi dan Teknologi",
+  siteName: "Kata Komunikasi",
   author: {
     name: "Kata Komunikasi",
     url: "https://archipelago.web.id/about",
