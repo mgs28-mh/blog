@@ -14,15 +14,15 @@ interface SchemaConfig {
 }
 
 const defaultConfig: SchemaConfig = {
-  baseUrl: process.env.NEXT_PUBLIC_BASE_URL || "https://archipelago.web.id",
-  siteName: "BlogKita - Portal Komunikasi Digital Indonesia",
+  baseUrl: "https://archipelago.web.id",
+  siteName: "Kata Komunikasi - Komunikasi dan Teknologi",
   author: {
-    name: "Tim BlogKita",
-    url: "https://archipelago.web.id/tentang-kami",
+    name: "Kata Komunikasi",
+    url: "https://archipelago.web.id/about",
   },
   publisher: {
-    name: "BlogKita Indonesia",
-    logo: "https://archipelago.web.id/images/logo-blogkita.png",
+    name: "Kata Komunikasi",
+    logo: "https://archipelago.web.id/logo.webp",
   },
 };
 
@@ -36,7 +36,7 @@ export function generateWebsiteSchema(config: Partial<SchemaConfig> = {}) {
     name: finalConfig.siteName,
     url: finalConfig.baseUrl,
     description:
-      "Temukan wawasan mendalam tentang komunikasi digital, tren teknologi, dan pengembangan profesional melalui cerita menarik dan perspektif ahli.",
+      "Dapatkan artikel, wawasan, dan tips komunikasi dan informasi teknologi.",
     publisher: {
       "@type": "Organization",
       name: finalConfig.publisher.name,
@@ -69,7 +69,7 @@ export function generateBlogSchema(
     name: `${finalConfig.siteName} - Blog`,
     url: `${finalConfig.baseUrl}/blog`,
     description:
-      "Artikel-artikel terbaru tentang komunikasi digital, teknologi, dan pengembangan profesional.",
+      "Dapatkan artikel, wawasan, dan tips komunikasi dan informasi teknologi.",
     author: {
       "@type": "Person",
       name: finalConfig.author.name,
@@ -186,13 +186,13 @@ export function generateOrganizationSchema(config: Partial<SchemaConfig> = {}) {
       url: finalConfig.publisher.logo,
     },
     description:
-      "Platform blog yang menyediakan wawasan mendalam tentang komunikasi digital, tren teknologi, dan pengembangan profesional.",
+      "Dapatkan artikel, wawasan, dan tips komunikasi dan informasi teknologi.",
     sameAs: [
-      "https://twitter.com/blogkita_id",
-      "https://facebook.com/blogkita.indonesia",
-      "https://linkedin.com/company/blogkita-indonesia",
-      "https://instagram.com/archipelago.web.id",
-      "https://youtube.com/@blogkitaindonesia",
+      "https://twitter.com/katakomunikasi",
+      "https://facebook.com/katakomunikasi",
+      "https://linkedin.com/company/kata-komunikasi",
+      "https://instagram.com/katakomunikasi",
+      "https://youtube.com/@katakomunikasi",
     ],
     contactPoint: {
       "@type": "ContactPoint",
