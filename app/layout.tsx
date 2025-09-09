@@ -14,10 +14,7 @@ const fonts = Bricolage_Grotesque({
 });
 
 export const metadata: Metadata = {
-  title: {
-    default: "Kata Komunikasi - Komunikasi dan Teknologi",
-    template: "%s | Kata Komunikasi",
-  },
+  title: "Kata Komunikasi - Komunikasi dan Teknologi",
   description:
     "Dapatkan artikel, wawasan, dan tips komunikasi dan informasi teknologi.",
   keywords: [
