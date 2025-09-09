@@ -14,8 +14,16 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { href: "/", label: "Home" },
-  { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
+  {
+    href: "/blog",
+    label: "Blog",
+    children: [
+      { href: "/blog/komunikasi", label: "Komunikasi" },
+      { href: "/blog/teknologi", label: "Teknologi" },
+    ],
+  },
+
 ];
 
 export default function Navbar() {
@@ -146,31 +154,47 @@ export default function Navbar() {
     const mobileClasses = mobile ? "block w-full text-left" : "";
 
     if (hasChildren && !mobile) {
-      const buttonClasses = `flex items-center gap-1 ${baseClasses} ${activeClasses}`;
-
       return (
-        <div className="relative" ref={dropdownRef}>
-          <button
-            className={buttonClasses}
-            onClick={() =>
-              setActiveDropdown(
-                activeDropdown === item.label ? null : item.label
-              )
-            }
-            aria-expanded={activeDropdown === item.label}
-            aria-haspopup="true"
+        <div 
+          className="relative" 
+          ref={dropdownRef}
+        >
+          <div 
+            className={`flex items-center overflow-hidden transition-all duration-200}`}
           >
-            <span>{item.label}</span>
-            <ChevronDown
-              size={16}
-              className={`transition-transform duration-200 ${activeDropdown === item.label ? "rotate-180" : ""
-                }`}
-            />
-          </button>
+            {/* Main Link - Clickable */}
+            <Link
+              href={item.href}
+              className={`${baseClasses} ${activeClasses} text-slate-950 hover:text-emerald-600`}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {item.label}
+            </Link>
+            
+            {/* Dropdown Button - Separate from link */}
+            <button
+              className={`flex items-center -space-x-1 py-2 transition-all duration-200 hover:text-green-800 ${activeClasses} ${activeDropdown === item.label ? 'text-green-800 bg-lime-100' : ''}`}
+              onClick={(e) => {
+                e.stopPropagation();
+                setActiveDropdown(
+                  activeDropdown === item.label ? null : item.label
+                );
+              }}
+              aria-expanded={activeDropdown === item.label}
+              aria-haspopup="true"
+              aria-label={`Toggle ${item.label} submenu`}
+            >
+              <ChevronDown
+                size={20}
+                className={`transition-transform duration-200 ${activeDropdown === item.label ? "rotate-180" : ""
+                  }`}
+              />
+            </button>
+          </div>
 
           {/* Desktop Dropdown Menu */}
           <div
-            className={`absolute top-full left-0 mt-2 w-48 bg-neutral-800 border border-neutral-700 rounded-lg shadow-xl overflow-hidden transition-all duration-300 ease-out transform origin-top ${activeDropdown === item.label
+            className={`absolute top-full left-0 mt-2 w-48 ${isScrolled ? 'bg-white' : 'bg-lime-50'} shadow-xl overflow-hidden transition-all duration-300 ease-out transform origin-top ${activeDropdown === item.label
               ? "opacity-100 scale-y-100 translate-y-0 visible"
               : "opacity-0 scale-y-95 -translate-y-2 invisible"
               }`}
@@ -178,7 +202,7 @@ export default function Navbar() {
             <div className="py-2">
               {item.children?.map((child, index) => {
                 const childActive = isActiveLink(child.href);
-                const childClasses = `block px-4 py-2 text-sm transition-all duration-300 hover:text-emerald-400 hover:bg-neutral-700/50 transform ${childActive ? "text-emerald-400 bg-neutral-700/30" : ""
+                const childClasses = `block px-4 py-2 text-sm transition-all duration-300 hover:text-green-700 hover:bg-green-200/50 transform text-slate-800 ${childActive ? "text-green-700 bg-green-200" : ""
                   } ${activeDropdown === item.label
                     ? "translate-x-0 opacity-100"
                     : "translate-x-2 opacity-0"
@@ -212,18 +236,30 @@ export default function Navbar() {
 
       return (
         <div>
-          <button
-            className={`flex items-center justify-between w-full px-4 py-3 text-left transition-colors hover:text-emerald-400 hover:bg-neutral-800/50 ${activeClasses}`}
-            onClick={() => toggleMobileDropdown(item.label)}
-            aria-expanded={isExpanded}
-          >
-            <span className="text-lg">{item.label}</span>
-            <ChevronRight
-              size={20}
-              className={`transition-transform duration-200 ${isExpanded ? "rotate-90" : ""
-                }`}
-            />
-          </button>
+          <div className="flex items-center">
+            {/* Main Link - Clickable */}
+            <Link
+              href={item.href}
+              className={`flex-1 px-4 py-3 text-left transition-colors hover:text-emerald-400 hover:bg-neutral-800/50 ${activeClasses}`}
+              onClick={() => setIsOpen(false)}
+            >
+              <span className="text-lg text-white">{item.label}</span>
+            </Link>
+            
+            {/* Dropdown Toggle Button */}
+            <button
+              className="px-3 py-3 transition-colors hover:text-emerald-400 hover:bg-neutral-800/50 min-w-[50px] flex justify-center"
+              onClick={() => toggleMobileDropdown(item.label)}
+              aria-expanded={isExpanded}
+              aria-label={`Toggle ${item.label} submenu`}
+            >
+              <ChevronRight
+                size={18}
+                className={`transition-transform duration-200 ${isExpanded ? "rotate-90" : ""
+                  }`}
+              />
+            </button>
+          </div>
 
           {/* Mobile Submenu */}
           <div
@@ -281,7 +317,7 @@ export default function Navbar() {
   const navClasses = `${shouldStick ? 'fixed top-0 left-0 right-0 w-full transform translate-x-0' : 'relative'} z-50 transition-all duration-300 ease-in-out ${isScrolled ? "bg-white shadow-lg" : "bg-lime-100"
     }`;
 
-  const menuButtonClasses = `lg:hidden p-2 rounded-lg transition-all duration-200 text-slate-950 hover:bg-neutral-800 ${isOpen ? "bg-neutral-800" : ""
+  const menuButtonClasses = `lg:hidden p-2 rounded-lg transition-all duration-200 text-slate-950 hover:bg-neutral-800 ${isOpen ? "bg-lime-100" : ""
     }`;
 
   const logoClasses =
@@ -355,8 +391,8 @@ export default function Navbar() {
                   <X
                     size={24}
                     className={`absolute inset-0 transition-all duration-200 ${isOpen
-                      ? "opacity-100 rotate-0 scale-100"
-                      : "opacity-0 -rotate-45 scale-75"
+                      ? "opacity-100 rotate-0 scale-100 bg-lime-100"
+                      : "opacity-0 -rotate-45 scale-75 bg-lime-100"
                       }`}
                   />
                 </div>
@@ -374,14 +410,14 @@ export default function Navbar() {
       {/* Mobile Overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          className="fixed inset-0 z-40 lg:hidden"
           onClick={() => setIsOpen(false)}
         />
       )}
 
       {/* Mobile Slide Panel */}
       <div
-        className={`fixed top-0 left-0 h-full w-80 bg-neutral-900 border-r border-neutral-800 z-50 lg:hidden transform transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-full"
+        className={`fixed top-0 left-0 h-full w-80 bg-neutral-900 z-50 lg:hidden transform transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         style={{
           position: 'fixed',
@@ -400,7 +436,7 @@ export default function Navbar() {
           </Link>
           <button
             onClick={() => setIsOpen(false)}
-            className="p-2 rounded-lg hover:bg-neutral-800 transition-colors"
+            className="p-2 rounded-lg hover:bg-white transition-colors"
             aria-label="Close menu"
           >
             <X size={24} />

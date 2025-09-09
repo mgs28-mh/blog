@@ -7,6 +7,7 @@ interface PaginationLinksProps {
   hasNextPage: boolean;
   hasPreviousPage: boolean;
   baseUrl: string;
+  category?: string;
 }
 
 export default function PaginationLinks({
@@ -14,6 +15,7 @@ export default function PaginationLinks({
   hasNextPage,
   hasPreviousPage,
   baseUrl,
+  category,
 }: PaginationLinksProps) {
   useEffect(() => {
     // Remove any existing pagination links
@@ -22,9 +24,13 @@ export default function PaginationLinks({
     if (existingPrevLink) existingPrevLink.remove();
     if (existingNextLink) existingNextLink.remove();
 
+    const blogPath = category ? `/blog/${category}` : '/blog';
+
     // Add prev link if available
     if (hasPreviousPage) {
-      const prevUrl = currentPage === 2 ? `${baseUrl}/blog` : `${baseUrl}/blog/page/${currentPage - 1}`;
+      const prevUrl = currentPage === 2 
+        ? `${baseUrl}${blogPath}` 
+        : `${baseUrl}${blogPath}/page/${currentPage - 1}`;
       const prevLink = document.createElement('link');
       prevLink.rel = 'prev';
       prevLink.href = prevUrl;
@@ -33,7 +39,7 @@ export default function PaginationLinks({
 
     // Add next link if available
     if (hasNextPage) {
-      const nextUrl = `${baseUrl}/blog/page/${currentPage + 1}`;
+      const nextUrl = `${baseUrl}${blogPath}/page/${currentPage + 1}`;
       const nextLink = document.createElement('link');
       nextLink.rel = 'next';
       nextLink.href = nextUrl;
@@ -47,7 +53,7 @@ export default function PaginationLinks({
       if (prevLink) prevLink.remove();
       if (nextLink) nextLink.remove();
     };
-  }, [currentPage, hasNextPage, hasPreviousPage, baseUrl]);
+  }, [currentPage, hasNextPage, hasPreviousPage, baseUrl, category]);
 
   return null; // This component doesn't render anything visible
 }

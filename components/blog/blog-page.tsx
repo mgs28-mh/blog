@@ -5,14 +5,15 @@ import { useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { HiOutlineArrowRight, HiOutlineUser, HiChevronLeft, HiChevronRight } from "react-icons/hi";
-import { Article, getArticlesPaginated, PaginatedArticles } from "@/lib/api";
+import { Article, getArticlesPaginated, getArticlesByCategory, PaginatedArticles } from "@/lib/api";
 import Link from "next/link";
 
 interface BlogListProps {
   currentPage: number;
+  category?: string;
 }
 
-export default function BlogList({ currentPage }: BlogListProps) {
+export default function BlogList({ currentPage, category }: BlogListProps) {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
   const [paginatedData, setPaginatedData] = useState<PaginatedArticles>({
@@ -31,7 +32,9 @@ export default function BlogList({ currentPage }: BlogListProps) {
   const fetchArticles = async (page: number) => {
     setLoading(true);
     try {
-      const data = await getArticlesPaginated(page, 6);
+      const data = category 
+        ? await getArticlesByCategory(category, page, 6)
+        : await getArticlesPaginated(page, 6);
       setPaginatedData(data);
     } catch (error) {
       console.error("Error fetching articles:", error);
@@ -42,7 +45,7 @@ export default function BlogList({ currentPage }: BlogListProps) {
 
   useEffect(() => {
     fetchArticles(currentPage);
-  }, [currentPage]);
+  }, [currentPage, category]);
 
   const { articles, pagination } = paginatedData;
 
@@ -85,11 +88,18 @@ export default function BlogList({ currentPage }: BlogListProps) {
           {/* Section Header */}
           <div className="mb-6 text-center">
             <h2 className="text-3xl md:text-6xl font-bold text-slate-900 mb-2">
-              Artikel & Informasi Terbaru
+              {category === 'komunikasi' 
+                ? 'Artikel Komunikasi'
+                : category === 'teknologi'
+                ? 'Artikel Teknologi'
+                : 'Artikel & Informasi Terbaru'}
             </h2>
             <p className="text-xl text-neutral-900 mt-5">
-              Mengupas teori, praktik, dan fenomena komunikasi dari berbagai
-              sudut pandang.
+              {category === 'komunikasi'
+                ? 'Mengupas teori, praktik, dan strategi komunikasi dari berbagai sudut pandang.'
+                : category === 'teknologi'
+                ? 'Mengupas perkembangan teknologi komunikasi dan informasi terbaru.'
+                : 'Mengupas teori, praktik, dan fenomena komunikasi dari berbagai sudut pandang.'}
             </p>
             <div className="flex items-center justify-between mt-4">
               <div className="border-b-2 border-neutral-700 flex-1"></div>
@@ -217,7 +227,10 @@ export default function BlogList({ currentPage }: BlogListProps) {
                 {/* Previous Button */}
                 {pagination.hasPreviousPage && (
                   <Link 
-                    href={pagination.currentPage === 2 ? "/blog" : `/blog/page/${pagination.currentPage - 1}`}
+                    href={pagination.currentPage === 2 
+                      ? (category ? `/blog/${category}` : "/blog")
+                      : (category ? `/blog/${category}/page/${pagination.currentPage - 1}` : `/blog/page/${pagination.currentPage - 1}`)
+                    }
                     rel="prev"
                     className="flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 text-emerald-600 bg-white border border-emerald-600 hover:bg-emerald-600 hover:text-white"
                   >
@@ -251,7 +264,10 @@ export default function BlogList({ currentPage }: BlogListProps) {
                     return (
                       <Link
                         key={pageNum}
-                        href={pageNum === 1 ? "/blog" : `/blog/page/${pageNum}`}
+                        href={pageNum === 1 
+                          ? (category ? `/blog/${category}` : "/blog")
+                          : (category ? `/blog/${category}/page/${pageNum}` : `/blog/page/${pageNum}`)
+                        }
                         className={`w-10 h-10 flex items-center justify-center text-sm font-medium rounded-lg transition-all duration-200 ${
                           pageNum === pagination.currentPage
                             ? "bg-emerald-600 text-white"
@@ -267,7 +283,10 @@ export default function BlogList({ currentPage }: BlogListProps) {
                 {/* Next Button */}
                 {pagination.hasNextPage && (
                   <Link 
-                    href={`/blog/page/${pagination.currentPage + 1}`}
+                    href={category 
+                      ? `/blog/${category}/page/${pagination.currentPage + 1}`
+                      : `/blog/page/${pagination.currentPage + 1}`
+                    }
                     rel="next"
                     className="flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 text-emerald-600 bg-white border border-emerald-600 hover:bg-emerald-600 hover:text-white"
                   >

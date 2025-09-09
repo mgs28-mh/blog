@@ -4,7 +4,7 @@ import { motion, Variants } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { HiOutlineArrowRight } from "react-icons/hi";
-import { Article, getArticlesPreview } from "@/lib/api";
+import { Article, getArticlesByCategory, getFeaturedArticlesByCategory } from "@/lib/api";
 import Link from "next/link";
 import BlogFeature from "./com/feature";
 import BlogPost from "./com/post";
@@ -13,6 +13,7 @@ export default function BlogComSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
   const [articles, setArticles] = useState<Article[]>([]);
+  const [featuredArticles, setFeaturedArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -21,8 +22,12 @@ export default function BlogComSection() {
       setLoading(true);
       setError(null);
       try {
-        const data = await getArticlesPreview(5);
-        setArticles(data);
+        // Get komunikasi category articles
+        const regularData = await getArticlesByCategory("komunikasi", 1, 5);
+        const featuredData = await getFeaturedArticlesByCategory("komunikasi", 2);
+        
+        setArticles(regularData.articles);
+        setFeaturedArticles(featuredData);
       } catch (err) {
         setError('Failed to load articles');
         console.error('Error fetching articles:', err);
@@ -33,7 +38,6 @@ export default function BlogComSection() {
     fetchArticles();
   }, []);
 
-  const featuredPosts = articles.filter((post) => post.featured);
   const regularPosts = articles.filter((post) => !post.featured);
 
   // Error state component
@@ -113,7 +117,7 @@ export default function BlogComSection() {
           {!loading && !error && (
             <>
               {/* Featured Posts */}
-              <BlogFeature featuredPosts={featuredPosts} cardVariants={cardVariants} />
+              <BlogFeature featuredPosts={featuredArticles} cardVariants={cardVariants} />
 
               {/* Regular Posts Header */}
               {regularPosts.length > 0 && (
@@ -132,7 +136,7 @@ export default function BlogComSection() {
                     </div>
                     
                     {/* View All Posts Button - Desktop Only */}
-                    <Link href={`/blog`} className="hidden md:block">
+                    <Link href={`/blog/komunikasi`} className="hidden md:block">
                       <motion.button
                         className="inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-slate-950 hover:text-green-500 transition-all duration-300 cursor-pointer mt-4 md:mt-0"
                         transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -155,7 +159,7 @@ export default function BlogComSection() {
               <BlogPost regularPosts={regularPosts} cardVariants={cardVariants} />
 
               {/* View All Posts Button - Mobile Only */}
-              <Link href={`/blog`}>
+              <Link href={`/blog/komunikasi`}>
                 <motion.div
                   variants={cardVariants}
                   className="text-center mt-12 lg:mt-16 md:hidden"

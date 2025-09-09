@@ -32,6 +32,7 @@ export interface Article {
     url: string;
   };
   featured: boolean;
+  category?: string;
 }
 
 export interface ArticleCollection {
@@ -90,6 +91,7 @@ const ARTICLE_GRAPHQL_FIELDS = `
       url
     }
     featured
+    category
   `;
 
 const ARTICLE_GRAPHQL_HOMEPAGE = `
@@ -104,6 +106,7 @@ const ARTICLE_GRAPHQL_HOMEPAGE = `
       url
     }
     featured
+    category
 `;
 
 async function fetchGraphQL(
@@ -452,10 +455,100 @@ export async function getAllArticleSitemap(
       title: '',
       excerpt: '',
       details: { json: {} },
-      image: { url: '' }
+      image: { url: '' },
+      category: ''
     }));
     
   } catch {
     return [];
   }
+}
+
+// Get articles by category with pagination
+export async function getArticlesByCategory(
+  category: string,
+  page = 1,
+  itemsPerPage = 6,
+  isDraftMode = false
+): Promise<PaginatedArticles> {
+  const skip = (page - 1) * itemsPerPage;
+  
+  const query = `
+    query {
+      artikelPostCollection(
+        where: {slug_exists: true, category: "${category}"}, 
+        order: [date_DESC, sys_id_DESC],
+        limit: ${itemsPerPage},
+        skip: ${skip},
+        preview: ${isDraftMode ? "true" : "false"}
+      ) {
+        total
+        items {
+          ${ARTICLE_GRAPHQL_HOMEPAGE}
+        }
+      }
+    }`;
+
+  const response = await fetchGraphQL(query, isDraftMode);
+  const collection = extractArticleCollection(response);
+  
+  const totalItems = collection.total || 0;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  
+  return {
+    articles: collection.items,
+    pagination: {
+      currentPage: page,
+      totalPages,
+      totalItems,
+      hasNextPage: page < totalPages,
+      hasPreviousPage: page > 1,
+      itemsPerPage,
+    },
+  };
+}
+
+// Get all articles from a specific category (without pagination)
+export async function getAllArticlesByCategory(
+  category: string,
+  limit = 100,
+  isDraftMode = false
+): Promise<Article[]> {
+  const articles = await fetchGraphQL(
+    `query {
+          artikelPostCollection(where:{slug_exists: true, category: "${category}"}, order: date_DESC, limit: ${limit}, preview: ${
+            isDraftMode ? "true" : "false"
+          }) {
+            items {
+              ${ARTICLE_GRAPHQL_FIELDS}
+            }
+          }
+        }`,
+    isDraftMode
+  );
+  return extractArticleEntries(articles);
+}
+
+// Get featured articles by category
+export async function getFeaturedArticlesByCategory(
+  category: string,
+  limit = 3,
+  isDraftMode = false
+): Promise<Article[]> {
+  const query = `
+    query {
+      artikelPostCollection(
+        where: {slug_exists: true, featured: true, category: "${category}"}, 
+        order: date_DESC, 
+        limit: ${limit},
+        preview: ${isDraftMode ? "true" : "false"}
+      ) {
+        items {
+          ${ARTICLE_GRAPHQL_FIELDS}
+        }
+      }
+    }`;
+
+  const response = await fetchGraphQL(query, isDraftMode);
+  return extractArticleEntries(response);
 }

@@ -4,7 +4,7 @@ import { motion, Variants } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { HiOutlineArrowRight } from "react-icons/hi";
-import { Article, getArticlesPreview } from "@/lib/api";
+import { Article, getArticlesByCategory, getFeaturedArticlesByCategory } from "@/lib/api";
 import Link from "next/link";
 import BlogFeature from "./tech/feature";
 import BlogPost from "./tech/post";
@@ -13,6 +13,7 @@ export default function BlogTechSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
   const [articles, setArticles] = useState<Article[]>([]);
+  const [featuredArticles, setFeaturedArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -21,8 +22,12 @@ export default function BlogTechSection() {
       setLoading(true);
       setError(null);
       try {
-        const data = await getArticlesPreview(5);
-        setArticles(data);
+        // Get teknologi category articles
+        const regularData = await getArticlesByCategory("teknologi", 1, 5);
+        const featuredData = await getFeaturedArticlesByCategory("teknologi", 2);
+        
+        setArticles(regularData.articles);
+        setFeaturedArticles(featuredData);
       } catch (err) {
         setError('Failed to load articles');
         console.error('Error fetching articles:', err);
@@ -33,7 +38,6 @@ export default function BlogTechSection() {
     fetchArticles();
   }, []);
 
-  const featuredPosts = articles.filter((post) => post.featured);
   const regularPosts = articles.filter((post) => !post.featured);
 
   // Error state component
@@ -113,8 +117,8 @@ export default function BlogTechSection() {
           {!loading && !error && (
             <>
               {/* Featured Post - Two Large Posts */}
-              {featuredPosts.length > 0 && (
-                <BlogFeature featuredPosts={featuredPosts.slice(0, 2)} cardVariants={cardVariants} />
+              {featuredArticles.length > 0 && (
+                <BlogFeature featuredPosts={featuredArticles.slice(0, 2)} cardVariants={cardVariants} />
               )}
 
               {/* Regular Posts Header */}
@@ -134,7 +138,7 @@ export default function BlogTechSection() {
                     </div>
 
                     {/* View All Posts Button - Desktop Only */}
-                    <Link href={`/blog`} className="hidden md:block">
+                    <Link href={`/blog/teknologi`} className="hidden md:block">
                       <motion.button
                         className="inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-slate-950 hover:text-green-500 transition-all duration-300 cursor-pointer mt-4 md:mt-0"
                         transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -157,7 +161,7 @@ export default function BlogTechSection() {
               <BlogPost regularPosts={regularPosts} cardVariants={cardVariants} />
 
               {/* View All Posts Button - Mobile Only */}
-              <Link href={`/blog`}>
+              <Link href={`/blog/teknologi`}>
                 <motion.div
                   variants={cardVariants}
                   className="text-center mt-12 lg:mt-16 md:hidden"
