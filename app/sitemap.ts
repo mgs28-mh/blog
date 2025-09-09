@@ -1,4 +1,4 @@
-import { getAllArticleSitemap, getArticlesPaginated } from "@/lib/api";
+import { getAllArticleSitemap, getArticlesByCategory } from "@/lib/api";
 import { MetadataRoute } from "next";
 
 const baseUrl = 'https://archipelago.web.id';
@@ -14,6 +14,8 @@ async function getRoutes(): Promise<MetadataRoute.Sitemap> {
     { path: "/", priority: 1.0, changeFrequency: "monthly" as const },
     { path: "/about", priority: 0.8, changeFrequency: "monthly" as const },
     { path: "/blog", priority: 0.9, changeFrequency: "weekly" as const },
+    { path: "/blog/komunikasi", priority: 0.9, changeFrequency: "weekly" as const },
+    { path: "/blog/teknologi", priority: 0.9, changeFrequency: "weekly" as const },
   ];
 
   // Add static routes
@@ -25,13 +27,26 @@ async function getRoutes(): Promise<MetadataRoute.Sitemap> {
   }));
 
   try {
-    // Add pagination routes
-    const firstPageData = await getArticlesPaginated(1, 6);
-    const totalPages = firstPageData.pagination.totalPages;
+    // Add pagination routes for komunikasi category
+    const komunikasiFirstPage = await getArticlesByCategory("komunikasi", 1, 6);
+    const komunikasiTotalPages = komunikasiFirstPage.pagination.totalPages;
 
-    for (let i = 2; i <= totalPages; i++) {
+    for (let i = 2; i <= komunikasiTotalPages; i++) {
       routes.push({
-        url: `${baseUrl}/blog/page/${i}`,
+        url: `${baseUrl}/blog/komunikasi/page/${i}`,
+        lastModified: new Date(),
+        changeFrequency: "weekly" as const,
+        priority: 0.8,
+      });
+    }
+
+    // Add pagination routes for teknologi category
+    const teknologiFirstPage = await getArticlesByCategory("teknologi", 1, 6);
+    const teknologiTotalPages = teknologiFirstPage.pagination.totalPages;
+
+    for (let i = 2; i <= teknologiTotalPages; i++) {
+      routes.push({
+        url: `${baseUrl}/blog/teknologi/page/${i}`,
         lastModified: new Date(),
         changeFrequency: "weekly" as const,
         priority: 0.8,
