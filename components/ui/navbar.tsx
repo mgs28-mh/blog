@@ -149,8 +149,8 @@ export default function Navbar() {
     const hasChildren = item.children && item.children.length > 0;
 
     const baseClasses =
-      "px-3 py-2 transition-all duration-200 hover:text-green-800";
-    const activeClasses = active ? "text-green-800" : "";
+      "px-3 py-2 transition-all duration-200 hover:text-red-400";
+    const activeClasses = active ? "text-red-400" : "";
     const mobileClasses = mobile ? "block w-full text-left" : "";
 
     if (hasChildren && !mobile) {
@@ -160,12 +160,12 @@ export default function Navbar() {
           ref={dropdownRef}
         >
           <div 
-            className={`flex items-center overflow-hidden transition-all duration-200}`}
+            className={`flex items-center gap-0 transition-all duration-200`}
           >
             {/* Main Link - Clickable */}
             <Link
               href={item.href}
-              className={`${baseClasses} ${activeClasses} text-slate-950 hover:text-emerald-600`}
+              className={`${baseClasses} ${activeClasses} text-white hover:text-red-400 pr-0`}
               onClick={(e) => e.stopPropagation()}
             >
               {item.label}
@@ -173,7 +173,7 @@ export default function Navbar() {
             
             {/* Dropdown Button - Separate from link */}
             <button
-              className={`flex items-center -space-x-1 py-2 transition-all duration-200 hover:text-green-800 ${activeClasses} ${activeDropdown === item.label ? 'text-green-800 bg-lime-100' : ''}`}
+              className={`flex items-center px-1 py-2 transition-all duration-200 hover:text-red-400 ${activeClasses} ${activeDropdown === item.label ? 'text-red-400' : 'text-white'}`}
               onClick={(e) => {
                 e.stopPropagation();
                 setActiveDropdown(
@@ -185,7 +185,7 @@ export default function Navbar() {
               aria-label={`Toggle ${item.label} submenu`}
             >
               <ChevronDown
-                size={20}
+                size={16}
                 className={`transition-transform duration-200 ${activeDropdown === item.label ? "rotate-180" : ""
                   }`}
               />
@@ -194,7 +194,7 @@ export default function Navbar() {
 
           {/* Desktop Dropdown Menu */}
           <div
-            className={`absolute top-full left-0 mt-2 w-48 ${isScrolled ? 'bg-white' : 'bg-lime-50'} shadow-xl overflow-hidden transition-all duration-300 ease-out transform origin-top ${activeDropdown === item.label
+            className={`absolute top-full left-0 mt-2 w-48 ${isScrolled ? 'bg-gray-800' : 'bg-gray-800'} shadow-xl overflow-hidden transition-all duration-300 ease-out transform origin-top rounded-lg border border-gray-700 ${activeDropdown === item.label
               ? "opacity-100 scale-y-100 translate-y-0 visible"
               : "opacity-0 scale-y-95 -translate-y-2 invisible"
               }`}
@@ -202,7 +202,7 @@ export default function Navbar() {
             <div className="py-2">
               {item.children?.map((child, index) => {
                 const childActive = isActiveLink(child.href);
-                const childClasses = `block px-4 py-2 text-sm transition-all duration-300 hover:text-green-700 hover:bg-green-200/50 transform text-slate-800 ${childActive ? "text-green-700 bg-green-200" : ""
+                const childClasses = `block px-4 py-2 text-sm transition-all duration-300 hover:text-red-400 hover:bg-gray-700/50 transform text-gray-300 ${childActive ? "text-red-400 bg-gray-700" : ""
                   } ${activeDropdown === item.label
                     ? "translate-x-0 opacity-100"
                     : "translate-x-2 opacity-0"
@@ -240,7 +240,7 @@ export default function Navbar() {
             {/* Main Link - Clickable */}
             <Link
               href={item.href}
-              className={`flex-1 px-4 py-3 text-left transition-colors hover:text-emerald-400 hover:bg-neutral-800/50 ${activeClasses}`}
+              className={`flex-1 px-4 py-3 text-left transition-colors hover:text-red-400 hover:bg-neutral-800/50 ${activeClasses}`}
               onClick={() => setIsOpen(false)}
             >
               <span className="text-lg text-white">{item.label}</span>
@@ -248,7 +248,7 @@ export default function Navbar() {
             
             {/* Dropdown Toggle Button */}
             <button
-              className="px-3 py-3 transition-colors hover:text-emerald-400 hover:bg-neutral-800/50 min-w-[50px] flex justify-center"
+              className="px-3 py-3 transition-colors hover:text-red-400 hover:bg-neutral-800/50 min-w-[50px] flex justify-center"
               onClick={() => toggleMobileDropdown(item.label)}
               aria-expanded={isExpanded}
               aria-label={`Toggle ${item.label} submenu`}
@@ -278,7 +278,7 @@ export default function Navbar() {
                   <Link
                     key={child.href}
                     href={child.href}
-                    className={`block px-4 py-3 text-base transition-all duration-200 hover:text-emerald-400 hover:bg-neutral-700/50 first:rounded-t-lg last:rounded-b-lg transform ${childActive ? "text-emerald-400 bg-neutral-700/50" : ""
+                    className={`block px-4 py-3 text-base transition-all duration-200 hover:text-red-400 hover:bg-neutral-700/50 first:rounded-t-lg last:rounded-b-lg transform ${childActive ? "text-red-400 bg-neutral-700/50" : ""
                       } ${isExpanded
                         ? "translate-x-0 opacity-100"
                         : "translate-x-4 opacity-0"
@@ -299,7 +299,7 @@ export default function Navbar() {
 
     const linkClasses = `${baseClasses} ${activeClasses} ${mobileClasses}`;
     const mobileLinkClasses = mobile
-      ? "block px-4 py-3 text-lg transition-colors hover:text-emerald-400 hover:bg-neutral-800/50"
+      ? "block px-4 py-3 text-lg transition-colors hover:text-red-400 hover:bg-neutral-800/50"
       : linkClasses;
 
     return (
@@ -314,17 +314,17 @@ export default function Navbar() {
     );
   };
 
-  const navClasses = `${shouldStick ? 'fixed top-0 left-0 right-0 w-full transform translate-x-0' : 'relative'} z-50 transition-all duration-300 ease-in-out ${isScrolled ? "bg-white shadow-lg" : "bg-lime-100"
+  const navClasses = `${shouldStick ? 'fixed top-0 left-0 right-0 w-full transform translate-x-0' : 'relative'} z-50 transition-all duration-300 ease-in-out ${isScrolled ? "bg-gray-900/95 backdrop-blur-sm shadow-lg" : "bg-gray-900"
     }`;
 
-  const menuButtonClasses = `lg:hidden p-2 rounded-lg transition-all duration-200 text-slate-950 hover:bg-neutral-800 ${isOpen ? "bg-lime-100" : ""
+  const menuButtonClasses = `lg:hidden p-2 rounded-lg transition-all duration-200 text-white hover:bg-gray-800 ${isOpen ? "bg-gray-800" : ""
     }`;
 
   const logoClasses =
-    "text-2xl font-bold transition-all duration-200 hover:text-emerald-400 rounded-lg px-2 py-1 bg-gradient-to-r from-white to-emerald-100 bg-clip-text hover:from-emerald-400 hover:to-emerald-300";
+    "text-2xl font-bold transition-all duration-200 hover:text-red-400 rounded-lg px-2 py-1";
 
   const searchButtonClasses =
-    "p-2 rounded-lg transition-all duration-200 hover:text-emerald-400 text-slate-950";
+    "p-2 rounded-lg transition-all duration-200 hover:text-red-400 text-white hover:bg-gray-800";
 
   return (
     <>
@@ -344,28 +344,19 @@ export default function Navbar() {
         }
       `}</style>
       <nav className={navClasses}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-6">
           <div className="flex items-center justify-between h-18">
             {/* Left - Logo */}
             <div className="flex items-center">
               <Link href="/" className={`${logoClasses} flex items-center gap-3`}>
-                <div className="relative w-32 h-12 md:w-40 md:h-14 lg:w-48 lg:h-16">
-                  <Image
-                    src="/logo-kk.webp"
-                    alt="Kata Komunikasi Logo"
-                    fill
-                    className="object-contain"
-                    sizes="(max-width: 768px) 120px, 
-                           (max-width: 1200px) 160px, 
-                            190px"
-                    priority
-                  />
-                </div>
+                <span className="text-xl md:text-2xl font-bold text-white tracking-tight leading-tight">
+                  kata<br />komunikasi
+                </span>
               </Link>
             </div>
 
             {/* Center - Navigation Links (Desktop) */}
-            <div className="hidden lg:flex items-center space-x-1 absolute left-1/2 transform -translate-x-1/2 text-slate-950 text-md font-semibold uppercase">
+            <div className="hidden lg:flex items-center space-x-1 absolute left-1/2 transform -translate-x-1/2 text-white text-md font-semibold uppercase">
               {navItems.map((item) => (
                 <NavLink key={item.href} item={item} />
               ))}
@@ -391,8 +382,8 @@ export default function Navbar() {
                   <X
                     size={24}
                     className={`absolute inset-0 transition-all duration-200 ${isOpen
-                      ? "opacity-100 rotate-0 scale-100 bg-lime-100"
-                      : "opacity-0 -rotate-45 scale-75 bg-lime-100"
+                      ? "opacity-100 rotate-0 scale-100"
+                      : "opacity-0 -rotate-45 scale-75"
                       }`}
                   />
                 </div>
@@ -429,7 +420,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between p-4 border-b border-neutral-800">
           <Link
             href="/"
-            className="text-xl font-bold text-emerald-400"
+            className="text-xl font-bold text-red-400"
             onClick={() => setIsOpen(false)}
           >
             Kata Komunikasi
@@ -453,7 +444,7 @@ export default function Navbar() {
 
           {/* Additional mobile menu items */}
           <div className="mt-8 px-4 pt-4 border-t border-neutral-800">
-            <button className="flex items-center gap-3 w-full px-4 py-3 text-lg transition-colors hover:text-emerald-400 hover:bg-neutral-800/50 rounded-lg">
+            <button className="flex items-center gap-3 w-full px-4 py-3 text-lg transition-colors hover:text-red-400 hover:bg-neutral-800/50 rounded-lg">
               <Search size={20} />
               Search
             </button>
