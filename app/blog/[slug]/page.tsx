@@ -7,9 +7,7 @@ import { ReactNode, Suspense } from "react";
 import Link from "next/link";
 import { Calendar, Clock, User, Share2 } from "lucide-react";
 import { draftMode } from "next/headers";
-import ReadingProgressBar from "@/components/ui/reading";
 import SocialShareButtons from "@/components/ui/social";
-import AuthorCard from "@/components/ui/author";
 import RelatedArticles from "@/components/ui/related";
 import { generateArticleSchema, generateJsonLd } from "@/lib/schema";
 
@@ -70,7 +68,7 @@ const richTextRenderOptions = {
       <li className="text-lg leading-normal">{children}</li>
     ),
     [BLOCKS.QUOTE]: (_node: any, children: ReactNode) => (
-      <blockquote className="border-l-4 rounded-l-md border-emerald-500 p-4 py-4 italic text-gray-700 bg-blue-50">
+      <blockquote className="border-l-4 rounded-l-md border-red-500 p-4 py-4 italic text-gray-700 bg-red-50">
         {children}
       </blockquote>
     ),
@@ -107,7 +105,7 @@ const richTextRenderOptions = {
     [INLINES.HYPERLINK]: (node: any, children: ReactNode) => (
       <Link
         href={node.data.uri}
-        className="text-emerald-600 hover:text-emerald-800 underline decoration-2 underline-offset-2 transition-colors duration-200"
+        className="text-red-600 hover:text-red-800 underline decoration-2 underline-offset-2 transition-colors duration-200"
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -129,55 +127,52 @@ const richTextRenderOptions = {
   },
 };
 
-function ReadingProgressSkeleton() {
-  return (
-    <div className="fixed top-0 left-0 w-full h-1 bg-lime-100 z-50">
-      <div
-        className="h-full bg-gray-300 animate-pulse"
-        style={{ width: "0%" }}
-      />
-    </div>
-  );
-}
-
 function ArticleSkeletonLoading() {
   return (
     <div className="animate-pulse bg-white">
-      <ReadingProgressSkeleton />
-
       {/* Hero Section Skeleton */}
-      <div className="bg-lime-100 py-16">
-        <div className="container mx-auto px-4 max-w-6xl">
+      <div className="relative bg-gray-900 py-16 overflow-hidden">
+        {/* Decorative background elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute inset-0 opacity-5">
+            <div className="absolute inset-0" style={{
+              backgroundImage: `linear-gradient(to right, #fff 1px, transparent 1px),
+                               linear-gradient(to bottom, #fff 1px, transparent 1px)`,
+              backgroundSize: '4rem 4rem'
+            }} />
+          </div>
+        </div>
+        <div className="relative z-10 container mx-auto px-4 max-w-6xl">
           <div className="flex flex-col justify-start items-start text-left">
             {/* Breadcrumb Skeleton */}
             <div className="flex items-center gap-2 mb-6">
-              <div className="h-4 w-16 bg-gray-200 rounded"></div>
-              <div className="h-4 w-1 bg-gray-200 rounded"></div>
-              <div className="h-4 w-12 bg-gray-200 rounded"></div>
-              <div className="h-4 w-1 bg-gray-200 rounded"></div>
-              <div className="h-4 w-32 bg-gray-200 rounded"></div>
+              <div className="h-4 w-16 bg-gray-700 rounded"></div>
+              <div className="h-4 w-1 bg-gray-700 rounded"></div>
+              <div className="h-4 w-12 bg-gray-700 rounded"></div>
+              <div className="h-4 w-1 bg-gray-700 rounded"></div>
+              <div className="h-4 w-32 bg-gray-700 rounded"></div>
             </div>
 
             {/* Title Skeleton */}
-            <div className="h-12 w-3/4 max-w-4xl bg-gray-200 rounded-lg mb-4"></div>
-            <div className="h-12 w-2/3 max-w-3xl bg-gray-200 rounded-lg mb-6"></div>
+            <div className="h-12 w-3/4 max-w-4xl bg-gray-700 rounded-lg mb-4"></div>
+            <div className="h-12 w-2/3 max-w-3xl bg-gray-700 rounded-lg mb-6"></div>
 
             {/* Metadata Skeleton */}
             <div className="flex items-center gap-4 mb-6">
-              <div className="h-5 w-32 bg-gray-200 rounded-md"></div>
-              <div className="w-1 h-1 rounded-full bg-gray-300"></div>
-              <div className="h-5 w-24 bg-gray-200 rounded-md"></div>
-              <div className="w-1 h-1 rounded-full bg-gray-300"></div>
-              <div className="h-5 w-28 bg-gray-200 rounded-md"></div>
+              <div className="h-5 w-32 bg-gray-700 rounded-md"></div>
+              <div className="w-1 h-1 rounded-full bg-gray-600"></div>
+              <div className="h-5 w-24 bg-gray-700 rounded-md"></div>
+              <div className="w-1 h-1 rounded-full bg-gray-600"></div>
+              <div className="h-5 w-28 bg-gray-700 rounded-md"></div>
             </div>
 
             {/* Social Share Skeleton */}
             <div className="flex items-center gap-4">
-              <div className="h-5 w-5 bg-gray-200 rounded"></div>
+              <div className="h-5 w-5 bg-gray-700 rounded"></div>
               <div className="flex gap-2">
-                <div className="h-8 w-8 bg-gray-200 rounded"></div>
-                <div className="h-8 w-8 bg-gray-200 rounded"></div>
-                <div className="h-8 w-8 bg-gray-200 rounded"></div>
+                <div className="h-8 w-8 bg-gray-700 rounded"></div>
+                <div className="h-8 w-8 bg-gray-700 rounded"></div>
+                <div className="h-8 w-8 bg-gray-700 rounded"></div>
               </div>
             </div>
           </div>
@@ -244,32 +239,45 @@ export default async function BlogPostArticlePage(
   return (
     <main className="min-h-screen bg-white">
       <Suspense fallback={<ArticleSkeletonLoading />}>
-        {/* Reading Progress Bar */}
-        <ReadingProgressBar />
-
         {/* Hero Section */}
-        <div className="bg-lime-100 py-16">
-          <div className="container mx-auto px-6 max-w-6xl">
+        <div className="relative bg-gray-900 py-16 overflow-hidden">
+          {/* Decorative background elements */}
+          <div className="absolute inset-0 overflow-hidden">
+            {/* Grid pattern */}
+            <div className="absolute inset-0 opacity-5">
+              <div className="absolute inset-0" style={{
+                backgroundImage: `linear-gradient(to right, #fff 1px, transparent 1px),
+                                 linear-gradient(to bottom, #fff 1px, transparent 1px)`,
+                backgroundSize: '4rem 4rem'
+              }} />
+            </div>
+            
+            {/* Decorative lines */}
+            <div className="absolute top-0 left-1/3 w-px h-full bg-gradient-to-b from-transparent via-slate-700/50 to-transparent" />
+            <div className="absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-transparent via-slate-700/50 to-transparent" />
+          </div>
+
+          <div className="relative z-10 container mx-auto px-6 max-w-6xl">
             <div className="flex flex-col justify-start items-start text-left">
               {/* Breadcrumb */}
-              <div className="mb-6 text-sm text-slate-950 flex gap-2 justify-start items-center flex-wrap">
-                <Link href="/" className="hover:underline text-slate-950">
+              <div className="mb-6 text-sm text-gray-400 flex gap-2 justify-start items-center flex-wrap">
+                <Link href="/" className="hover:underline text-gray-300 hover:text-red-400 transition-colors">
                   Beranda
                 </Link>
-                <span className="text-gray-400">/</span>
-                <Link href="/blog" className="hover:underline text-slate-950">
+                <span className="text-gray-600">/</span>
+                <Link href="/blog" className="hover:underline text-gray-300 hover:text-red-400 transition-colors">
                   Blog
                 </Link>
-                <span className="text-gray-400">/</span>
+                <span className="text-gray-600">/</span>
               </div>
 
               {/* Title */}
-              <h1 className="text-3xl md:text-5xl font-bold text-slate-950 mb-6 leading-snug max-w-4xl">
+              <h1 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-snug max-w-4xl">
                 {article.title}
               </h1>
 
               {/* Metadata */}
-              <div className="flex items-center gap-4 text-gray-600 text-sm flex-wrap justify-start mb-6">
+              <div className="flex items-center gap-4 text-gray-400 text-sm flex-wrap justify-start mb-6">
                 <span className="flex items-center gap-1">
                   <Calendar className="w-4 h-4" />
                   {new Date(article.date).toLocaleDateString("id-ID", {
@@ -278,12 +286,12 @@ export default async function BlogPostArticlePage(
                     day: "numeric",
                   })}
                 </span>
-                <span className="w-1 h-1 rounded-full bg-slate-950"></span>
+                <span className="w-1 h-1 rounded-full bg-gray-500"></span>
                 <span className="flex items-center gap-1">
                   <Clock className="w-4 h-4" />
                   {readingTime}
                 </span>
-                <span className="w-1 h-1 rounded-full bg-slate-950"></span>
+                <span className="w-1 h-1 rounded-full bg-gray-500"></span>
                 <span className="flex items-center gap-1">
                   <User className="w-4 h-4" />
                   Galang Saputra
@@ -292,7 +300,7 @@ export default async function BlogPostArticlePage(
 
               {/* Social Share Buttons in Hero */}
               <div className="flex items-center gap-4">
-                <Share2 className="w-5 h-5 text-gray-600" />
+                <Share2 className="w-5 h-5 text-gray-400" />
                 <SocialShareButtons
                   url={articleUrl}
                   title={article.title}
@@ -335,44 +343,11 @@ export default async function BlogPostArticlePage(
                 </div>
               </article>
 
-              {/* Author Section */}
-              <div className="lg:hidden mb-5">
-                <AuthorCard />
-              </div>
-
-              {/* Share Section */}
-              <div className="lg:hidden bg-white mb-10">
-                <h3 className="text-md font-bold text-gray-900 mb-4 tracking-wider">
-                  Bagikan
-                </h3>
-                <SocialShareButtons
-                  url={articleUrl}
-                  title={article.title}
-                  variant="sidebar"
-                />
-              </div>
-
               {/* Related Articles */}
               <RelatedArticles currentSlug={params.slug} />
             </main>
 
-            {/* Sidebar - Now on the right side */}
-            <aside className="hidden lg:block lg:w-60 flex-shrink-0 space-y-8 order-2 lg:order-2">
-              <div className="sticky top-21 bg-white">
-                {/* Author Section */}
-              <AuthorCard />
 
-              {/* Share Section - sticky */}
-                <h3 className="text-md font-bold text-gray-900 mb-4 mt-4 tracking-wider">
-                  Bagikan
-                </h3>
-                <SocialShareButtons
-                  url={articleUrl}
-                  title={article.title}
-                  variant="sidebar"
-                />
-              </div>
-            </aside>
           </div>
         </div>
 
