@@ -92,7 +92,7 @@ export default function BlogTechSection() {
           {/* Section Header - Always visible */}
           <div className="mb-6 text-center">
             <h2 className="text-3xl md:text-6xl font-bold text-slate-900 mb-2">
-              Artikel <span className="text-emerald-600">Teknologi</span>
+              Artikel <span className="text-red-600">Teknologi</span>
             </h2>
             <p className="text-xl text-neutral-900 mt-5 mb-10">
               Mengupas tips dan fenomena teknologi dari berbagai
@@ -140,7 +140,7 @@ export default function BlogTechSection() {
                     {/* View All Posts Button - Desktop Only */}
                     <Link href={`/blog/teknologi`} className="hidden md:block">
                       <motion.button
-                        className="inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-slate-950 hover:text-green-500 transition-all duration-300 cursor-pointer mt-4 md:mt-0"
+                        className="inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-slate-950 hover:text-red-500 transition-all duration-300 cursor-pointer mt-4 md:mt-0"
                         transition={{ type: "spring", stiffness: 300, damping: 20 }}
                       >
                         View All Posts
@@ -167,7 +167,7 @@ export default function BlogTechSection() {
                   className="text-center mt-12 lg:mt-16 md:hidden"
                 >
                   <motion.button
-                    className="inline-flex items-center justify-center px-6 py-3 text-base sm:text-lg font-semibold text-emerald-600 bg-white border-2 border-emerald-600 hover:bg-emerald-600 hover:text-white transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-emerald-500/50 cursor-pointer"
+                    className="inline-flex items-center justify-center px-6 py-3 text-base sm:text-lg font-semibold text-red-600 bg-white border-2 border-red-600 hover:bg-red-600 hover:text-white transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-red-500/50 cursor-pointer"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}

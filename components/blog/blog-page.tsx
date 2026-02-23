@@ -167,7 +167,7 @@ export default function BlogList({ currentPage, category }: BlogListProps) {
                       {/* Title */}
                       <h3
                         className="text-lg sm:text-xl font-bold text-gray-900 mb-3 
-               group-hover:text-emerald-600 group-hover:underline 
+               group-hover:text-red-600 group-hover:underline 
                group-hover:underline-offset-2 transition-colors duration-300 
                line-clamp-3"
                       >
@@ -189,7 +189,7 @@ export default function BlogList({ currentPage, category }: BlogListProps) {
                         </div>
 
                         <motion.button
-                          className="inline-flex items-center text-emerald-600 font-medium text-sm hover:text-emerald-700 transition-colors duration-200"
+                          className="inline-flex items-center text-red-600 font-medium text-sm hover:text-red-700 transition-colors duration-200"
                           whileHover={{ x: 4 }}
                           transition={{
                             type: "spring",
@@ -232,7 +232,7 @@ export default function BlogList({ currentPage, category }: BlogListProps) {
                       : (category ? `/blog/${category}/page/${pagination.currentPage - 1}` : `/blog/page/${pagination.currentPage - 1}`)
                     }
                     rel="prev"
-                    className="flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 text-emerald-600 bg-white border border-emerald-600 hover:bg-emerald-600 hover:text-white"
+                    className="flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 text-red-600 bg-white border border-red-600 hover:bg-red-600 hover:text-white"
                   >
                     <HiChevronLeft className="w-4 h-4 mr-1" />
                   </Link>
@@ -270,8 +270,8 @@ export default function BlogList({ currentPage, category }: BlogListProps) {
                         }
                         className={`w-10 h-10 flex items-center justify-center text-sm font-medium rounded-lg transition-all duration-200 ${
                           pageNum === pagination.currentPage
-                            ? "bg-emerald-600 text-white"
-                            : "text-gray-600 bg-white border border-gray-200 hover:bg-emerald-50 hover:text-emerald-600"
+                            ? "bg-red-600 text-white"
+                            : "text-gray-600 bg-white border border-gray-200 hover:bg-red-50 hover:text-red-600"
                         }`}
                       >
                         {pageNum}
@@ -288,7 +288,7 @@ export default function BlogList({ currentPage, category }: BlogListProps) {
                       : `/blog/page/${pagination.currentPage + 1}`
                     }
                     rel="next"
-                    className="flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 text-emerald-600 bg-white border border-emerald-600 hover:bg-emerald-600 hover:text-white"
+                    className="flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 text-red-600 bg-white border border-red-600 hover:bg-red-600 hover:text-white"
                   >
                     <HiChevronRight className="w-4 h-4 ml-1" />
                   </Link>

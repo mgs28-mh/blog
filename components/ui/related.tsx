@@ -23,7 +23,7 @@ export default async function RelatedArticles({
         <h2 className="text-3xl font-bold text-gray-900">Related Articles</h2>
         <Link
           href="/blog"
-          className="hidden md:flex items-center gap-2 text-emerald-600 hover:text-emerald-700 transition-colors text-sm font-medium"
+          className="hidden md:flex items-center gap-2 text-red-600 hover:text-red-700 transition-colors text-sm font-medium"
         >
           View all articles
           <ArrowRight className="w-4 h-4" />
@@ -60,7 +60,7 @@ export default async function RelatedArticles({
                   })}
                 </span>
               </div>
-              <h3 className="font-semibold text-gray-900 mb-3 group-hover:text-emerald-600 group-hover:underline decoration-emerald-600 underline-offset-4 transition-all leading-snug">
+              <h3 className="font-semibold text-gray-900 mb-3 group-hover:text-red-600 group-hover:underline decoration-red-600 underline-offset-4 transition-all leading-snug">
                 {article.title}
               </h3>
             </div>
@@ -71,7 +71,7 @@ export default async function RelatedArticles({
       <div className="md:hidden mt-8 flex justify-center">
         <Link
           href="/blog"
-          className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 rounded-md transition"
+          className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-md transition"
         >
           View all articles
           <ArrowRight className="w-4 h-4" />

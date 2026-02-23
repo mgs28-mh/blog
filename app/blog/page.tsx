@@ -79,8 +79,8 @@ export default async function Blog() {
       href: "/blog/teknologi",
       icon: HiOutlineComputerDesktop,
       count: teknologiData.pagination.totalItems,
-      gradient: "from-emerald-600 to-teal-600",
-      hoverGradient: "from-emerald-700 to-teal-700",
+      gradient: "from-red-600 to-rose-600",
+      hoverGradient: "from-red-700 to-rose-700",
     },
   ];
   

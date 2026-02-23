@@ -79,7 +79,7 @@ export default function BlogPost({ regularPosts, cardVariants }: BlogPostProps) 
               {/* Title */}
               <h3
                 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 
-                 group-hover:text-emerald-600 group-hover:underline 
+                 group-hover:text-red-600 group-hover:underline 
                  group-hover:underline-offset-2 transition-colors duration-300 
                  line-clamp-3"
               >
@@ -101,7 +101,7 @@ export default function BlogPost({ regularPosts, cardVariants }: BlogPostProps) 
                 </div>
 
                 <motion.button
-                  className="inline-flex items-center gap-2 text-emerald-700 font-medium text-sm hover:text-emerald-700 transition-colors duration-200 px-3 py-2 rounded-md cursor-pointer"
+                  className="inline-flex items-center gap-2 text-red-700 font-medium text-sm hover:text-red-700 transition-colors duration-200 px-3 py-2 rounded-md cursor-pointer"
                   whileHover={{ x: 4 }}
                   transition={{
                     type: "spring",

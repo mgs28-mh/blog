@@ -40,7 +40,7 @@ export default function AboutSection() {
             <div className="space-y-4">
               <h2 className="text-3xl lg:text-4xl font-bold text-neutral-900 leading-tight">
                 Halo, saya{" "}
-                <span className="bg-gradient-to-r from-emerald-600 to-emerald-400 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-red-600 to-red-400 bg-clip-text text-transparent">
                   Galang Saputra
                 </span>
                 
@@ -65,7 +65,7 @@ export default function AboutSection() {
                 href="https://mgalangs.web.id"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center px-4 py-4 bg-emerald-600 text-white font-medium rounded-lg hover:bg-emerald-700 transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+                className="inline-flex items-center justify-center px-4 py-4 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
               >
                 Hubungi Saya
               </Link>

@@ -5,18 +5,34 @@ import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className="relative py-15 lg:py-20 flex flex-col items-center justify-center bg-lime-100 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 text-center">
+    <section className="relative py-15 lg:py-20 flex flex-col items-center justify-center bg-gray-900 overflow-hidden">
+      {/* Decorative background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Grid pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `linear-gradient(to right, #fff 1px, transparent 1px),
+                             linear-gradient(to bottom, #fff 1px, transparent 1px)`,
+            backgroundSize: '4rem 4rem'
+          }} />
+        </div>
+        
+        {/* Decorative lines */}
+        <div className="absolute top-0 left-1/3 w-px h-full bg-gradient-to-b from-transparent via-slate-700/50 to-transparent" />
+        <div className="absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-transparent via-slate-700/50 to-transparent" />
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-6 text-center">
         {/* Main Headline */}
         <div className="mb-6">
           <motion.h1
             initial={{ y: 20 }}
             animate={{ y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="text-3xl md:text-5xl font-black mb-4 leading-snug text-gray-900"
+            className="text-3xl md:text-5xl font-black mb-4 leading-snug text-white"
           >
             <span className="block">Mengeksplorasi Teknologi &</span>
-            <span className="block text-green-700">Komunikasi</span>
+            <span className="block text-red-500">Komunikasi</span>
           </motion.h1>
         </div>
 
@@ -27,7 +43,7 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
           className="max-w-3xl mx-auto mb-12"
         >
-          <p className="text-md md:text-lg text-gray-700 leading-normal mb-4">
+          <p className="text-md md:text-lg text-gray-300 leading-normal mb-4">
             Berbagi wawasan seputar teknologi, komunikasi digital, dan perkembangan industri terbaru.
           </p>
         </motion.div>
@@ -42,9 +58,9 @@ export default function Hero() {
           <Link
             href="/blog"
             className="group relative inline-flex justify-center items-center text-center gap-3 
-               bg-emerald-700 hover:bg-emerald-700 text-white font-bold 
+               bg-red-600 hover:bg-red-500 text-white font-bold 
                px-10 py-5 min-h-[44px] min-w-[44px] 
-               rounded-2xl shadow-2xl hover:shadow-emerald-500/25 
+               rounded-2xl shadow-2xl hover:shadow-red-500/25 
                transition-all duration-300 transform hover:-translate-y-2 hover:scale-105"
           >
             <FileText aria-hidden="true" className="relative z-10 w-5 h-5" />
@@ -58,9 +74,9 @@ export default function Hero() {
           <Link
             href="/about"
             className="group inline-flex justify-center items-center text-center gap-3 
-               bg-white/90 backdrop-blur-sm hover:bg-white text-gray-900 font-bold 
+               bg-gray-800 backdrop-blur-sm hover:bg-gray-700 text-white font-bold 
                px-10 py-5 min-h-[44px] min-w-[44px] 
-               rounded-2xl border-2 border-green-200 hover:border-emerald-400 
+               rounded-2xl border-2 border-gray-700 hover:border-gray-600 
                shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
           >
             <Code aria-hidden="true" className="relative z-10 w-5 h-5" />
