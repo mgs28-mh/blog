@@ -55,8 +55,24 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-neutral-800/50 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <footer className="relative bg-gray-900 text-white overflow-hidden">
+      {/* Decorative background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Grid pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `linear-gradient(to right, #fff 1px, transparent 1px),
+                             linear-gradient(to bottom, #fff 1px, transparent 1px)`,
+            backgroundSize: '4rem 4rem'
+          }} />
+        </div>
+        
+        {/* Decorative lines */}
+        <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-slate-700/50 to-transparent" />
+        <div className="absolute top-0 right-1/4 w-px h-full bg-gradient-to-b from-transparent via-slate-700/50 to-transparent" />
+      </div>
+
+      <div className="relative z-10 max-w-6xl mx-auto px-6">
         {/* ====== TOP SECTION ====== */}
         <div className="py-16">
           <div className="flex flex-col lg:flex-row items-center justify-between mb-16">
@@ -66,13 +82,9 @@ export default function Footer() {
                 href="/"
                 className="flex items-center space-x-3 transition-opacity duration-200"
               >
-                <Image
-                  src="/logo-kk.webp"
-                  alt="Archipelago Logo"
-                  width={200}
-                  height={200}
-                  className="rounded-none"
-                />
+                <span className="text-2xl font-bold text-white tracking-tight leading-tight">
+                  kata<br />komunikasi
+                </span>
               </Link>
             </div>
 
@@ -84,7 +96,7 @@ export default function Footer() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`text-white hover:text-emerald-500 transition-colors duration-200 text-md uppercase font-medium ${active ? "text-white" : ""
+                    className={`text-gray-300 hover:text-red-400 transition-colors duration-200 text-md uppercase font-medium ${active ? "text-red-400" : ""
                       }`}
                   >
                     {item.label}
@@ -101,7 +113,7 @@ export default function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 text-white hover:text-emerald-500 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-lg"
+                  className="p-2 text-gray-300 hover:text-red-400 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-900 rounded-lg hover:bg-gray-800"
                   aria-label={social.label}
                 >
                   {social.icon}
@@ -111,12 +123,16 @@ export default function Footer() {
           </div>
 
           {/* Divider */}
-          <div className="border-t border-slate-700 mb-8" />
+          <div className="border-t border-gray-700 mb-8" />
 
           {/* ====== BOTTOM SECTION ====== */}
-          <div className="flex items-center justify-center text-white text-md">
+          <div className="flex flex-col lg:flex-row items-center justify-between text-gray-400 text-md">
+            {/* Spacer for alignment */}
+            <div className="hidden lg:block lg:w-32"></div>
             {/* Copyright */}
-            <p>© {currentYear} Kata Komunikasi.</p>
+            <p className="mb-4 lg:mb-0">© {currentYear} Kata Komunikasi.</p>
+            {/* Spacer for alignment */}
+            <div className="hidden lg:block lg:w-32"></div>
           </div>
         </div>
       </div>
