@@ -74,10 +74,10 @@ export default async function BlogKomunikasi() {
         baseUrl="https://archipelago.web.id"
         category="komunikasi"
       />
-      <main>
+      <>
         <Hero />
         <BlogList currentPage={1} category="komunikasi" />
-      </main>
+      </>
     </>
   );
 }

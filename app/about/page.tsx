@@ -46,9 +46,9 @@ export const metadata: Metadata = {
 
 export default function About() {
     return (
-        <main>
+        <>
             <Hero />
             <AboutSection />
-        </main>
+        </>
     );
 }

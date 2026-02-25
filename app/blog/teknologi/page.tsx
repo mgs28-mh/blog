@@ -74,10 +74,10 @@ export default async function BlogTeknologi() {
         baseUrl="https://archipelago.web.id"
         category="teknologi"
       />
-      <main>
+      <>
         <Hero />
         <BlogList currentPage={1} category="teknologi" />
-      </main>
+      </>
     </>
   );
 }

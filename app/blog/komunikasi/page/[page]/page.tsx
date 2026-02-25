@@ -15,8 +15,8 @@ export async function generateMetadata({ params }: BlogKomunikasiPageProps): Pro
   
   if (isNaN(page) || page < 1) {
     return {
-      title: "Page Not Found - Kata Komunikasi",
-      description: "The page you requested could not be found.",
+      title: "Halaman Tidak Ditemukan - Kata Komunikasi",
+      description: "Halaman yang kamu cari tidak ditemukan.",
     };
   }
 
@@ -101,10 +101,8 @@ export default async function BlogKomunikasiPage({ params }: BlogKomunikasiPageP
         baseUrl="https://archipelago.web.id"
         category="komunikasi"
       />
-      <main>
-        <Hero />
-        <BlogList currentPage={page} category="komunikasi" />
-      </main>
+      <Hero />
+      <BlogList currentPage={page} category="komunikasi" />
     </>
   );
 }
