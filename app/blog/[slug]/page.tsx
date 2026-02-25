@@ -9,6 +9,7 @@ import { Calendar, Clock, User, Share2 } from "lucide-react";
 import { draftMode } from "next/headers";
 import SocialShareButtons from "@/components/ui/social";
 import RelatedArticles from "@/components/ui/related";
+import TableOfContents from "@/components/ui/table-of-contents";
 import { generateArticleSchema, generateJsonLd } from "@/lib/schema";
 
 export const revalidate = 60;
@@ -32,7 +33,7 @@ function calculateReadingTime(content: any): string {
 const richTextRenderOptions = {
   renderNode: {
     [BLOCKS.PARAGRAPH]: (_node: any, children: ReactNode) => (
-      <p className="mb-4 text-lg font-base leading-relaxed text-slate-950 md:text-justify">
+      <p className="mb-4 text-lg font-normal leading-relaxed text-slate-950 md:text-left">
         {children}
       </p>
     ),
@@ -41,16 +42,24 @@ const richTextRenderOptions = {
         {children}
       </h1>
     ),
-    [BLOCKS.HEADING_2]: (_node: any, children: ReactNode) => (
-      <h2 className="text-3xl font-bold mt-10 mb-4 text-gray-900">
-        {children}
-      </h2>
-    ),
-    [BLOCKS.HEADING_3]: (_node: any, children: ReactNode) => (
-      <h3 className="text-2xl font-bold mt-8 mb-3 text-gray-900">
-        {children}
-      </h3>
-    ),
+    [BLOCKS.HEADING_2]: (node: any, children: ReactNode) => {
+      const text = node.content?.map((child: any) => child.value || "").join("").trim();
+      const id = text?.toLowerCase().replace(/[^a-z0-9\s-]/g, "").replace(/\s+/g, "-").replace(/-+/g, "-").trim() || "";
+      return (
+        <h2 id={id} className="text-3xl font-bold mt-10 mb-4 text-gray-900 scroll-mt-24">
+          {children}
+        </h2>
+      );
+    },
+    [BLOCKS.HEADING_3]: (node: any, children: ReactNode) => {
+      const text = node.content?.map((child: any) => child.value || "").join("").trim();
+      const id = text?.toLowerCase().replace(/[^a-z0-9\s-]/g, "").replace(/\s+/g, "-").replace(/-+/g, "-").trim() || "";
+      return (
+        <h3 id={id} className="text-2xl font-bold mt-8 mb-3 text-gray-900 scroll-mt-24">
+          {children}
+        </h3>
+      );
+    },
     [BLOCKS.HEADING_4]: (_node: any, children: ReactNode) => (
       <h4 className="text-xl font-semibold mt-6 mb-3 text-gray-900">{children}</h4>
     ),
@@ -182,18 +191,32 @@ function ArticleSkeletonLoading() {
       {/* Content Skeleton */}
       <div className="max-w-6xl mx-auto px-6 py-12">
         {/* Featured Image Skeleton */}
-        <div className="aspect-[16/9] w-full bg-gray-200 rounded-lg mb-10"></div>
+        <div className="aspect-[3/2] w-full bg-gray-200 rounded-lg mb-10"></div>
 
-        {/* Article Content Skeleton */}
-        <div className="max-w-4xl mx-auto space-y-6">
-          {[...Array(5)].map((_, i) => (
-            <div key={i} className="space-y-3">
-              <div className="h-7 w-2/3 bg-gray-200 rounded"></div>
-              <div className="h-4 w-full bg-gray-200 rounded"></div>
-              <div className="h-4 w-full bg-gray-200 rounded"></div>
-              <div className="h-4 w-4/5 bg-gray-200 rounded"></div>
+        {/* Layout 2 kolom */}
+        <div className="flex gap-12">
+          {/* Article Content Skeleton */}
+          <div className="flex-1 max-w-3xl space-y-6">
+            {[...Array(5)].map((_, i) => (
+              <div key={i} className="space-y-3">
+                <div className="h-7 w-2/3 bg-gray-200 rounded"></div>
+                <div className="h-4 w-full bg-gray-200 rounded"></div>
+                <div className="h-4 w-full bg-gray-200 rounded"></div>
+                <div className="h-4 w-4/5 bg-gray-200 rounded"></div>
+              </div>
+            ))}
+          </div>
+
+          {/* ToC Skeleton */}
+          <div className="hidden xl:block w-64 shrink-0 self-start sticky top-24">
+            <div className="space-y-3">
+              <div className="h-4 w-20 bg-gray-200 rounded mb-4"></div>
+              <div className="h-3 w-40 bg-gray-200 rounded"></div>
+              <div className="h-3 w-36 bg-gray-200 rounded"></div>
+              <div className="h-3 w-44 bg-gray-200 rounded"></div>
+              <div className="h-3 w-32 bg-gray-200 rounded"></div>
             </div>
-          ))}
+          </div>
         </div>
       </div>
     </div>
@@ -249,9 +272,9 @@ export default async function BlogPostArticlePage(
           </div>
 
           <div className="relative z-10 container mx-auto px-6 max-w-6xl">
-            <div className="flex flex-col justify-start items-start text-left">
+            <div className="flex flex-col justify-center items-center text-center">
               {/* Breadcrumb */}
-              <div className="mb-6 text-sm text-gray-400 flex gap-2 justify-start items-center flex-wrap">
+              <div className="mb-6 text-sm text-gray-400 flex gap-2 justify-center items-center flex-wrap">
                 <Link href="/" className="hover:underline text-gray-300 hover:text-red-400 transition-colors">
                   Beranda
                 </Link>
@@ -286,7 +309,7 @@ export default async function BlogPostArticlePage(
               </h1>
 
               {/* Metadata */}
-              <div className="flex items-center gap-4 text-gray-400 text-sm flex-wrap justify-start mb-6">
+              <div className="flex items-center gap-4 text-gray-400 text-sm flex-wrap justify-center mb-6">
                 <span className="flex items-center gap-1">
                   <Calendar className="w-4 h-4" />
                   {new Date(article.date).toLocaleDateString("id-ID", {
@@ -340,26 +363,35 @@ export default async function BlogPostArticlePage(
             </div>
           )}
 
-          <article className="max-w-4xl mx-auto">
-            <div className="prose prose-lg prose-slate max-w-none">
-              {documentToReactComponents(
-                article.details.json,
-                richTextRenderOptions
-              )}
-            </div>
-
-            {/* Share di akhir artikel */}
-            <div className="mt-12 pt-8 border-t border-gray-200">
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                <p className="text-gray-900 font-bold">Suka artikel ini? Bagikan ke temanmu!</p>
-                <SocialShareButtons
-                  url={articleUrl}
-                  title={article.title}
-                  variant="inline"
-                />
+          {/* Layout 2 kolom: Artikel + ToC */}
+          <div className="flex gap-12">
+            {/* Artikel Utama */}
+            <article className="flex-1 max-w-2xl">
+              <div className="prose prose-lg prose-slate max-w-none">
+                {documentToReactComponents(
+                  article.details.json,
+                  richTextRenderOptions
+                )}
               </div>
-            </div>
-          </article>
+
+              {/* Share di akhir artikel */}
+              <div className="mt-12 pt-8 border-t border-gray-200">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                  <p className="text-gray-900 font-bold">Suka artikel ini? Bagikan ke temanmu!</p>
+                  <SocialShareButtons
+                    url={articleUrl}
+                    title={article.title}
+                    variant="inline"
+                  />
+                </div>
+              </div>
+            </article>
+
+            {/* Table of Contents - Sticky di kanan */}
+            <aside className="w-64 shrink-0 self-start sticky top-24">
+              <TableOfContents content={article.details.json} />
+            </aside>
+          </div>
 
           {/* Artikel Terkait */}
           <div className="mt-16">
