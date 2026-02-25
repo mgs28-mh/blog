@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 export default function AboutSection() {
   return (
     <section className="py-16 bg-neutral-50 overflow-x-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
           {/* Left - Image */}
           <motion.div

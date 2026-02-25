@@ -22,7 +22,7 @@ export default function Hero() {
         <div className="absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-transparent via-slate-700/50 to-transparent" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 text-center">
+      <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
         {/* Main Headline */}
         <div className="mb-6">
           <motion.h1
@@ -64,7 +64,7 @@ export default function Hero() {
                transition-all duration-300 transform hover:-translate-y-2 hover:scale-105"
           >
             <FileText aria-hidden="true" className="relative z-10 w-5 h-5" />
-            <span className="relative z-10">Eksplorasi Artikel</span>
+            <span className="relative z-10">Jelajahi Artikel</span>
             <ArrowRight
               aria-hidden="true"
               className="relative z-10 w-5 h-5 group-hover:translate-x-2 transition-transform"
@@ -80,7 +80,7 @@ export default function Hero() {
                shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
           >
             <Code aria-hidden="true" className="relative z-10 w-5 h-5" />
-            <span>Profil Penulis</span>
+            <span>Tentang Penulis</span>
             <ArrowRight
               aria-hidden="true"
               className="relative z-10 w-5 h-5 group-hover:translate-x-2 transition-transform"

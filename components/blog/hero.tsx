@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export default function Hero() {
   return (
-    <section className="relative h-[50vh] md:h-[70vh] py-12 flex items-center justify-center overflow-hidden bg-gray-900">
+    <section className="relative py-16 md:py-24 flex items-center justify-center overflow-hidden bg-gray-900">
       {/* Decorative background elements */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Grid pattern */}
@@ -22,7 +22,7 @@ export default function Hero() {
       </div>
 
       {/* Content Container */}
-      <div className="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-20 w-full max-w-6xl mx-auto px-6">
         {/* Main Heading */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
