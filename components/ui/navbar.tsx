@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X, Search, ChevronDown, ChevronRight } from "lucide-react";
 
@@ -13,8 +12,8 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
+  { href: "/", label: "Beranda" },
+  { href: "/about", label: "Tentang" },
   {
     href: "/blog",
     label: "Blog",
@@ -31,50 +30,20 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [mobileDropdowns, setMobileDropdowns] = useState<string[]>([]);
-  const [shouldStick, setShouldStick] = useState(false);
-  const [lastScrollY, setLastScrollY] = useState(0);
   const pathname = usePathname();
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Handle scroll effect for navbar background and sticky behavior
+  // Handle scroll effect for navbar background
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      const scrollDifference = Math.abs(currentScrollY - lastScrollY);
-
-      // Only process if scroll difference is significant to avoid jittery behavior
-      if (scrollDifference < 8) return;
-
-      setIsScrolled(currentScrollY > 10);
-
-      // Make navbar sticky only when scrolling back up after having scrolled down
-      if (currentScrollY < lastScrollY && currentScrollY > 200) {
-        // Scrolling up and not at the very top
-        setShouldStick(true);
-      } else if (currentScrollY <= 150) {
-        // Near the top, remove sticky with some buffer
-        setShouldStick(false);
-      } else if (currentScrollY > lastScrollY && currentScrollY > 250) {
-        // Scrolling down significantly, remove sticky
-        setShouldStick(false);
-      }
-
-      setLastScrollY(currentScrollY);
+      setIsScrolled(window.scrollY > 10);
     };
 
-    // Debounce scroll events for better performance and stability
-    let timeoutId: NodeJS.Timeout;
-    const debouncedHandleScroll = () => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(handleScroll, 10);
-    };
-
-    window.addEventListener("scroll", debouncedHandleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
-      window.removeEventListener("scroll", debouncedHandleScroll);
-      clearTimeout(timeoutId);
+      window.removeEventListener("scroll", handleScroll);
     };
-  }, [lastScrollY]);
+  }, []);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -194,7 +163,7 @@ export default function Navbar() {
 
           {/* Desktop Dropdown Menu */}
           <div
-            className={`absolute top-full left-0 mt-2 w-48 ${isScrolled ? 'bg-gray-800' : 'bg-gray-800'} shadow-xl overflow-hidden transition-all duration-300 ease-out transform origin-top rounded-lg border border-gray-700 ${activeDropdown === item.label
+            className={`absolute top-full left-0 mt-2 w-48 bg-gray-800 shadow-xl overflow-hidden transition-all duration-300 ease-out transform origin-top rounded-lg border border-gray-700 ${activeDropdown === item.label
               ? "opacity-100 scale-y-100 translate-y-0 visible"
               : "opacity-0 scale-y-95 -translate-y-2 invisible"
               }`}
@@ -314,7 +283,7 @@ export default function Navbar() {
     );
   };
 
-  const navClasses = `${shouldStick ? 'fixed top-0 left-0 right-0 w-full transform translate-x-0' : 'relative'} z-50 transition-all duration-300 ease-in-out ${isScrolled ? "bg-gray-900/95 backdrop-blur-sm shadow-lg" : "bg-gray-900"
+  const navClasses = `sticky top-0 left-0 right-0 w-full z-50 transition-all duration-300 ease-in-out ${isScrolled ? "bg-gray-900/95 backdrop-blur-sm shadow-lg" : "bg-gray-900"
     }`;
 
   const menuButtonClasses = `lg:hidden p-2 rounded-lg transition-all duration-200 text-white hover:bg-gray-800 ${isOpen ? "bg-gray-800" : ""
@@ -446,7 +415,7 @@ export default function Navbar() {
           <div className="mt-8 px-4 pt-4 border-t border-neutral-800">
             <button className="flex items-center gap-3 w-full px-4 py-3 text-lg transition-colors hover:text-red-400 hover:bg-neutral-800/50 rounded-lg">
               <Search size={20} />
-              Search
+              Cari
             </button>
           </div>
         </div>
