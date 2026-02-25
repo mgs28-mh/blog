@@ -4,6 +4,7 @@ import { motion, Variants } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { HiOutlineArrowRight } from "react-icons/hi";
 
 export default function CTASection() {
@@ -45,13 +46,13 @@ export default function CTASection() {
       <div className="absolute inset-0">
         <Image
           src="/cta.jpg"
-          alt="colored pencils"
+          alt="pensil warna"
           fill
           className="object-cover object-top-right"
           sizes="(max-width: 768px) 100vw, 
            (max-width: 1200px) 50vw, 
            33vw"
-          priority
+          loading="lazy"
         />
       </div>
 
@@ -59,43 +60,35 @@ export default function CTASection() {
       <div className="absolute inset-0 bg-slate-800/30" />
 
       {/* Content */}
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative max-w-6xl mx-auto px-6">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-16"
         >
-          {/* Left Side - Headline */}
+          {/* Kiri - Headline */}
           <motion.div
             variants={itemVariants}
             className="flex-1 text-center lg:text-left"
           >
             <h2 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-white leading-tight">
-              Dapatkan Artikel dan Informasi{" "}
+              Temukan Artikel dan Informasi{" "}
               <span className="text-transparent bg-clip-text bg-red-500">
                 Terbaru Lainnya
               </span>
             </h2>
           </motion.div>
 
-          {/* Right Side - CTA Button */}
+          {/* Kanan - Tombol CTA */}
           <motion.div variants={itemVariants} className="flex-shrink-0">
-            <motion.button
-              className="inline-flex items-center justify-center px-8 py-4 text-base sm:text-lg font-semibold text-black bg-red-400 hover:bg-red-300 rounded-full transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-yellow-400/50 shadow-xl hover:shadow-2xl cursor-pointer"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            <Link
+              href="/blog"
+              className="inline-flex items-center justify-center px-8 py-4 text-base sm:text-lg font-semibold text-black bg-red-400 hover:bg-red-300 rounded-full transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-yellow-400/50 shadow-xl hover:shadow-2xl"
             >
-              Get Started
-              <motion.div
-                className="ml-2"
-                whileHover={{ x: 4 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              >
-                <HiOutlineArrowRight className="w-5 h-5" />
-              </motion.div>
-            </motion.button>
+              Jelajahi Sekarang
+              <HiOutlineArrowRight className="ml-2 w-5 h-5" />
+            </Link>
           </motion.div>
         </motion.div>
       </div>

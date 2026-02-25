@@ -96,7 +96,7 @@ export default function BlogPost({ regularPosts, cardVariants }: BlogPostProps) 
                 damping: 20,
               }}
             >
-              <span className="text-lg">Read Article</span>
+              <span className="text-lg">Baca Artikel</span>
               <HiOutlineArrowRight className="ml-2 w-5 h-5" />
             </motion.button>
           </div>

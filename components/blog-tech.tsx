@@ -43,12 +43,12 @@ export default function BlogTechSection() {
   // Error state component
   const ErrorState = () => (
     <div className="text-center py-20">
-      <p className="text-gray-600 text-lg mb-6">Unable to load articles at the moment</p>
+      <p className="text-gray-600 text-lg mb-6">Gagal memuat artikel saat ini</p>
       <button
         onClick={() => window.location.reload()}
         className="px-6 py-3 bg-gray-900 text-white hover:bg-gray-800 transition-colors duration-200 font-medium"
       >
-        Try Again
+        Coba Lagi
       </button>
     </div>
   );
@@ -82,8 +82,8 @@ export default function BlogTechSection() {
   };
 
   return (
-    <section ref={ref} className="py-20 sm:py-24 lg:py-32 bg-white">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+    <section ref={ref} className="py-16 sm:py-20 lg:py-24 bg-neutral-50">
+      <div className="max-w-6xl mx-auto px-6">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -137,13 +137,13 @@ export default function BlogTechSection() {
                       </p>
                     </div>
 
-                    {/* View All Posts Button - Desktop Only */}
+                    {/* Tombol Lihat Semua - Desktop */}
                     <Link href={`/blog/teknologi`} className="hidden md:block">
                       <motion.button
                         className="inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-slate-950 hover:text-red-500 transition-all duration-300 cursor-pointer mt-4 md:mt-0"
                         transition={{ type: "spring", stiffness: 300, damping: 20 }}
                       >
-                        View All Posts
+                        Lihat Semua
                         <motion.div
                           className="ml-2"
                           whileHover={{ x: 4 }}
@@ -160,7 +160,7 @@ export default function BlogTechSection() {
               {/* Regular Posts - Two Column Layout */}
               <BlogPost regularPosts={regularPosts} cardVariants={cardVariants} />
 
-              {/* View All Posts Button - Mobile Only */}
+              {/* Tombol Lihat Semua - Mobile */}
               <Link href={`/blog/teknologi`}>
                 <motion.div
                   variants={cardVariants}
@@ -172,7 +172,7 @@ export default function BlogTechSection() {
                     whileTap={{ scale: 0.95 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   >
-                    View All Posts
+                    Lihat Semua
                     <motion.div
                       className="ml-2"
                       whileHover={{ x: 4 }}

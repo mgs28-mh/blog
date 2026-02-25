@@ -17,9 +17,9 @@ interface SocialLink {
 }
 
 const navItems: NavItem[] = [
-  { href: "/", label: "Home" },
+  { href: "/", label: "Beranda" },
   { href: "/blog", label: "Blog" },
-  { href: "/about", label: "About" },
+  { href: "/about", label: "Tentang" },
 ];
 
 const socialLinks: SocialLink[] = [

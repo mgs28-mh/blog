@@ -80,7 +80,7 @@ export default function BlogFeature({ featuredPosts, cardVariants }: BlogFeature
               whileHover={{ x: 4 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
-              <span className="text-sm">Read Article</span>
+              <span className="text-sm">Baca Artikel</span>
               <HiOutlineArrowRight className="ml-2 w-4 h-4" />
             </motion.div>
           </div>

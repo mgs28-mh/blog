@@ -43,12 +43,12 @@ export default function BlogComSection() {
   // Error state component
   const ErrorState = () => (
     <div className="text-center py-12">
-      <p className="text-red-600 text-lg mb-4">Failed to load articles</p>
+      <p className="text-red-600 text-lg mb-4">Gagal memuat artikel</p>
       <button 
         onClick={() => window.location.reload()} 
         className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
       >
-        Try Again
+        Coba Lagi
       </button>
     </div>
   );
@@ -83,7 +83,7 @@ export default function BlogComSection() {
 
   return (
     <section ref={ref} className="py-16 sm:py-20 lg:py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+      <div className="max-w-6xl mx-auto px-6">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -141,7 +141,7 @@ export default function BlogComSection() {
                         className="inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-slate-950 hover:text-red-500 transition-all duration-300 cursor-pointer mt-4 md:mt-0"
                         transition={{ type: "spring", stiffness: 300, damping: 20 }}
                       >
-                        View All Posts
+                        Lihat Semua
                         <motion.div
                           className="ml-2"
                           whileHover={{ x: 4 }}
@@ -158,7 +158,7 @@ export default function BlogComSection() {
               {/* Regular Posts  */}
               <BlogPost regularPosts={regularPosts} cardVariants={cardVariants} />
 
-              {/* View All Posts Button - Mobile Only */}
+              {/* Tombol Lihat Semua - Mobile */}
               <Link href={`/blog/komunikasi`}>
                 <motion.div
                   variants={cardVariants}
@@ -170,7 +170,7 @@ export default function BlogComSection() {
                     whileTap={{ scale: 0.95 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   >
-                    View All Posts
+                    Lihat Semua
                     <motion.div
                       className="ml-2"
                       whileHover={{ x: 4 }}
