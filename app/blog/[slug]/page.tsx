@@ -26,7 +26,7 @@ function calculateReadingTime(content: any): string {
   const wordCount = text.split(/\s+/).length;
   const wordsPerMinute = 200;
   const minutes = Math.ceil(wordCount / wordsPerMinute);
-  return `${minutes} min read`;
+  return `${minutes} menit baca`;
 }
 
 const richTextRenderOptions = {
@@ -42,17 +42,17 @@ const richTextRenderOptions = {
       </h1>
     ),
     [BLOCKS.HEADING_2]: (_node: any, children: ReactNode) => (
-      <h2 className="text-4xl font-extrabold mt-5 mb-5 text-gray-900">
+      <h2 className="text-3xl font-bold mt-10 mb-4 text-gray-900">
         {children}
       </h2>
     ),
     [BLOCKS.HEADING_3]: (_node: any, children: ReactNode) => (
-      <h3 className="text-2xl font-bold mt-5 mb-3 text-gray-900">
+      <h3 className="text-2xl font-bold mt-8 mb-3 text-gray-900">
         {children}
       </h3>
     ),
     [BLOCKS.HEADING_4]: (_node: any, children: ReactNode) => (
-      <h4 className="text-xl font-bold mt-8 mb-4 text-gray-900">{children}</h4>
+      <h4 className="text-xl font-semibold mt-6 mb-3 text-gray-900">{children}</h4>
     ),
     [BLOCKS.UL_LIST]: (_node: any, children: ReactNode) => (
       <ul className="list-disc pl-6 mb-3 space-y-3 text-slate-900">
@@ -179,30 +179,21 @@ function ArticleSkeletonLoading() {
         </div>
       </div>
 
-      {/* Content Skeleton with Right Sidebar */}
-      <div className="container mx-auto p-6 lg:px-8 py-12 max-w-6xl">
-        <div className="flex flex-col lg:flex-row gap-12">
-          {/* Main Content Skeleton */}
-          <div className="flex-1 min-w-0 max-w-5xl order-2 lg:order-2 space-y-8">
-            {/* Featured Image Skeleton */}
-            <div className="aspect-[16/10] w-full bg-gray-200 rounded-xl mb-12"></div>
+      {/* Content Skeleton */}
+      <div className="max-w-6xl mx-auto px-6 py-12">
+        {/* Featured Image Skeleton */}
+        <div className="aspect-[16/9] w-full bg-gray-200 rounded-lg mb-10"></div>
 
-            {/* Article Content Skeleton */}
-            {[...Array(5)].map((_, i) => (
-              <div key={i} className="space-y-4">
-                <div className="h-8 w-2/3 bg-gray-200 rounded"></div>
-                <div className="h-4 w-full bg-gray-200 rounded"></div>
-                <div className="h-4 w-full bg-gray-200 rounded"></div>
-                <div className="h-4 w-5/6 bg-gray-200 rounded"></div>
-              </div>
-            ))}
-          </div>
-
-          {/* Right Sidebar Skeleton */}
-          <div className="lg:w-60 flex-shrink-0 space-y-8 order-1 lg:order-2">
-            <div className="h-64 bg-gray-200 rounded-lg"></div>
-            <div className="h-32 bg-gray-200 rounded-lg"></div>
-          </div>
+        {/* Article Content Skeleton */}
+        <div className="max-w-4xl mx-auto space-y-6">
+          {[...Array(5)].map((_, i) => (
+            <div key={i} className="space-y-3">
+              <div className="h-7 w-2/3 bg-gray-200 rounded"></div>
+              <div className="h-4 w-full bg-gray-200 rounded"></div>
+              <div className="h-4 w-full bg-gray-200 rounded"></div>
+              <div className="h-4 w-4/5 bg-gray-200 rounded"></div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
@@ -237,7 +228,7 @@ export default async function BlogPostArticlePage(
   const articleSchema = generateArticleSchema(article);
 
   return (
-    <main className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white">
       <Suspense fallback={<ArticleSkeletonLoading />}>
         {/* Hero Section */}
         <div className="relative bg-gray-900 py-16 overflow-hidden">
@@ -268,8 +259,26 @@ export default async function BlogPostArticlePage(
                 <Link href="/blog" className="hover:underline text-gray-300 hover:text-red-400 transition-colors">
                   Blog
                 </Link>
+                {article.category && (
+                  <>
+                    <span className="text-gray-600">/</span>
+                    <Link href={`/blog/${article.category}`} className="hover:underline text-gray-300 hover:text-red-400 transition-colors capitalize">
+                      {article.category}
+                    </Link>
+                  </>
+                )}
                 <span className="text-gray-600">/</span>
               </div>
+
+              {/* Kategori Badge */}
+              {article.category && (
+                <Link 
+                  href={`/blog/${article.category}`}
+                  className="inline-block px-3 py-1 mb-4 text-xs font-semibold uppercase tracking-wider text-red-400 bg-red-500/10 rounded-full hover:bg-red-500/20 transition-colors"
+                >
+                  {article.category}
+                </Link>
+              )}
 
               {/* Title */}
               <h1 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-snug max-w-4xl">
@@ -311,43 +320,50 @@ export default async function BlogPostArticlePage(
           </div>
         </div>
 
-        {/* Main Content with Right Sidebar using Flexbox */}
-        <div className="container mx-auto p-6 lg:px-6 py-12 max-w-6xl">
-          <div className="flex flex-col lg:flex-row gap-12">
-            {/* Main Content - Takes remaining space */}
-            <main className="flex-1 min-w-0 max-w-7xl order-2 lg:order-2">
-              {/* Featured Image */}
-              {article.image && (
-                <div className="mb-12">
-                  <figure className="rounded-none overflow-hidden shadow-lg">
-                    <div className="aspect-[16/9] w-full relative">
-                      <Image
-                        src={article.image.url}
-                        fill
-                        alt={article.title}
-                        priority
-                        quality={100}
-                        className="object-cover"
-                      />
-                    </div>
-                  </figure>
+        {/* Konten Artikel */}
+        <div className="max-w-5xl mx-auto px-6 py-12">
+          {/* Featured Image */}
+          {article.image && (
+            <div className="mb-10">
+              <figure className="overflow-hidden">
+                <div className="aspect-[3/2] w-full relative">
+                  <Image
+                    src={article.image.url}
+                    fill
+                    alt={article.title}
+                    priority
+                    quality={75}
+                    className="object-cover"
+                  />
                 </div>
+              </figure>
+            </div>
+          )}
+
+          <article className="max-w-4xl mx-auto">
+            <div className="prose prose-lg prose-slate max-w-none">
+              {documentToReactComponents(
+                article.details.json,
+                richTextRenderOptions
               )}
+            </div>
 
-              <article className="bg-white mb-15">
-                <div className="prose prose-base prose-white max-w-none leading-relaxed">
-                  {documentToReactComponents(
-                    article.details.json,
-                    richTextRenderOptions
-                  )}
-                </div>
-              </article>
+            {/* Share di akhir artikel */}
+            <div className="mt-12 pt-8 border-t border-gray-200">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <p className="text-gray-900 font-bold">Suka artikel ini? Bagikan ke temanmu!</p>
+                <SocialShareButtons
+                  url={articleUrl}
+                  title={article.title}
+                  variant="inline"
+                />
+              </div>
+            </div>
+          </article>
 
-              {/* Related Articles */}
-              <RelatedArticles currentSlug={params.slug} />
-            </main>
-
-
+          {/* Artikel Terkait */}
+          <div className="mt-16">
+            <RelatedArticles currentSlug={params.slug} currentCategory={article.category} />
           </div>
         </div>
 
@@ -357,6 +373,6 @@ export default async function BlogPostArticlePage(
           dangerouslySetInnerHTML={generateJsonLd(articleSchema)}
         />
       </Suspense>
-    </main>
+    </div>
   );
 }

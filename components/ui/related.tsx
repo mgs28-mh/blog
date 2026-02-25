@@ -5,27 +5,36 @@ import { Calendar, ArrowRight } from "lucide-react";
 
 interface RelatedArticlesProps {
   currentSlug: string;
+  currentCategory?: string;
 }
 
 export default async function RelatedArticles({
   currentSlug,
+  currentCategory,
 }: RelatedArticlesProps) {
   const allArticles = await getAllArticles();
-  const relatedArticles = allArticles
-    .filter((article) => article.slug !== currentSlug)
-    .slice(0, 3);
+  
+  // Prioritaskan artikel dari kategori yang sama
+  const sameCategoryArticles = allArticles
+    .filter((article) => article.slug !== currentSlug && article.category === currentCategory);
+  
+  const otherArticles = allArticles
+    .filter((article) => article.slug !== currentSlug && article.category !== currentCategory);
+  
+  // Gabungkan: kategori sama dulu, sisanya dari kategori lain
+  const relatedArticles = [...sameCategoryArticles, ...otherArticles].slice(0, 3);
 
   if (relatedArticles.length === 0) return null;
 
   return (
     <section className="bg-white">
       <div className="flex items-center justify-between mb-8">
-        <h2 className="text-3xl font-bold text-gray-900">Related Articles</h2>
+        <h2 className="text-3xl font-bold text-gray-900">Artikel Terkait</h2>
         <Link
           href="/blog"
           className="hidden md:flex items-center gap-2 text-red-600 hover:text-red-700 transition-colors text-sm font-medium"
         >
-          View all articles
+          Lihat semua artikel
           <ArrowRight className="w-4 h-4" />
         </Link>
       </div>
@@ -49,8 +58,13 @@ export default async function RelatedArticles({
               </div>
             )}
 
-            <div className="p-3">
-              <div className="flex items-center gap-4 mb-3 text-sm text-gray-500">
+            <div className="p-4">
+              {article.category && (
+                <span className="inline-block px-2 py-0.5 mb-2 text-xs font-medium uppercase tracking-wider text-red-600 bg-red-50 rounded">
+                  {article.category}
+                </span>
+              )}
+              <div className="flex items-center gap-4 mb-2 text-sm text-gray-500">
                 <span className="flex items-center gap-1">
                   <Calendar className="w-3 h-3" />
                   {new Date(article.date).toLocaleDateString("id-ID", {
@@ -73,7 +87,7 @@ export default async function RelatedArticles({
           href="/blog"
           className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-md transition"
         >
-          View all articles
+          Lihat semua artikel
           <ArrowRight className="w-4 h-4" />
         </Link>
       </div>
