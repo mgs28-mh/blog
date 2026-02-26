@@ -1,5 +1,5 @@
 import "./globals.css";
-import { Bricolage_Grotesque } from "next/font/google";
+import { Bricolage_Grotesque, Lato } from "next/font/google";
 import type { Metadata } from "next";
 import Navbar from "@/components/ui/navbar";
 import Footer from "@/components/ui/footer";
@@ -11,6 +11,13 @@ const fonts = Bricolage_Grotesque({
   display: "swap",
   preload: true,
   weight: ["400", "500", "700", "800"],
+});
+
+export const montserrat = Lato({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "700"],
+  variable: "--font-montserrat",
 });
 
 export const metadata: Metadata = {

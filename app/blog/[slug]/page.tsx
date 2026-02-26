@@ -11,6 +11,7 @@ import SocialShareButtons from "@/components/ui/social";
 import RelatedArticles from "@/components/ui/related";
 import TableOfContents from "@/components/ui/table-of-contents";
 import { generateArticleSchema, generateJsonLd } from "@/lib/schema";
+import { montserrat } from "@/app/layout";
 
 export const revalidate = 60;
 
@@ -33,7 +34,7 @@ function calculateReadingTime(content: any): string {
 const richTextRenderOptions = {
   renderNode: {
     [BLOCKS.PARAGRAPH]: (_node: any, children: ReactNode) => (
-      <p className="mb-4 text-lg font-normal leading-relaxed text-slate-950 md:text-left">
+      <p className={`mb-4 text-lg font-normal leading-relaxed text-slate-950 md:text-left ${montserrat.className}`}>
         {children}
       </p>
     ),
