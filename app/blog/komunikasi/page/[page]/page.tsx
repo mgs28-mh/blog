@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: BlogKomunikasiPageProps): Pro
   
   if (isNaN(page) || page < 1) {
     return {
-      title: "Halaman Tidak Ditemukan - Kata Komunikasi",
+      title: "Halaman Tidak Ditemukan - Kata Komunika",
       description: "Halaman yang kamu cari tidak ditemukan.",
     };
   }
@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: BlogKomunikasiPageProps): Pro
     const paginatedData = await getArticlesByCategory("komunikasi", page, 6);
     
     const metadata: Metadata = {
-      title: `Blog Komunikasi - Halaman ${page} - Kata Komunikasi`,
+      title: `Blog Komunikasi - Halaman ${page} - Kata Komunika`,
       description:
         "Dapatkan artikel, wawasan, dan tips seputar komunikasi digital maupun klasik.",
       keywords: [
@@ -39,17 +39,17 @@ export async function generateMetadata({ params }: BlogKomunikasiPageProps): Pro
         canonical: `https://archipelago.web.id/blog/komunikasi/page/${page}`,
       },
       openGraph: {
-        title: `Blog Komunikasi - Halaman ${page} - Kata Komunikasi`,
+        title: `Blog Komunikasi - Halaman ${page} - Kata Komunika`,
         description:
           "Dapatkan artikel, wawasan, dan tips seputar komunikasi digital maupun klasik di Archipelago, sumber informasi relevan untuk mendukung perkembangan komunikasi di era modern.",
         url: `https://archipelago.web.id/blog/komunikasi/page/${page}`,
-        siteName: "Kata Komunikasi",
+        siteName: "Kata Komunika",
         images: [
           {
             url: "https://archipelago.web.id/logo.webp",
             width: 1200,
             height: 630,
-            alt: "Kata Komunikasi - Blog Komunikasi",
+            alt: "Kata Komunika - Blog Komunikasi",
           },
         ],
         locale: "id_ID",
@@ -58,7 +58,7 @@ export async function generateMetadata({ params }: BlogKomunikasiPageProps): Pro
       twitter: {
         card: "summary_large_image",
         site: `https://archipelago.web.id/blog/komunikasi/page/${page}`,
-        title: `Blog Komunikasi - Halaman ${page} - Kata Komunikasi`,
+        title: `Blog Komunikasi - Halaman ${page} - Kata Komunika`,
         description:
           "Dapatkan artikel dan wawasan seputar komunikasi digital maupun klasik untuk mendukung perkembangan di era modern.",
         images: ["https://archipelago.web.id/logo.webp"],

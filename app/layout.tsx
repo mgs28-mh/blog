@@ -1,5 +1,5 @@
 import "./globals.css";
-import { Bricolage_Grotesque, Lato } from "next/font/google";
+import { Bricolage_Grotesque, Public_Sans } from "next/font/google";
 import type { Metadata } from "next";
 import Navbar from "@/components/ui/navbar";
 import Footer from "@/components/ui/footer";
@@ -13,7 +13,7 @@ const fonts = Bricolage_Grotesque({
   weight: ["400", "500", "700", "800"],
 });
 
-export const montserrat = Lato({
+export const montserrat = Public_Sans({
   subsets: ["latin"],
   display: "swap",
   weight: ["400", "700"],
@@ -21,7 +21,7 @@ export const montserrat = Lato({
 });
 
 export const metadata: Metadata = {
-  title: "Kata Komunikasi - Komunikasi dan Teknologi",
+  title: "Kata Komunika - Komunikasi dan Teknologi",
   description:
     "Dapatkan artikel, wawasan, dan tips komunikasi dan informasi teknologi.",
   keywords: [
@@ -33,11 +33,11 @@ export const metadata: Metadata = {
     "artikel komunikasi",
   ],
   openGraph: {
-    siteName: "Kata Komunikasi",
+    siteName: "Kata Komunika",
     locale: "id_ID",
     type: "website",
     url: "https://archipelago.web.id",
-    title: "Kata Komunikasi - Komunikasi dan Teknologi",
+    title: "Kata Komunika - Komunikasi dan Teknologi",
     description:
       "Dapatkan artikel, wawasan, dan tips komunikasi dan informasi teknologi.",
     images: [
@@ -45,14 +45,14 @@ export const metadata: Metadata = {
         url: "https://archipelago.web.id/logo.webp",
         width: 1200,
         height: 630,
-        alt: "Kata Komunikasi",
+        alt: "Kata Komunika",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    site: "@katakomunikasi",
-    title: "Kata Komunikasi - Komunikasi dan Teknologi",
+    site: "@katakomunika",
+    title: "Kata Komunika - Komunikasi dan Teknologi",
     description:
       "Dapatkan artikel, wawasan, dan tips komunikasi digital maupun klasik.",
     images: ["https://archipelago.web.id/logo.webp"],

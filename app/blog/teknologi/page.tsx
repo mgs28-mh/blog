@@ -10,7 +10,7 @@ export async function generateMetadata(): Promise<Metadata> {
     const paginatedData = await getArticlesByCategory("teknologi", 1, 6);
     
     const metadata: Metadata = {
-      title: "Blog Teknologi - Kata Komunikasi",
+      title: "Blog Teknologi - Kata Komunika",
       description:
         "Dapatkan artikel, wawasan, dan tips seputar perkembangan teknologi komunikasi dan informasi terbaru.",
       keywords: [
@@ -25,17 +25,17 @@ export async function generateMetadata(): Promise<Metadata> {
         canonical: "https://archipelago.web.id/blog/teknologi",
       },
       openGraph: {
-        title: "Blog Teknologi - Kata Komunikasi",
+        title: "Blog Teknologi - Kata Komunika",
         description:
           "Dapatkan artikel, wawasan, dan tips seputar perkembangan teknologi komunikasi dan informasi terbaru di Archipelago, sumber informasi relevan untuk mengikuti inovasi teknologi di era modern.",
         url: "https://archipelago.web.id/blog/teknologi",
-        siteName: "Kata Komunikasi",
+        siteName: "Kata Komunika",
         images: [
           {
             url: "https://archipelago.web.id/logo.webp",
             width: 1200,
             height: 630,
-            alt: "Kata Komunikasi - Blog Teknologi",
+            alt: "Kata Komunika - Blog Teknologi",
           },
         ],
         locale: "id_ID",
@@ -44,7 +44,7 @@ export async function generateMetadata(): Promise<Metadata> {
       twitter: {
         card: "summary_large_image",
         site: "https://archipelago.web.id/blog/teknologi",
-        title: "Blog Teknologi - Kata Komunikasi",
+        title: "Blog Teknologi - Kata Komunika",
         description:
           "Dapatkan artikel dan wawasan seputar perkembangan teknologi komunikasi dan informasi terbaru untuk mengikuti inovasi di era modern.",
         images: ["https://archipelago.web.id/logo.webp"],
@@ -55,7 +55,7 @@ export async function generateMetadata(): Promise<Metadata> {
   } catch (error) {
     console.error("Error generating metadata:", error);
     return {
-      title: "Blog Teknologi - Kata Komunikasi",
+      title: "Blog Teknologi - Kata Komunika",
       description: "Dapatkan artikel, wawasan, dan tips seputar perkembangan teknologi komunikasi dan informasi terbaru.",
     };
   }

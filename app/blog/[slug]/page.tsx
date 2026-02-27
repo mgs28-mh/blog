@@ -34,7 +34,7 @@ function calculateReadingTime(content: any): string {
 const richTextRenderOptions = {
   renderNode: {
     [BLOCKS.PARAGRAPH]: (_node: any, children: ReactNode) => (
-      <p className={`mb-4 text-lg font-normal leading-relaxed text-slate-950 md:text-left ${montserrat.className}`}>
+      <p className={`mb-4 text-lg font-normal leading-relaxed text-slate-700 md:text-left ${montserrat.className}`}>
         {children}
       </p>
     ),
@@ -152,10 +152,10 @@ function ArticleSkeletonLoading() {
             }} />
           </div>
         </div>
-        <div className="relative z-10 container mx-auto px-4 max-w-6xl">
-          <div className="flex flex-col justify-start items-start text-left">
+        <div className="relative z-10 container mx-auto px-6 max-w-6xl">
+          <div className="flex flex-col justify-center items-center text-center">
             {/* Breadcrumb Skeleton */}
-            <div className="flex items-center gap-2 mb-6">
+            <div className="flex items-center gap-2 mb-6 justify-center">
               <div className="h-4 w-16 bg-gray-700 rounded"></div>
               <div className="h-4 w-1 bg-gray-700 rounded"></div>
               <div className="h-4 w-12 bg-gray-700 rounded"></div>
@@ -163,12 +163,15 @@ function ArticleSkeletonLoading() {
               <div className="h-4 w-32 bg-gray-700 rounded"></div>
             </div>
 
+            {/* Category Badge Skeleton */}
+            <div className="h-6 w-24 bg-red-500/10 rounded-full mb-4"></div>
+
             {/* Title Skeleton */}
-            <div className="h-12 w-3/4 max-w-4xl bg-gray-700 rounded-lg mb-4"></div>
-            <div className="h-12 w-2/3 max-w-3xl bg-gray-700 rounded-lg mb-6"></div>
+            <div className="h-12 w-3/4 max-w-4xl bg-gray-700 rounded-lg mb-4 mx-auto"></div>
+            <div className="h-12 w-2/3 max-w-3xl bg-gray-700 rounded-lg mb-6 mx-auto"></div>
 
             {/* Metadata Skeleton */}
-            <div className="flex items-center gap-4 mb-6">
+            <div className="flex items-center gap-4 mb-6 justify-center">
               <div className="h-5 w-32 bg-gray-700 rounded-md"></div>
               <div className="w-1 h-1 rounded-full bg-gray-600"></div>
               <div className="h-5 w-24 bg-gray-700 rounded-md"></div>
@@ -177,7 +180,7 @@ function ArticleSkeletonLoading() {
             </div>
 
             {/* Social Share Skeleton */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 justify-center">
               <div className="h-5 w-5 bg-gray-700 rounded"></div>
               <div className="flex gap-2">
                 <div className="h-8 w-8 bg-gray-700 rounded"></div>

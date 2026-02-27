@@ -16,13 +16,13 @@ export async function generateMetadata(
 
   if (!article) {
     return {
-      title: "Artikel tidak ditemukan | Kata Komunikasi",
+      title: "Artikel tidak ditemukan | Kata Komunika",
       description: "Artikel ini tidak tersedia.",
       alternates: { canonical: `${baseUrl}/blog/${slug}` },
     };
   }
 
-  const title = `${article.title} | Kata Komunikasi`;
+  const title = `${article.title} | Kata Komunika`;
   const description = article.excerpt;
   const image = article.image?.url || `${baseUrl}/logo.webp`;
 
@@ -44,7 +44,7 @@ export async function generateMetadata(
       title,
       description,
       url: `${baseUrl}/blog/${article.slug}`,
-      siteName: "Kata Komunikasi",
+      siteName: "Kata Komunika",
       images: [
         {
           url: image,

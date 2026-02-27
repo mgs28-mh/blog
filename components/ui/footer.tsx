@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { FaFacebook, FaGithub, FaInstagram, FaXTwitter } from "react-icons/fa6";
 
@@ -83,7 +82,7 @@ export default function Footer() {
                 className="flex items-center space-x-3 transition-opacity duration-200"
               >
                 <span className="text-2xl font-bold text-white tracking-tight leading-tight">
-                  kata<br />komunikasi
+                  kata<br />komunika
                 </span>
               </Link>
             </div>
@@ -130,7 +129,7 @@ export default function Footer() {
             {/* Spacer for alignment */}
             <div className="hidden lg:block lg:w-32"></div>
             {/* Copyright */}
-            <p className="mb-4 lg:mb-0">© {currentYear} Kata Komunikasi.</p>
+            <p className="mb-4 lg:mb-0">© {currentYear} Kata Komunika.</p>
             {/* Spacer for alignment */}
             <div className="hidden lg:block lg:w-32"></div>
           </div>

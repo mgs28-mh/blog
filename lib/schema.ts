@@ -15,13 +15,13 @@ interface SchemaConfig {
 
 const defaultConfig: SchemaConfig = {
   baseUrl: "https://archipelago.web.id",
-  siteName: "Kata Komunikasi",
+  siteName: "Kata Komunika",
   author: {
-    name: "Kata Komunikasi",
+    name: "Kata Komunika",
     url: "https://archipelago.web.id/about",
   },
   publisher: {
-    name: "Kata Komunikasi",
+    name: "Kata Komunika",
     logo: "https://archipelago.web.id/logo.webp",
   },
 };
@@ -188,11 +188,11 @@ export function generateOrganizationSchema(config: Partial<SchemaConfig> = {}) {
     description:
       "Dapatkan artikel, wawasan, dan tips komunikasi dan informasi teknologi.",
     sameAs: [
-      "https://twitter.com/katakomunikasi",
-      "https://facebook.com/katakomunikasi",
-      "https://linkedin.com/company/kata-komunikasi",
-      "https://instagram.com/katakomunikasi",
-      "https://youtube.com/@katakomunikasi",
+      "https://twitter.com/katakomunika",
+      "https://facebook.com/katakomunika",
+      "https://linkedin.com/company/kata-komunika",
+      "https://instagram.com/katakomunika",
+      "https://youtube.com/@katakomunika",
     ],
     contactPoint: {
       "@type": "ContactPoint",

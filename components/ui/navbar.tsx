@@ -319,7 +319,7 @@ export default function Navbar() {
             <div className="flex items-center">
               <Link href="/" className={`${logoClasses} flex items-center gap-3`}>
                 <span className="text-xl md:text-2xl font-bold text-white tracking-tight leading-tight">
-                  kata<br />komunikasi
+                  kata<br />komunika
                 </span>
               </Link>
             </div>
@@ -392,7 +392,7 @@ export default function Navbar() {
             className="text-xl font-bold text-red-400"
             onClick={() => setIsOpen(false)}
           >
-            Kata Komunikasi
+            kata komunika
           </Link>
           <button
             onClick={() => setIsOpen(false)}
