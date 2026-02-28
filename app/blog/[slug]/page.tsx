@@ -34,7 +34,7 @@ function calculateReadingTime(content: any): string {
 const richTextRenderOptions = {
   renderNode: {
     [BLOCKS.PARAGRAPH]: (_node: any, children: ReactNode) => (
-      <p className={`mb-4 text-lg font-normal leading-relaxed text-slate-700 md:text-left ${montserrat.className}`}>
+      <p className={`mb-4 text-base sm:text-lg font-normal leading-relaxed text-slate-700 ${montserrat.className}`}>
         {children}
       </p>
     ),
@@ -47,7 +47,7 @@ const richTextRenderOptions = {
       const text = node.content?.map((child: any) => child.value || "").join("").trim();
       const id = text?.toLowerCase().replace(/[^a-z0-9\s-]/g, "").replace(/\s+/g, "-").replace(/-+/g, "-").trim() || "";
       return (
-        <h2 id={id} className="text-3xl font-bold mt-10 mb-4 text-gray-900 scroll-mt-24">
+        <h2 id={id} className="text-2xl sm:text-3xl font-bold mt-8 sm:mt-10 mb-3 sm:mb-4 text-gray-900 scroll-mt-24">
           {children}
         </h2>
       );
@@ -56,7 +56,7 @@ const richTextRenderOptions = {
       const text = node.content?.map((child: any) => child.value || "").join("").trim();
       const id = text?.toLowerCase().replace(/[^a-z0-9\s-]/g, "").replace(/\s+/g, "-").replace(/-+/g, "-").trim() || "";
       return (
-        <h3 id={id} className="text-2xl font-bold mt-8 mb-3 text-gray-900 scroll-mt-24">
+        <h3 id={id} className="text-xl sm:text-2xl font-bold mt-6 sm:mt-8 mb-2 sm:mb-3 text-gray-900 scroll-mt-24">
           {children}
         </h3>
       );
@@ -75,7 +75,7 @@ const richTextRenderOptions = {
       </ol>
     ),
     [BLOCKS.LIST_ITEM]: (_node: any, children: ReactNode) => (
-      <li className="text-lg leading-normal">{children}</li>
+      <li className="text-base sm:text-lg leading-normal">{children}</li>
     ),
     [BLOCKS.QUOTE]: (_node: any, children: ReactNode) => (
       <blockquote className="border-l-4 rounded-l-md border-red-500 p-4 py-4 italic text-gray-700 bg-red-50">
@@ -308,7 +308,7 @@ export default async function BlogPostArticlePage(
               )}
 
               {/* Title */}
-              <h1 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-snug max-w-4xl">
+              <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-4 sm:mb-6 leading-tight sm:leading-snug max-w-4xl px-2 sm:px-0">
                 {article.title}
               </h1>
 
@@ -348,12 +348,12 @@ export default async function BlogPostArticlePage(
         </div>
 
         {/* Konten Artikel */}
-        <div className="max-w-5xl mx-auto px-6 py-12">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
           {/* Featured Image */}
           {article.image && (
-            <div className="mb-10">
-              <figure className="overflow-hidden">
-                <div className="aspect-[3/2] w-full relative">
+            <div className="mb-6 sm:mb-10">
+              <figure className="overflow-hidden rounded-none">
+                <div className="aspect-[16/10] sm:aspect-[3/2] w-full relative">
                   <Image
                     src={article.image.url}
                     fill
@@ -368,10 +368,10 @@ export default async function BlogPostArticlePage(
           )}
 
           {/* Layout 2 kolom: Artikel + ToC */}
-          <div className="flex gap-12">
+          <div className="flex flex-col xl:flex-row gap-8 xl:gap-12">
             {/* Artikel Utama */}
-            <article className="flex-1 max-w-2xl">
-              <div className="prose prose-lg prose-slate max-w-none">
+            <article className="flex-1 w-full xl:max-w-2xl">
+              <div className="prose prose-base prose-neutral max-w-none">
                 {documentToReactComponents(
                   article.details.json,
                   richTextRenderOptions
@@ -391,8 +391,8 @@ export default async function BlogPostArticlePage(
               </div>
             </article>
 
-            {/* Table of Contents - Sticky di kanan */}
-            <aside className="w-64 shrink-0 self-start sticky top-24">
+            {/* Table of Contents - Sticky di kanan (hidden on mobile) */}
+            <aside className="hidden xl:block w-64 shrink-0 self-start sticky top-24">
               <TableOfContents content={article.details.json} />
             </aside>
           </div>
