@@ -204,20 +204,20 @@ export default function Navbar() {
       const isExpanded = mobileDropdowns.includes(item.label);
 
       return (
-        <div>
+        <div className="rounded-lg overflow-hidden">
           <div className="flex items-center">
             {/* Main Link - Clickable */}
             <Link
               href={item.href}
-              className={`flex-1 px-4 py-3 text-left transition-colors hover:text-red-400 hover:bg-neutral-800/50 ${activeClasses}`}
+              className={`flex-1 px-4 py-3 text-left transition-colors hover:text-red-400 hover:bg-gray-800/50 rounded-l-lg ${activeClasses}`}
               onClick={() => setIsOpen(false)}
             >
-              <span className="text-lg text-white">{item.label}</span>
+              <span className="text-base font-medium text-gray-100">{item.label}</span>
             </Link>
             
             {/* Dropdown Toggle Button */}
             <button
-              className="px-3 py-3 transition-colors hover:text-red-400 hover:bg-neutral-800/50 min-w-[50px] flex justify-center"
+              className="px-3 py-3 text-gray-400 transition-colors hover:text-red-400 hover:bg-gray-800/50 rounded-r-lg min-w-[50px] flex justify-center"
               onClick={() => toggleMobileDropdown(item.label)}
               aria-expanded={isExpanded}
               aria-label={`Toggle ${item.label} submenu`}
@@ -236,7 +236,7 @@ export default function Navbar() {
               }`}
           >
             <div
-              className={`bg-neutral-800/30 ml-4 mr-2 rounded-lg mt-1 transform transition-all duration-200 ${isExpanded
+              className={`bg-gray-800/50 ml-4 mr-2 rounded-lg mt-1 transform transition-all duration-200 border border-gray-700/50 ${isExpanded
                 ? "translate-y-0 scale-100"
                 : "-translate-y-2 scale-95"
                 }`}
@@ -247,7 +247,7 @@ export default function Navbar() {
                   <Link
                     key={child.href}
                     href={child.href}
-                    className={`block px-4 py-3 text-base transition-all duration-200 hover:text-red-400 hover:bg-neutral-700/50 first:rounded-t-lg last:rounded-b-lg transform ${childActive ? "text-red-400 bg-neutral-700/50" : ""
+                    className={`block px-4 py-3 text-sm text-gray-300 transition-all duration-200 hover:text-red-400 hover:bg-gray-700/50 first:rounded-t-lg last:rounded-b-lg transform ${childActive ? "text-red-400 bg-gray-700/50" : ""
                       } ${isExpanded
                         ? "translate-x-0 opacity-100"
                         : "translate-x-4 opacity-0"
@@ -268,7 +268,7 @@ export default function Navbar() {
 
     const linkClasses = `${baseClasses} ${activeClasses} ${mobileClasses}`;
     const mobileLinkClasses = mobile
-      ? "block px-4 py-3 text-lg transition-colors hover:text-red-400 hover:bg-neutral-800/50"
+      ? "block px-4 py-3 text-base font-medium text-gray-100 transition-colors hover:text-red-400 hover:bg-gray-800/50 rounded-lg"
       : linkClasses;
 
     return (
@@ -377,7 +377,7 @@ export default function Navbar() {
 
       {/* Mobile Slide Panel */}
       <div
-        className={`fixed top-0 left-0 h-full w-80 bg-neutral-900 z-50 lg:hidden transform transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-full"
+        className={`fixed top-0 left-0 h-full w-80 bg-gray-900 z-50 lg:hidden transform transition-transform duration-300 ease-in-out shadow-2xl ${isOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         style={{
           position: 'fixed',
@@ -386,17 +386,17 @@ export default function Navbar() {
         }}
       >
         {/* Panel Header */}
-        <div className="flex items-center justify-between p-4 border-b border-neutral-800">
+        <div className="flex items-center justify-between p-4 border-b border-gray-800">
           <Link
             href="/"
-            className="text-xl font-bold text-red-400"
+            className="text-xl font-bold text-white hover:text-red-400 transition-colors"
             onClick={() => setIsOpen(false)}
           >
             kata komunika
           </Link>
           <button
             onClick={() => setIsOpen(false)}
-            className="p-2 rounded-lg hover:bg-white transition-colors"
+            className="p-2 rounded-lg text-gray-300 hover:text-white hover:bg-gray-800 transition-colors"
             aria-label="Close menu"
           >
             <X size={24} />
@@ -404,18 +404,18 @@ export default function Navbar() {
         </div>
 
         {/* Panel Navigation */}
-        <div className="py-4 overflow-y-auto h-full">
-          <nav className="space-y-1">
+        <div className="py-4 overflow-y-auto h-[calc(100%-72px)]">
+          <nav className="space-y-1 px-2">
             {navItems.map((item) => (
               <NavLink key={item.href} item={item} mobile />
             ))}
           </nav>
 
           {/* Additional mobile menu items */}
-          <div className="mt-8 px-4 pt-4 border-t border-neutral-800">
-            <button className="flex items-center gap-3 w-full px-4 py-3 text-lg transition-colors hover:text-red-400 hover:bg-neutral-800/50 rounded-lg">
+          <div className="mt-8 mx-2 pt-4 border-t border-gray-800">
+            <button className="flex items-center gap-3 w-full px-4 py-3 text-base text-gray-300 transition-colors hover:text-red-400 hover:bg-gray-800/50 rounded-lg">
               <Search size={20} />
-              Cari
+              Cari Artikel
             </button>
           </div>
         </div>
