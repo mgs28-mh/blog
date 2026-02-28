@@ -44,7 +44,7 @@ export default async function RelatedArticles({
           <Link
             key={article.slug}
             href={`/blog/${article.slug}`}
-            className="group block bg-white overflow-hidden transition-all duration-300 transform hover:-translate-y-1"
+            className="group block bg-white overflow-hidden transition-all duration-300 transform"
           >
             {article.image && (
               <div className="aspect-[16/10] relative overflow-hidden">
@@ -52,7 +52,7 @@ export default async function RelatedArticles({
                   src={article.image.url}
                   alt={article.title}
                   fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="object-cover transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
