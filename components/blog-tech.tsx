@@ -23,7 +23,7 @@ export default function BlogTechSection() {
       setError(null);
       try {
         // Get teknologi category articles
-        const regularData = await getArticlesByCategory("teknologi", 1, 5);
+        const regularData = await getArticlesByCategory("teknologi", 1, 10);
         const featuredData = await getFeaturedArticlesByCategory("teknologi", 2);
         
         setArticles(regularData.articles);
@@ -158,7 +158,7 @@ export default function BlogTechSection() {
               )}
 
               {/* Regular Posts - Two Column Layout */}
-              <BlogPost regularPosts={regularPosts} cardVariants={cardVariants} />
+              <BlogPost regularPosts={regularPosts.slice(0, 3)} cardVariants={cardVariants} />
 
               {/* Tombol Lihat Semua - Mobile */}
               <Link href={`/blog/teknologi`}>
