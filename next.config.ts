@@ -9,7 +9,7 @@ const nextConfig: NextConfig = {
         pathname: "/w30cm42007nv/**",
       },
     ],
-    qualities: [25, 50, 75, 100],
+    qualities: [25, 50, 75, 85, 100],
   },
   env: {
     CONTENTFUL_SPACE_ID: process.env.CONTENTFUL_SPACE_ID,
