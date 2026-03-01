@@ -14,7 +14,7 @@ interface BlogFeatureProps {
 export default function BlogFeature({ featuredPosts, cardVariants }: BlogFeatureProps) {
   // Loading skeleton component for featured posts
   const SkeletonFeaturedCard = () => (
-    <div className="animate-pulse relative h-[400px] rounded overflow-hidden">
+    <div className="animate-pulse relative h-[350px] lg:h-[400px] rounded-2xl overflow-hidden">
       <div className="bg-gray-200 h-full w-full" />
       <div className="absolute bottom-0 left-0 right-0 p-6">
         <div className="h-3 bg-gray-300 rounded mb-3 w-24" />
@@ -27,7 +27,7 @@ export default function BlogFeature({ featuredPosts, cardVariants }: BlogFeature
 
   if (featuredPosts.length === 0) {
     return (
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-20">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
         {Array.from({ length: 2 }).map((_, i) => (
           <SkeletonFeaturedCard key={i} />
         ))}
@@ -39,15 +39,15 @@ export default function BlogFeature({ featuredPosts, cardVariants }: BlogFeature
     <Link href={`/blog/${post.slug}`} aria-label={`Read full article: ${post.title}`}>
       <motion.article
         variants={cardVariants}
-        className="group relative h-[300px] lg:h-[400px] overflow-hidden cursor-pointer"
+        className="group relative h-[350px] lg:h-[400px] overflow-hidden cursor-pointer shadow-xl"
       >
         {/* Background Image */}
         <div className="absolute inset-0">
           <Image
             src={post.image?.url || "/fallback.jpg"}
-            alt="" // dekoratif karena judul sudah ada
+            alt=""
             fill
-            className="object-cover"
+            className="object-cover transition-transform duration-500"
             sizes="(max-width: 1024px) 100vw, 50vw"
             priority={index === 0}
           />
@@ -59,21 +59,12 @@ export default function BlogFeature({ featuredPosts, cardVariants }: BlogFeature
         {/* Content Overlay */}
         <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8 text-white">
           <div className="space-y-3">
-            {/* Meta Information */}
-            <span className="text-xs font-medium text-white/80 uppercase tracking-wider">
-              {new Date(post.date).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "short",
-                day: "numeric",
-              })}
-            </span>
-
-            {/* Title (jadi teks link utama) */}
+            {/* Title */}
             <h2 className="text-xl lg:text-2xl font-bold text-white leading-tight line-clamp-2 group-hover:text-white/90 transition-colors duration-200">
               {post.title}
             </h2>
 
-            {/* Read More (visually helpful, hidden for screen readers) */}
+            {/* Read More */}
             <motion.div
               aria-hidden="true"
               className="inline-flex items-center text-white/90 font-medium hover:text-white transition-colors duration-200 pt-2"
@@ -90,7 +81,7 @@ export default function BlogFeature({ featuredPosts, cardVariants }: BlogFeature
   );
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-20">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
       {featuredPosts.slice(0, 2).map((post, index) => (
         <FeaturedCard key={post.sys.id} post={post} index={index} />
       ))}

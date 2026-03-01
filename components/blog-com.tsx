@@ -22,10 +22,8 @@ export default function BlogComSection() {
       setLoading(true);
       setError(null);
       try {
-        // Get komunikasi category articles
         const regularData = await getArticlesByCategory("komunikasi", 1, 5);
         const featuredData = await getFeaturedArticlesByCategory("komunikasi", 2);
-        
         setArticles(regularData.articles);
         setFeaturedArticles(featuredData);
       } catch (err) {
@@ -82,14 +80,14 @@ export default function BlogComSection() {
   };
 
   return (
-    <section ref={ref} className="py-16 sm:py-20 lg:py-24 bg-white">
+    <section ref={ref} className="relative bg-white py-16 sm:py-20 lg:py-24">
       <div className="max-w-6xl mx-auto px-6">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
         >
-          {/* Section Header - Always visible */}
+          {/* Section Header */}
           <div className="mb-6 text-center">
             <h2 className="text-3xl md:text-6xl font-bold text-slate-900 mb-2">
               Artikel <span className="text-red-600">Komunikasi</span>
@@ -103,12 +101,10 @@ export default function BlogComSection() {
           {/* Error State */}
           {error && <ErrorState />}
 
-          {/* Loading State - Only for content, not header */}
+          {/* Loading State */}
           {loading && !error && (
             <>
-              {/* Featured Posts Skeleton */}
               <BlogFeature featuredPosts={[]} cardVariants={cardVariants} />
-              {/* Regular Posts Skeleton */}
               <BlogPost regularPosts={[]} cardVariants={cardVariants} />
             </>
           )}
@@ -155,7 +151,7 @@ export default function BlogComSection() {
                 </motion.div>
               )}
 
-              {/* Regular Posts  */}
+              {/* Regular Posts */}
               <BlogPost regularPosts={regularPosts} cardVariants={cardVariants} />
 
               {/* Tombol Lihat Semua - Mobile */}
