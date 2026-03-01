@@ -1,24 +1,10 @@
 import "./globals.css";
-import { Bricolage_Grotesque, Public_Sans } from "next/font/google";
 import type { Metadata } from "next";
 import Navbar from "@/components/ui/navbar";
 import Footer from "@/components/ui/footer";
 import Script from "next/script";
 import { generateWebsiteSchema, generateOrganizationSchema } from "@/lib/schema";
-
-const fonts = Bricolage_Grotesque({
-  subsets: ["latin"],
-  display: "swap",
-  preload: true,
-  weight: ["400", "500", "700", "800"],
-});
-
-export const publicSans = Public_Sans({
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400", "700"],
-  variable: "--font-public-sans",
-});
+import { bricolage } from "@/lib/fonts";
 
 export const metadata: Metadata = {
   title: "Kata Komunika - Komunikasi dan Teknologi",
@@ -69,7 +55,7 @@ export default function RootLayout({
 
   return (
     <html lang="id" data-scroll-behavior="smooth">
-      <body className={`${fonts.className} bg-white text-slate-900`}>
+      <body className={`${bricolage.className} bg-white text-slate-900`}>
         {/* Ahrefs Analytics */}
         <Script
           src="https://analytics.ahrefs.com/analytics.js"

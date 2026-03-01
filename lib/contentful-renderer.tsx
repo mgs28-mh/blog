@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { BLOCKS, INLINES, Block, Inline, Text } from "@contentful/rich-text-types";
 import { Options, NodeRenderer } from "@contentful/rich-text-react-renderer";
-import { publicSans } from "@/app/layout";
+import { publicSans } from "@/lib/fonts";
 
 type RichTextNode = Block | Inline;
 
