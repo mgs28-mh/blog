@@ -13,8 +13,6 @@ import { generateArticleSchema, generateJsonLd } from "@/lib/schema";
 import { richTextRenderOptions, calculateReadingTime } from "@/lib/contentful-renderer";
 import type { Metadata } from "next";
 
-export const revalidate = 3600;
-
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
   const allArticles = await getAllArticles();
   return allArticles.map((article) => ({

@@ -3,8 +3,6 @@ import { MetadataRoute } from "next";
 
 const baseUrl = 'https://archipelago.web.id';
 
-export const revalidate = 3600;
-
 async function getRoutes(): Promise<MetadataRoute.Sitemap> {
 
   let routes: MetadataRoute.Sitemap = [];
