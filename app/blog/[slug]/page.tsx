@@ -2,8 +2,7 @@ import { getAllArticles, getArticle } from "@/lib/api";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { BLOCKS, INLINES } from "@contentful/rich-text-types";
-import { ReactNode, Suspense } from "react";
+import { Suspense } from "react";
 import Link from "next/link";
 import { Calendar, Clock, User, Share2 } from "lucide-react";
 import { draftMode } from "next/headers";
@@ -11,9 +10,10 @@ import SocialShareButtons from "@/components/ui/social";
 import RelatedArticles from "@/components/ui/related";
 import TableOfContents from "@/components/ui/table-of-contents";
 import { generateArticleSchema, generateJsonLd } from "@/lib/schema";
-import { montserrat } from "@/app/layout";
+import { richTextRenderOptions, calculateReadingTime } from "@/lib/contentful-renderer";
+import type { Metadata } from "next";
 
-export const revalidate = 60;
+export const revalidate = 3600;
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
   const allArticles = await getAllArticles();
@@ -22,120 +22,59 @@ export async function generateStaticParams(): Promise<{ slug: string }[]> {
   }));
 }
 
-function calculateReadingTime(content: any): string {
-  // More accurate reading time calculation
-  const text = JSON.stringify(content);
-  const wordCount = text.split(/\s+/).length;
-  const wordsPerMinute = 200;
-  const minutes = Math.ceil(wordCount / wordsPerMinute);
-  return `${minutes} menit baca`;
+interface GenerateMetadataProps {
+  params: Promise<{ slug: string }>;
 }
 
-const richTextRenderOptions = {
-  renderNode: {
-    [BLOCKS.PARAGRAPH]: (_node: any, children: ReactNode) => (
-      <p className={`mb-4 text-base sm:text-lg font-normal leading-relaxed text-slate-700 ${montserrat.className}`}>
-        {children}
-      </p>
-    ),
-    [BLOCKS.HEADING_1]: (_node: any, children: ReactNode) => (
-      <h1 className="text-4xl font-bold mt-16 mb-8 text-gray-900 pb-4">
-        {children}
-      </h1>
-    ),
-    [BLOCKS.HEADING_2]: (node: any, children: ReactNode) => {
-      const text = node.content?.map((child: any) => child.value || "").join("").trim();
-      const id = text?.toLowerCase().replace(/[^a-z0-9\s-]/g, "").replace(/\s+/g, "-").replace(/-+/g, "-").trim() || "";
-      return (
-        <h2 id={id} className="text-2xl sm:text-3xl font-bold mt-8 sm:mt-10 mb-3 sm:mb-4 text-gray-900 scroll-mt-24">
-          {children}
-        </h2>
-      );
-    },
-    [BLOCKS.HEADING_3]: (node: any, children: ReactNode) => {
-      const text = node.content?.map((child: any) => child.value || "").join("").trim();
-      const id = text?.toLowerCase().replace(/[^a-z0-9\s-]/g, "").replace(/\s+/g, "-").replace(/-+/g, "-").trim() || "";
-      return (
-        <h3 id={id} className="text-xl sm:text-2xl font-bold mt-6 sm:mt-8 mb-2 sm:mb-3 text-gray-900 scroll-mt-24">
-          {children}
-        </h3>
-      );
-    },
-    [BLOCKS.HEADING_4]: (_node: any, children: ReactNode) => (
-      <h4 className="text-xl font-semibold mt-6 mb-3 text-gray-900">{children}</h4>
-    ),
-    [BLOCKS.UL_LIST]: (_node: any, children: ReactNode) => (
-      <ul className="list-disc pl-6 mb-3 space-y-3 text-slate-900">
-        {children}
-      </ul>
-    ),
-    [BLOCKS.OL_LIST]: (_node: any, children: ReactNode) => (
-      <ol className="list-decimal pl-6 mb-3 space-y-3 text-slate-900">
-        {children}
-      </ol>
-    ),
-    [BLOCKS.LIST_ITEM]: (_node: any, children: ReactNode) => (
-      <li className="text-base sm:text-lg leading-normal">{children}</li>
-    ),
-    [BLOCKS.QUOTE]: (_node: any, children: ReactNode) => (
-      <blockquote className="border-l-4 rounded-l-md border-red-500 p-4 py-4 italic text-gray-700 bg-red-50">
-        {children}
-      </blockquote>
-    ),
-    [BLOCKS.EMBEDDED_ASSET]: (node: any) => {
-      const file = node.data.target?.fields?.file;
-      const title = node.data.target?.fields?.title;
-      const description = node.data.target?.fields?.description;
+export async function generateMetadata({ params }: GenerateMetadataProps): Promise<Metadata> {
+  const { slug } = await params;
+  const article = await getArticle(slug);
 
-      if (!file) return null;
+  if (!article) {
+    return {
+      title: "Artikel Tidak Ditemukan",
+      description: "Artikel yang Anda cari tidak ditemukan.",
+    };
+  }
 
-      return (
-        <figure className="my-10 rounded-xl overflow-hidden shadow-lg">
-          <div className="aspect-[16/10] w-full relative">
-            <Image
-              src={`https:${file.url}`}
-              fill
-              alt={description || title || "Embedded content"}
-              className="object-cover transition-transform duration-300 hover:scale-105"
-            />
-          </div>
-          {(title || description) && (
-            <figcaption className="p-4 bg-gray-50">
-              {title && (
-                <div className="font-medium text-lg text-gray-900">{title}</div>
-              )}
-              {description && (
-                <div className="text-sm text-gray-600 mt-1">{description}</div>
-              )}
-            </figcaption>
-          )}
-        </figure>
-      );
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://archipelago.web.id";
+  const canonicalUrl = `${siteUrl}/blog/${slug}`;
+  const imageUrl = article.image?.url || `${siteUrl}/logo.webp`;
+
+  return {
+    title: article.title,
+    description: article.excerpt,
+    authors: [{ name: article.author || "Galang Saputra" }],
+    keywords: article.category ? [article.category, "blog", "artikel"] : ["blog", "artikel"],
+    alternates: {
+      canonical: canonicalUrl,
     },
-    [INLINES.HYPERLINK]: (node: any, children: ReactNode) => (
-      <Link
-        href={node.data.uri}
-        className="text-red-600 hover:text-red-800 underline decoration-2 underline-offset-2 transition-colors duration-200"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {children}
-      </Link>
-    ),
-  },
-  renderMark: {
-    bold: (text: ReactNode) => (
-      <strong className="font-bold text-gray-900">{text}</strong>
-    ),
-    italic: (text: ReactNode) => <em className="italic">{text}</em>,
-    underline: (text: ReactNode) => <u className="underline">{text}</u>,
-    code: (text: ReactNode) => (
-      <code className="font-mono bg-gray-100 px-2 py-1 rounded-md text-sm text-gray-800 border">
-        {text}
-      </code>
-    ),
-  },
-};
+    openGraph: {
+      title: article.title,
+      description: article.excerpt,
+      url: canonicalUrl,
+      siteName: "Kata Komunika",
+      locale: "id_ID",
+      type: "article",
+      publishedTime: article.date,
+      authors: [article.author || "Galang Saputra"],
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: article.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.title,
+      description: article.excerpt,
+      images: [imageUrl],
+    },
+  };
+}
 
 function ArticleSkeletonLoading() {
   return (
@@ -269,7 +208,7 @@ export default async function BlogPostArticlePage(
                 backgroundSize: '4rem 4rem'
               }} />
             </div>
-            
+
             {/* Decorative lines */}
             <div className="absolute top-0 left-1/3 w-px h-full bg-gradient-to-b from-transparent via-slate-700/50 to-transparent" />
             <div className="absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-transparent via-slate-700/50 to-transparent" />
@@ -299,7 +238,7 @@ export default async function BlogPostArticlePage(
 
               {/* Kategori Badge */}
               {article.category && (
-                <Link 
+                <Link
                   href={`/blog/${article.category}`}
                   className="inline-block px-3 py-1 mb-4 text-xs font-semibold uppercase tracking-wider text-red-400 bg-red-500/10 rounded-full hover:bg-red-500/20 transition-colors"
                 >
@@ -357,9 +296,10 @@ export default async function BlogPostArticlePage(
                   <Image
                     src={article.image.url}
                     fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1024px"
                     alt={article.title}
                     priority
-                    quality={75}
+                    quality={85}
                     className="object-cover"
                   />
                 </div>
@@ -392,7 +332,7 @@ export default async function BlogPostArticlePage(
             </article>
 
             {/* Table of Contents - Sticky di kanan (hidden on mobile) */}
-            <aside className="hidden xl:block w-64 shrink-0 self-start sticky top-24">
+            <aside className="hidden xl:block w-64 shrink-0 self-start sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto scrollbar-thin">
               <TableOfContents content={article.details.json} />
             </aside>
           </div>
