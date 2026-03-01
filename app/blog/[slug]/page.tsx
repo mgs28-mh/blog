@@ -298,7 +298,7 @@ export default async function BlogPostArticlePage(
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1024px"
                     alt={article.title}
                     priority
-                    quality={85}
+                    quality={75}
                     className="object-cover"
                   />
                 </div>
