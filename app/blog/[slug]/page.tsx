@@ -10,7 +10,8 @@ import SocialShareButtons from "@/components/ui/social";
 import RelatedArticles from "@/components/ui/related";
 import TableOfContents from "@/components/ui/table-of-contents";
 import { generateArticleSchema, generateJsonLd } from "@/lib/schema";
-import { richTextRenderOptions, calculateReadingTime } from "@/lib/contentful-renderer";
+import { richTextRenderOptions } from "@/lib/contentful-renderer";
+import { calculateReadingTime } from "@/lib/utils";
 import type { Metadata } from "next";
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
