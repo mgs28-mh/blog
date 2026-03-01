@@ -13,11 +13,11 @@ const fonts = Bricolage_Grotesque({
   weight: ["400", "500", "700", "800"],
 });
 
-export const montserrat = Public_Sans({
+export const publicSans = Public_Sans({
   subsets: ["latin"],
   display: "swap",
   weight: ["400", "700"],
-  variable: "--font-montserrat",
+  variable: "--font-public-sans",
 });
 
 export const metadata: Metadata = {
