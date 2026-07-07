@@ -22,13 +22,13 @@ export const metadata: Metadata = {
     siteName: "Kata Komunika",
     locale: "id_ID",
     type: "website",
-    url: "https://archipelago.web.id",
+    url: "https://katakomunika.web.id",
     title: "Kata Komunika - Komunikasi dan Teknologi",
     description:
       "Dapatkan artikel, wawasan, dan tips komunikasi dan informasi teknologi.",
     images: [
       {
-        url: "https://archipelago.web.id/logo.webp",
+        url: "https://katakomunika.web.id/logo.webp",
         width: 1200,
         height: 630,
         alt: "Kata Komunika",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     title: "Kata Komunika - Komunikasi dan Teknologi",
     description:
       "Dapatkan artikel, wawasan, dan tips komunikasi digital maupun klasik.",
-    images: ["https://archipelago.web.id/logo.webp"],
+    images: ["https://katakomunika.web.id/logo.webp"],
   },
 };
 

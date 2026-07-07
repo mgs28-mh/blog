@@ -1,0 +1,10 @@
+# Kata Komunika
+
+Dapatkan artikel, wawasan, dan tips seputar komunikasi dan teknologi informasi terbaru.
+
+## Key Pages
+- [Beranda](https://katakomunika.web.id/) - Halaman utama.
+- [Tentang](https://katakomunika.web.id/about) - Informasi tentang Kata Komunika.
+- [Blog](https://katakomunika.web.id/blog) - Indeks artikel.
+- [Komunikasi](https://katakomunika.web.id/blog/komunikasi) - Kategori Komunikasi.
+- [Teknologi](https://katakomunika.web.id/blog/teknologi) - Kategori Teknologi.

@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: BlogTeknologiPageProps): Prom
   
   if (isNaN(page) || page < 1) {
     return {
-      title: "Halaman Tidak Ditemukan - Kata Komunikasi",
+      title: "Halaman Tidak Ditemukan - Kata Komunika",
       description: "Halaman yang kamu cari tidak ditemukan.",
     };
   }
@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: BlogTeknologiPageProps): Prom
     const paginatedData = await getArticlesByCategory("teknologi", page, 6);
     
     const metadata: Metadata = {
-      title: `Blog Teknologi - Halaman ${page} - Kata Komunikasi`,
+      title: `Blog Teknologi - Halaman ${page} - Kata Komunika`,
       description:
         "Dapatkan artikel, wawasan, dan tips seputar perkembangan teknologi komunikasi dan informasi terbaru.",
       keywords: [
@@ -36,20 +36,20 @@ export async function generateMetadata({ params }: BlogTeknologiPageProps): Prom
         "artikel teknologi",
       ],
       alternates: {
-        canonical: `https://archipelago.web.id/blog/teknologi/page/${page}`,
+        canonical: `https://katakomunika.web.id/blog/teknologi/page/${page}`,
       },
       openGraph: {
-        title: `Blog Teknologi - Halaman ${page} - Kata Komunikasi`,
+        title: `Blog Teknologi - Halaman ${page} - Kata Komunika`,
         description:
-          "Dapatkan artikel, wawasan, dan tips seputar perkembangan teknologi komunikasi dan informasi terbaru di Archipelago, sumber informasi relevan untuk mengikuti inovasi teknologi di era modern.",
-        url: `https://archipelago.web.id/blog/teknologi/page/${page}`,
-        siteName: "Kata Komunikasi",
+          "Dapatkan artikel, wawasan, dan tips seputar perkembangan teknologi komunikasi dan informasi terbaru di Kata Komunika, sumber informasi relevan untuk mengikuti inovasi teknologi di era modern.",
+        url: `https://katakomunika.web.id/blog/teknologi/page/${page}`,
+        siteName: "Kata Komunika",
         images: [
           {
-            url: "https://archipelago.web.id/logo.webp",
+            url: "https://katakomunika.web.id/logo.webp",
             width: 1200,
             height: 630,
-            alt: "Kata Komunikasi - Blog Teknologi",
+            alt: "Kata Komunika - Blog Teknologi",
           },
         ],
         locale: "id_ID",
@@ -57,11 +57,11 @@ export async function generateMetadata({ params }: BlogTeknologiPageProps): Prom
       },
       twitter: {
         card: "summary_large_image",
-        site: `https://archipelago.web.id/blog/teknologi/page/${page}`,
-        title: `Blog Teknologi - Halaman ${page} - Kata Komunikasi`,
+        site: `https://katakomunika.web.id/blog/teknologi/page/${page}`,
+        title: `Blog Teknologi - Halaman ${page} - Kata Komunika`,
         description:
           "Dapatkan artikel dan wawasan seputar perkembangan teknologi komunikasi dan informasi terbaru untuk mengikuti inovasi di era modern.",
-        images: ["https://archipelago.web.id/logo.webp"],
+        images: ["https://katakomunika.web.id/logo.webp"],
       },
     };
 
@@ -69,7 +69,7 @@ export async function generateMetadata({ params }: BlogTeknologiPageProps): Prom
   } catch (error) {
     console.error("Error generating metadata:", error);
     return {
-      title: `Blog Teknologi - Halaman ${page} - Kata Komunikasi`,
+      title: `Blog Teknologi - Halaman ${page} - Kata Komunika`,
       description: "Dapatkan artikel, wawasan, dan tips seputar perkembangan teknologi komunikasi dan informasi terbaru.",
     };
   }
@@ -98,7 +98,7 @@ export default async function BlogTeknologiPage({ params }: BlogTeknologiPagePro
         currentPage={page}
         hasNextPage={paginatedData.pagination.hasNextPage}
         hasPreviousPage={paginatedData.pagination.hasPreviousPage}
-        baseUrl="https://archipelago.web.id"
+        baseUrl="https://katakomunika.web.id"
         category="teknologi"
       />
       <Hero />

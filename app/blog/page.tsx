@@ -7,7 +7,7 @@ import { HiOutlineArrowRight, HiOutlineChatBubbleLeftRight, HiOutlineComputerDes
 export async function generateMetadata(): Promise<Metadata> {
   try {
     const metadata: Metadata = {
-      title: "Blog - Kata Komunikasi",
+      title: "Blog - Kata Komunika",
       description:
         "Pilih kategori blog yang ingin Anda baca: Komunikasi atau Teknologi. Dapatkan artikel, wawasan, dan tips terbaru.",
       keywords: [
@@ -19,20 +19,20 @@ export async function generateMetadata(): Promise<Metadata> {
         "artikel terbaru",
       ],
       alternates: {
-        canonical: "https://archipelago.web.id/blog",
+        canonical: "https://katakomunika.web.id/blog",
       },
       openGraph: {
-        title: "Blog - Kata Komunikasi",
+        title: "Blog - Kata Komunika",
         description:
-          "Pilih kategori blog yang ingin Anda baca: Komunikasi atau Teknologi. Dapatkan artikel, wawasan, dan tips terbaru di Kata Komunikasi.",
-        url: "https://archipelago.web.id/blog",
-        siteName: "Kata Komunikasi",
+          "Pilih kategori blog yang ingin Anda baca: Komunikasi atau Teknologi. Dapatkan artikel, wawasan, dan tips terbaru di Kata Komunika.",
+        url: "https://katakomunika.web.id/blog",
+        siteName: "Kata Komunika",
         images: [
           {
-            url: "https://archipelago.web.id/logo.webp",
+            url: "https://katakomunika.web.id/logo.webp",
             width: 1200,
             height: 630,
-            alt: "Kata Komunikasi - Blog Categories",
+            alt: "Kata Komunika - Blog Categories",
           },
         ],
         locale: "id_ID",
@@ -40,11 +40,11 @@ export async function generateMetadata(): Promise<Metadata> {
       },
       twitter: {
         card: "summary_large_image",
-        site: "https://archipelago.web.id/blog",
-        title: "Blog - Kata Komunikasi",
+        site: "https://katakomunika.web.id/blog",
+        title: "Blog - Kata Komunika",
         description:
           "Pilih kategori blog yang ingin Anda baca: Komunikasi atau Teknologi. Dapatkan artikel, wawasan, dan tips terbaru.",
-        images: ["https://archipelago.web.id/logo.webp"],
+        images: ["https://katakomunika.web.id/logo.webp"],
       },
     };
 
@@ -52,7 +52,7 @@ export async function generateMetadata(): Promise<Metadata> {
   } catch (error) {
     console.error("Error generating metadata:", error);
     return {
-      title: "Blog - Kata Komunikasi",
+      title: "Blog - Kata Komunika",
       description: "Pilih kategori blog yang ingin Anda baca: Komunikasi atau Teknologi.",
     };
   }

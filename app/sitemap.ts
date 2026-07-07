@@ -1,7 +1,7 @@
 import { getAllArticleSitemap } from "@/lib/api";
 import { MetadataRoute } from "next";
 
-const baseUrl = 'https://archipelago.web.id';
+const baseUrl = 'https://katakomunika.web.id';
 
 async function getRoutes(): Promise<MetadataRoute.Sitemap> {
 

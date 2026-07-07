@@ -23,7 +23,7 @@ const navItems: NavItem[] = [
 
 const socialLinks: SocialLink[] = [
   {
-    href: "https://twitter.com/mgs28mh",
+    href: "https://x.com/mgs28mh",
     label: "Twitter",
     icon: <FaXTwitter size={20} />,
   },

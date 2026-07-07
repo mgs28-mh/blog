@@ -1,0 +1,14 @@
+# Kata Komunika (Full Information)
+
+Dapatkan artikel, wawasan, dan tips seputar komunikasi dan teknologi informasi terbaru di Kata Komunika.
+
+## Halaman Utama
+URL: https://katakomunika.web.id/
+
+## Tentang Kami
+URL: https://katakomunika.web.id/about
+Misi kami adalah memberikan wawasan mendalam mengenai tren teknologi dan cara berkomunikasi secara efektif di era modern.
+
+## Kategori Blog
+- Komunikasi (https://katakomunika.web.id/blog/komunikasi): Mengupas teori, praktik, dan fenomena komunikasi dari berbagai sudut pandang.
+- Teknologi (https://katakomunika.web.id/blog/teknologi): Mengupas tips dan fenomena teknologi dari berbagai sudut pandang.

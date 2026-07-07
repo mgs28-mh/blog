@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: GenerateMetadataProps): Promi
     };
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://archipelago.web.id";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://katakomunika.web.id";
   const canonicalUrl = `${siteUrl}/blog/${slug}`;
   const imageUrl = article.image?.url || `${siteUrl}/logo.webp`;
 
@@ -187,7 +187,7 @@ export default async function BlogPostArticlePage(
   }
 
   const readingTime = calculateReadingTime(article.details);
-  const articleUrl = `${process.env.NEXT_PUBLIC_SITE_URL || "https://archipelago.web.id"
+  const articleUrl = `${process.env.NEXT_PUBLIC_SITE_URL || "https://katakomunika.web.id"
     }/blog/${params.slug}`;
 
   const articleSchema = generateArticleSchema(article);
