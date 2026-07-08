@@ -1,10 +1,9 @@
-"use client";
-import { motion } from "framer-motion";
+import { publicSans } from "@/lib/fonts";
 
 export default function Hero() {
   return (
-    <section className="relative py-20 md:py-28 bg-gray-900 overflow-hidden">
-      {/* Grid pattern background - subtle and transparent */}
+    <section className="relative bg-gray-900 overflow-hidden">
+      {/* Grid pattern background */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 opacity-[0.07]">
           <div
@@ -18,31 +17,42 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Content Container */}
-      <div className="relative z-10 max-w-4xl mx-auto px-1">
-        {/* Blog Label */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-4"
-        >
-          <span className="bg-red-600 text-gray-100 font-bold text-sm md:text-lg tracking-[0.2em] uppercase px-4 py-1">
-            KATA KOMUNIKA
-          </span>
-        </motion.div>
+      <div className="relative z-10 max-w-6xl mx-auto px-6 py-16 md:py-24 lg:py-28">
+        <div className="flex items-center justify-between gap-8">
+          {/* Left — Editorial content */}
+          <div className="flex flex-col gap-8 flex-1">
 
-        {/* Main Headline - Center aligned with highlighted keywords */}
-        <motion.h1
-          initial={{ y: 30, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
-          className="text-2xl md:text-3xl lg:text-4xl xl:text-6xl font-bold leading-[1.2] text-white text-center"
-        >
-          Ide dan wawasan seputar{" "}
-          <span className="text-red-500">komunikasi, teknologi, digital,</span>{" "}
-          platform, dan masih banyak lagi.
-        </motion.h1>
+            {/* Label — small, understated */}
+            <p className={`${publicSans.className} text-[11px] md:text-xs tracking-[0.3em] uppercase text-gray-400 font-medium`}>
+              Jurnal &middot; Komunikasi &middot; Teknologi
+            </p>
+
+            {/* Headline */}
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] xl:text-6xl font-bold text-white leading-[1.15] tracking-tight max-w-3xl">
+              Ide dan wawasan seputar{" "}
+              <span className="text-red-500">komunikasi</span>,{" "}
+              <span className="text-red-500">teknologi</span>, dan dunia digital.
+            </h1>
+
+            {/* Subhead — brief, human-toned */}
+            <p className={`${publicSans.className} text-base md:text-lg text-gray-400 max-w-xl leading-relaxed`}>
+              Menulis tentang cara pesan bekerja, kenapa teknologi penting, dan hal-hal yang menarik di antaranya.
+            </p>
+
+            {/* Thin separator */}
+            <div className="w-12 h-px bg-gray-700" />
+          </div>
+
+          {/* Right — Decorative typographic 'K' */}
+          <div
+            className="hidden lg:flex items-center justify-center select-none pointer-events-none shrink-0"
+            aria-hidden="true"
+          >
+            <span className="text-[18rem] xl:text-[22rem] font-bold leading-none text-white/[0.03] -mr-8">
+              K
+            </span>
+          </div>
+        </div>
       </div>
     </section>
   );

@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
+import { publicSans } from "@/lib/fonts";
+
 export default function AboutSection() {
   return (
     <section className="py-16 bg-neutral-50 overflow-x-hidden">
@@ -45,7 +47,7 @@ export default function AboutSection() {
                 </span>
                 
               </h2>
-              <p className="text-md lg:text-lg text-slate-900 leading-relaxed">
+              <p className={`${publicSans.className} text-md lg:text-lg text-slate-900 leading-relaxed`}>
                 Seorang penulis dan pengembang yang senang berbagi wawasan
                 tentang teknologi, kreativitas, dan kehidupan sehari-hari.
                 Berawal dari studi di bidang Ilmu Komunikasi, saya belajar

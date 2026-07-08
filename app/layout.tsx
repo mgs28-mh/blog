@@ -56,13 +56,6 @@ export default function RootLayout({
   return (
     <html lang="id" data-scroll-behavior="smooth">
       <body className={`${bricolage.className} bg-white text-slate-900`}>
-        {/* Ahrefs Analytics */}
-        <Script
-          src="https://analytics.ahrefs.com/analytics.js"
-          data-key="nCZwxPo3mN754U1NAe84aQ"
-          strategy="afterInteractive"
-        />
-
         {/* Schema Markup */}
         <Script
           id="website-schema"

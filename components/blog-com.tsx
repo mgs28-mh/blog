@@ -8,6 +8,7 @@ import { Article, getArticlesByCategory, getFeaturedArticlesByCategory } from "@
 import Link from "next/link";
 import BlogFeature from "./com/feature";
 import BlogPost from "./com/post";
+import { publicSans } from "@/lib/fonts";
 
 export default function BlogComSection() {
   const ref = useRef(null);
@@ -41,7 +42,7 @@ export default function BlogComSection() {
   // Error state component
   const ErrorState = () => (
     <div className="text-center py-12">
-      <p className="text-red-600 text-lg mb-4">Gagal memuat artikel</p>
+      <p className={`${publicSans.className} text-red-600 text-lg mb-4`}>Gagal memuat artikel</p>
       <button 
         onClick={() => window.location.reload()} 
         className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
@@ -92,7 +93,7 @@ export default function BlogComSection() {
             <h2 className="text-3xl md:text-6xl font-bold text-slate-900 mb-2">
               Artikel <span className="text-red-600">Komunikasi</span>
             </h2>
-            <p className="text-xl text-neutral-900 mt-5 mb-10">
+            <p className={`${publicSans.className} text-xl text-neutral-900 mt-5 mb-10`}>
               Mengupas teori, praktik, dan fenomena komunikasi dari berbagai
               sudut pandang.
             </p>
@@ -126,7 +127,7 @@ export default function BlogComSection() {
                       <h3 className="text-2xl md:text-3xl font-bold text-slate-900 mb-3">
                         Artikel Terbaru
                       </h3>
-                      <p className="text-lg text-neutral-700">
+                      <p className={`${publicSans.className} text-lg text-neutral-700`}>
                         Temukan artikel komunikasi terbaru dan terkini
                       </p>
                     </div>

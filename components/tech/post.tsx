@@ -6,6 +6,8 @@ import { HiOutlineArrowRight } from "react-icons/hi";
 import { Article } from "@/lib/api";
 import Link from "next/link";
 
+import { publicSans } from "@/lib/fonts";
+
 interface BlogPostProps {
   regularPosts: Article[];
   cardVariants: Variants;
@@ -76,7 +78,7 @@ export default function BlogPost({ regularPosts, cardVariants }: BlogPostProps) 
           </h3>
 
           {/* Excerpt */}
-          <p className="text-md lg:text-lg text-gray-600 line-clamp-4 leading-relaxed">
+          <p className={`${publicSans.className} text-md lg:text-lg text-gray-600 line-clamp-4 leading-relaxed`}>
             {post.excerpt}
           </p>
 

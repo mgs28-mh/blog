@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { getArticlesByCategory } from "@/lib/api";
 import { HiOutlineArrowRight, HiOutlineChatBubbleLeftRight, HiOutlineComputerDesktop } from "react-icons/hi2";
+import { publicSans } from "@/lib/fonts";
 
 export async function generateMetadata(): Promise<Metadata> {
   try {
@@ -96,7 +97,7 @@ export default async function Blog() {
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
               Pilih Kategori Artikel
             </h2>
-            <p className="text-xl text-neutral-700 max-w-3xl mx-auto">
+            <p className={`${publicSans.className} text-xl text-neutral-700 max-w-3xl mx-auto`}>
               Temukan artikel yang sesuai dengan minat Anda. Pilih kategori untuk melihat koleksi artikel terbaru kami.
             </p>
           </div>
@@ -136,7 +137,7 @@ export default async function Blog() {
                       </h3>
 
                       {/* Description */}
-                      <p className="text-white/90 mb-6 leading-relaxed">
+                      <p className={`${publicSans.className} text-white/90 mb-6 leading-relaxed`}>
                         {category.description}
                       </p>
 

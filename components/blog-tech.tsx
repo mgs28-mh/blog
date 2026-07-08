@@ -8,6 +8,7 @@ import { Article, getArticlesByCategory, getFeaturedArticlesByCategory } from "@
 import Link from "next/link";
 import BlogFeature from "./tech/feature";
 import BlogPost from "./tech/post";
+import { publicSans } from "@/lib/fonts";
 
 export default function BlogTechSection() {
   const ref = useRef(null);
@@ -43,7 +44,7 @@ export default function BlogTechSection() {
   // Error state component
   const ErrorState = () => (
     <div className="text-center py-20">
-      <p className="text-gray-600 text-lg mb-6">Gagal memuat artikel saat ini</p>
+      <p className={`${publicSans.className} text-gray-600 text-lg mb-6`}>Gagal memuat artikel saat ini</p>
       <button
         onClick={() => window.location.reload()}
         className="px-6 py-3 bg-gray-900 text-white hover:bg-gray-800 transition-colors duration-200 font-medium"
@@ -94,7 +95,7 @@ export default function BlogTechSection() {
             <h2 className="text-3xl md:text-6xl font-bold text-slate-900 mb-2">
               Artikel <span className="text-red-600">Teknologi</span>
             </h2>
-            <p className="text-xl text-neutral-900 mt-5 mb-10">
+            <p className={`${publicSans.className} text-xl text-neutral-900 mt-5 mb-10`}>
               Mengupas tips dan fenomena teknologi dari berbagai
               sudut pandang.
             </p>
@@ -132,7 +133,7 @@ export default function BlogTechSection() {
                       <h3 className="text-2xl md:text-3xl font-bold text-slate-900 mb-3">
                         Artikel Terbaru
                       </h3>
-                      <p className="text-lg text-neutral-700">
+                      <p className={`${publicSans.className} text-lg text-neutral-700`}>
                         Temukan artikel teknologi terbaru dan terkini
                       </p>
                     </div>
