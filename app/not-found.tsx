@@ -3,10 +3,11 @@
 import { motion } from "framer-motion";
 import { Home, Search, ArrowLeft, FileQuestion } from "lucide-react";
 import Link from "next/link";
+import { publicSans } from "@/lib/fonts";
 
 export default function NotFound() {
   return (
-    <section className="relative min-h-[80vh] flex flex-col items-center justify-center bg-gray-900 overflow-hidden">
+    <section className="fixed inset-0 z-[100] min-h-screen flex flex-col items-center justify-center bg-gray-900 overflow-hidden">
       {/* Decorative background elements */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Grid pattern */}
@@ -70,7 +71,7 @@ export default function NotFound() {
           transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
           className="mb-10"
         >
-          <p className="text-md md:text-lg text-gray-400 leading-relaxed max-w-xl mx-auto">
+          <p className={`${publicSans.className} text-md md:text-lg text-gray-400 leading-relaxed max-w-xl mx-auto`}>
             Maaf, halaman atau artikel yang Anda cari tidak tersedia. Mungkin
             sudah dihapus, dipindahkan, atau URL yang dimasukkan salah.
           </p>
