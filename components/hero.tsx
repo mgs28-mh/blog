@@ -28,7 +28,7 @@ export default function Hero() {
             </p>
 
             {/* Headline */}
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] xl:text-6xl font-bold text-white leading-[1.15] tracking-tight max-w-3xl">
+            <h1 className="text-3xl sm:text-3xl md:text-5xl lg:text-[3.5rem] xl:text-6xl font-bold text-white leading-[1.15] tracking-tight max-w-3xl">
               Ide dan wawasan seputar{" "}
               <span className="text-red-500">komunikasi</span>,{" "}
               <span className="text-red-500">teknologi</span>, dan dunia digital.

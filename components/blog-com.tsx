@@ -133,20 +133,18 @@ export default function BlogComSection() {
                     </div>
                     
                     {/* View All Posts Button - Desktop Only */}
-                    <Link href={`/blog/komunikasi`} className="hidden md:block">
-                      <motion.button
-                        className="inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-slate-950 hover:text-red-500 transition-all duration-300 cursor-pointer mt-4 md:mt-0"
+                    <Link
+                      href={`/blog/komunikasi`}
+                      className="hidden md:inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-slate-950 hover:text-red-500 transition-all duration-300 cursor-pointer mt-4 md:mt-0"
+                    >
+                      Lihat Semua
+                      <motion.span
+                        className="ml-2 inline-block"
+                        whileHover={{ x: 4 }}
                         transition={{ type: "spring", stiffness: 300, damping: 20 }}
                       >
-                        Lihat Semua
-                        <motion.div
-                          className="ml-2"
-                          whileHover={{ x: 4 }}
-                          transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                        >
-                          <HiOutlineArrowRight className="w-5 h-5" />
-                        </motion.div>
-                      </motion.button>
+                        <HiOutlineArrowRight className="w-5 h-5" />
+                      </motion.span>
                     </Link>
                   </div>
                 </motion.div>
@@ -156,28 +154,24 @@ export default function BlogComSection() {
               <BlogPost regularPosts={regularPosts} cardVariants={cardVariants} />
 
               {/* Tombol Lihat Semua - Mobile */}
-              <Link href={`/blog/komunikasi`}>
-                <motion.div
-                  variants={cardVariants}
-                  className="text-center mt-12 lg:mt-16 md:hidden"
+              <motion.div
+                variants={cardVariants}
+                className="text-center mt-12 lg:mt-16 md:hidden"
+              >
+                <Link
+                  href={`/blog/komunikasi`}
+                  className="inline-flex items-center justify-center px-6 py-3 text-base sm:text-lg font-semibold text-red-600 bg-white border-2 border-red-600 hover:bg-red-600 hover:text-white transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-red-500/50 cursor-pointer"
                 >
-                  <motion.button
-                    className="inline-flex items-center justify-center px-6 py-3 text-base sm:text-lg font-semibold text-red-600 bg-white border-2 border-red-600 hover:bg-red-600 hover:text-white transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-red-500/50 cursor-pointer"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                  Lihat Semua
+                  <motion.span
+                    className="ml-2 inline-block"
+                    whileHover={{ x: 4 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   >
-                    Lihat Semua
-                    <motion.div
-                      className="ml-2"
-                      whileHover={{ x: 4 }}
-                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    >
-                      <HiOutlineArrowRight className="w-5 h-5" />
-                    </motion.div>
-                  </motion.button>
-                </motion.div>
-              </Link>
+                    <HiOutlineArrowRight className="w-5 h-5" />
+                  </motion.span>
+                </Link>
+              </motion.div>
             </>
           )}
         </motion.div>
