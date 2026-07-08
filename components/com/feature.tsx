@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, Variants } from "framer-motion";
-import Image from "next/image";
 import { HiOutlineArrowRight } from "react-icons/hi";
 import { Article } from "@/lib/api";
 import Link from "next/link";
@@ -43,13 +42,25 @@ export default function BlogFeature({ featuredPosts, cardVariants }: BlogFeature
       >
         {/* Background Image */}
         <div className="absolute inset-0">
-          <Image
-            src={post.image?.url || "/fallback.jpg"}
+          <img
+            src={
+              post.image?.url
+                ? `${post.image.url.startsWith("//") ? "https:" : ""}${post.image.url}?w=800&fm=webp&q=80`
+                : "/fallback.jpg"
+            }
+            srcSet={
+              post.image?.url
+                ? `
+                  ${post.image.url.startsWith("//") ? "https:" : ""}${post.image.url}?w=400&fm=webp&q=80 400w,
+                  ${post.image.url.startsWith("//") ? "https:" : ""}${post.image.url}?w=800&fm=webp&q=80 800w
+                `
+                : undefined
+            }
+            sizes="(max-width: 640px) 400px, 800px"
             alt=""
-            fill
-            className="object-cover transition-transform duration-500"
-            sizes="(max-width: 1024px) 100vw, 50vw"
-            priority={index === 0}
+            className="object-cover w-full h-full absolute inset-0 transition-transform duration-500 group-hover:scale-105"
+            loading="eager"
+            fetchPriority="high"
           />
         </div>
 

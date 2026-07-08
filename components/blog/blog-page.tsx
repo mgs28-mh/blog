@@ -215,6 +215,7 @@ export default function BlogList({ currentPage, category }: BlogListProps) {
                       : (category ? `/blog/${category}/page/${pagination.currentPage - 1}` : `/blog/page/${pagination.currentPage - 1}`)
                     }
                     rel="prev"
+                    aria-label="Halaman sebelumnya"
                     className="flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 text-red-600 bg-white border border-red-600 hover:bg-red-600 hover:text-white"
                   >
                     <HiChevronLeft className="w-4 h-4 mr-1" />
@@ -224,6 +225,7 @@ export default function BlogList({ currentPage, category }: BlogListProps) {
                 {!pagination.hasPreviousPage && (
                   <button
                     disabled
+                    aria-label="Halaman sebelumnya (tidak tersedia)"
                     className="flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 text-gray-400 bg-gray-100 border border-gray-200 cursor-not-allowed"
                   >
                     <HiChevronLeft className="w-4 h-4 mr-1" />
@@ -251,6 +253,7 @@ export default function BlogList({ currentPage, category }: BlogListProps) {
                           ? (category ? `/blog/${category}` : "/blog")
                           : (category ? `/blog/${category}/page/${pageNum}` : `/blog/page/${pageNum}`)
                         }
+                        aria-label={`Ke halaman ${pageNum}`}
                         className={`w-10 h-10 flex items-center justify-center text-sm font-medium rounded-lg transition-all duration-200 ${pageNum === pagination.currentPage
                           ? "bg-red-600 text-white"
                           : "text-gray-600 bg-white border border-gray-200 hover:bg-red-50 hover:text-red-600"
@@ -270,6 +273,7 @@ export default function BlogList({ currentPage, category }: BlogListProps) {
                       : `/blog/page/${pagination.currentPage + 1}`
                     }
                     rel="next"
+                    aria-label="Halaman berikutnya"
                     className="flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 text-red-600 bg-white border border-red-600 hover:bg-red-600 hover:text-white"
                   >
                     <HiChevronRight className="w-4 h-4 ml-1" />
@@ -279,6 +283,7 @@ export default function BlogList({ currentPage, category }: BlogListProps) {
                 {!pagination.hasNextPage && (
                   <button
                     disabled
+                    aria-label="Halaman berikutnya (tidak tersedia)"
                     className="flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 text-gray-400 bg-gray-100 border border-gray-200 cursor-not-allowed"
                   >
                     <HiChevronRight className="w-4 h-4 ml-1" />

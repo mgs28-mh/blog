@@ -55,6 +55,13 @@ export default function RootLayout({
 
   return (
     <html lang="id" data-scroll-behavior="smooth">
+      <head>
+        <link
+          rel="preconnect"
+          href="https://images.ctfassets.net"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body className={`${bricolage.className} bg-white text-slate-900`}>
         {/* Schema Markup */}
         <Script

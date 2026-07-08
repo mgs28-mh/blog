@@ -17,7 +17,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6 py-16 md:py-24 lg:py-28">
+      <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 md:py-24 lg:py-28">
         <div className="flex items-center justify-between gap-8">
           {/* Left — Editorial content */}
           <div className="flex flex-col gap-8 flex-1">

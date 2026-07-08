@@ -10,6 +10,7 @@ export const bricolage = Bricolage_Grotesque({
 export const publicSans = Public_Sans({
   subsets: ["latin"],
   display: "swap",
+  preload: true,
   weight: ["400", "700"],
   variable: "--font-public-sans",
 });
