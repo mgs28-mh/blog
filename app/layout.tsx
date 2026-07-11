@@ -2,8 +2,6 @@ import "./globals.css";
 import type { Metadata } from "next";
 import Navbar from "@/components/ui/navbar";
 import Footer from "@/components/ui/footer";
-import Script from "next/script";
-import { generateWebsiteSchema, generateOrganizationSchema } from "@/lib/schema";
 import { bricolage } from "@/lib/fonts";
 
 export const metadata: Metadata = {
@@ -50,8 +48,12 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const websiteSchema = generateWebsiteSchema();
-  const orgSchema = generateOrganizationSchema();
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    'name': 'Kata Komunika',
+    'url': 'https://katakomunika.web.id/',
+  };
 
   return (
     <html lang="id" data-scroll-behavior="smooth">
@@ -64,17 +66,9 @@ export default function RootLayout({
       </head>
       <body className={`${bricolage.className} bg-white text-slate-900`}>
         {/* Schema Markup */}
-        <Script
-          id="website-schema"
+        <script
           type="application/ld+json"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
-        />
-        <Script
-          id="org-schema"
-          type="application/ld+json"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
 
         {/* Layout */}
