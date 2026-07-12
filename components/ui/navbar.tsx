@@ -124,11 +124,11 @@ export default function Navbar() {
 
     if (hasChildren && !mobile) {
       return (
-        <div 
-          className="relative" 
+        <div
+          className="relative"
           ref={dropdownRef}
         >
-          <div 
+          <div
             className={`flex items-center gap-0 transition-all duration-200`}
           >
             {/* Main Link - Clickable */}
@@ -139,7 +139,7 @@ export default function Navbar() {
             >
               {item.label}
             </Link>
-            
+
             {/* Dropdown Button - Separate from link */}
             <button
               className={`flex items-center px-1 py-2 transition-all duration-200 hover:text-red-400 ${activeClasses} ${activeDropdown === item.label ? 'text-red-400' : 'text-white'}`}
@@ -214,7 +214,7 @@ export default function Navbar() {
             >
               <span className="text-base font-medium text-gray-100">{item.label}</span>
             </Link>
-            
+
             {/* Dropdown Toggle Button */}
             <button
               className="px-3 py-3 text-gray-400 transition-colors hover:text-red-400 hover:bg-gray-800/50 rounded-r-lg min-w-[50px] flex justify-center"
@@ -319,7 +319,7 @@ export default function Navbar() {
             <div className="flex items-center">
               <Link href="/" className={`${logoClasses} flex items-center gap-3`}>
                 <span className="text-xl md:text-2xl font-bold text-white tracking-tight leading-tight">
-                  kata<br />komunika
+                  kata<span className="text-red-500">.</span>komunika
                 </span>
               </Link>
             </div>
