@@ -36,7 +36,7 @@ function generateSlugId(text: string): string {
 export const richTextRenderOptions: Options = {
   renderNode: {
     [BLOCKS.PARAGRAPH]: (_node, children: ReactNode) => (
-      <p className={`mb-4 text-base sm:text-lg font-normal leading-relaxed text-slate-700 ${publicSans.className}`}>
+      <p className={`mb-4 text-base sm:text-lg font-light leading-[1.85] tracking-wide text-slate-700 ${publicSans.className}`}>
         {children}
       </p>
     ),
@@ -67,17 +67,17 @@ export const richTextRenderOptions: Options = {
       <h4 className="text-xl font-semibold mt-6 mb-3 text-gray-900">{children}</h4>
     ),
     [BLOCKS.UL_LIST]: (_node, children: ReactNode) => (
-      <ul className="list-disc pl-6 mb-3 space-y-3 text-slate-900">
+      <ul className="list-disc pl-6 mb-6 space-y-3 text-slate-900">
         {children}
       </ul>
     ),
     [BLOCKS.OL_LIST]: (_node, children: ReactNode) => (
-      <ol className="list-decimal pl-6 mb-3 space-y-3 text-slate-900">
+      <ol className="list-decimal pl-6 mb-6 space-y-3 text-slate-900">
         {children}
       </ol>
     ),
     [BLOCKS.LIST_ITEM]: (_node, children: ReactNode) => (
-      <li className="text-base sm:text-lg leading-normal">{children}</li>
+      <li className={`text-base sm:text-lg font-light leading-[1.85] tracking-wide text-slate-700 ${publicSans.className}`}>{children}</li>
     ),
     [BLOCKS.QUOTE]: (_node, children: ReactNode) => (
       <blockquote className="border-l-4 rounded-l-md border-red-500 p-4 py-4 italic text-gray-700 bg-red-50">
