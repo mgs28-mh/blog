@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Navbar from "@/components/ui/navbar";
 import Footer from "@/components/ui/footer";
 import { bricolage } from "@/lib/fonts";
+import { generateJsonLd, generateWebsiteSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Kata Komunika - Komunikasi dan Teknologi",
@@ -48,12 +49,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    'name': 'Kata Komunika',
-    'url': 'https://katakomunika.web.id/',
-  };
+  const jsonLd = generateWebsiteSchema();
 
   return (
     <html lang="id" data-scroll-behavior="smooth">

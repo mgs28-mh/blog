@@ -86,6 +86,7 @@ const ARTICLE_GRAPHQL_FIELDS = `
         }
       }
     }
+    author
     date
     image {
       url
