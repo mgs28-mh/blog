@@ -1,11 +1,12 @@
 import AboutSection from "@/components/about";
 import Hero from "@/components/about/hero";
 import { Metadata } from "next";
+import { generateJsonLd, generatePersonSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Profile - Kata Komunika",
   description:
-    "Dapatkan artikel, wawasan, dan tips komunikasi dan informasi teknologi.",
+    "Kenali Galang Saputra, penulis dan pengembang di balik Kata Komunika yang berbagi wawasan seputar komunikasi dan teknologi.",
   keywords: [
     "komunikasi digital",
     "komunikasi klasik",
@@ -45,10 +46,16 @@ export const metadata: Metadata = {
 };
 
 export default function About() {
+    const personSchema = generatePersonSchema();
+
     return (
         <>
             <Hero />
             <AboutSection />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={generateJsonLd(personSchema)}
+            />
         </>
     );
 }

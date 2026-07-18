@@ -9,7 +9,7 @@ import { draftMode } from "next/headers";
 import SocialShareButtons from "@/components/ui/social";
 import RelatedArticles from "@/components/ui/related";
 import TableOfContents from "@/components/ui/table-of-contents";
-import { generateArticleSchema, generateJsonLd } from "@/lib/schema";
+import { generateArticleSchema, generateBreadcrumbSchema, generateJsonLd } from "@/lib/schema";
 import { richTextRenderOptions } from "@/lib/contentful-renderer";
 import { calculateReadingTime } from "@/lib/utils";
 import type { Metadata } from "next";
@@ -191,6 +191,19 @@ export default async function BlogPostArticlePage(
     }/blog/${params.slug}`;
 
   const articleSchema = generateArticleSchema(article);
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Beranda", url: "/" },
+    { name: "Blog", url: "/blog" },
+    ...(article.category
+      ? [
+          {
+            name: article.category === "komunikasi" ? "Komunikasi" : article.category === "teknologi" ? "Teknologi" : article.category,
+            url: `/blog/${article.category}`,
+          },
+        ]
+      : []),
+    { name: article.title, url: `/blog/${params.slug}` },
+  ]);
 
   return (
     <div className="min-h-screen bg-white">
@@ -346,6 +359,10 @@ export default async function BlogPostArticlePage(
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={generateJsonLd(articleSchema)}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={generateJsonLd(breadcrumbSchema)}
         />
       </Suspense>
     </div>
