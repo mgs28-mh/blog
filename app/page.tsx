@@ -16,7 +16,7 @@ export const metadata: Metadata = {
         "artikel komunikasi",
     ],
     alternates: {
-        canonical: "https://katakomunika.web.id",
+        canonical: "https://katakomunika.web.id/",
     },
     openGraph: {
         title: "Kata Komunika - Komunikasi dan Teknologi",
