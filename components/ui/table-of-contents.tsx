@@ -11,6 +11,7 @@ interface Heading {
 
 interface TableOfContentsProps {
   content: any; // Rich text JSON from Contentful
+  variant?: "sidebar" | "inline";
 }
 
 function extractHeadings(content: any): Heading[] {
@@ -50,7 +51,7 @@ function extractHeadings(content: any): Heading[] {
   return headings;
 }
 
-export default function TableOfContents({ content }: TableOfContentsProps) {
+export default function TableOfContents({ content, variant = "sidebar" }: TableOfContentsProps) {
   const [headings, setHeadings] = useState<Heading[]>([]);
   const [activeId, setActiveId] = useState<string>("");
 
@@ -107,14 +108,16 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
   };
 
   return (
-    <nav className="hidden xl:block">
+    <nav className={variant === "sidebar" ? "hidden xl:block" : ""}>
       <div>
-        <div className="flex items-center gap-2 mb-4 text-gray-900">
-          <List className="w-4 h-4" />
-          <span className="text-sm font-semibold uppercase tracking-wider">
-            Daftar Isi
-          </span>
-        </div>
+        {variant === "sidebar" && (
+          <div className="flex items-center gap-2 mb-4 text-gray-900">
+            <List className="w-4 h-4" />
+            <span className="text-sm font-semibold uppercase tracking-wider">
+              Daftar Isi
+            </span>
+          </div>
+        )}
         <ul className="space-y-2 border-l-2 border-gray-200">
           {headings.map(({ id, text, level }) => (
             <li key={id}>

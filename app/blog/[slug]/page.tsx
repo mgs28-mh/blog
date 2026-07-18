@@ -4,7 +4,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import Link from "next/link";
-import { Calendar, Clock, User, Share2 } from "lucide-react";
+import { Calendar, Clock, User, Share2, List, ChevronDown } from "lucide-react";
 import { draftMode } from "next/headers";
 import SocialShareButtons from "@/components/ui/social";
 import RelatedArticles from "@/components/ui/related";
@@ -319,11 +319,23 @@ export default async function BlogPostArticlePage(
             </div>
           )}
 
+          {/* Daftar Isi - collapsible di mobile & tablet */}
+          <details className="xl:hidden mb-8 group rounded-xl border border-gray-200 bg-gray-50 px-5 py-4 open:pb-5">
+            <summary className="flex items-center gap-2 cursor-pointer select-none font-semibold text-gray-900 list-none [&::-webkit-details-marker]:hidden">
+              <List className="w-4 h-4 text-red-500" />
+              <span className="text-sm uppercase tracking-wider">Daftar Isi</span>
+              <ChevronDown className="w-4 h-4 ml-auto text-gray-400 transition-transform duration-200 group-open:rotate-180" />
+            </summary>
+            <div className="mt-4">
+              <TableOfContents content={article.details.json} variant="inline" />
+            </div>
+          </details>
+
           {/* Layout 2 kolom: Artikel + ToC */}
           <div className="flex flex-col xl:flex-row gap-8 xl:gap-12">
             {/* Artikel Utama */}
-            <article className="flex-1 w-full xl:max-w-2xl">
-              <div className="prose prose-base prose-neutral max-w-none">
+            <article className="w-full max-w-3xl mx-auto xl:mx-0 xl:flex-1">
+              <div>
                 {documentToReactComponents(
                   article.details.json,
                   richTextRenderOptions
