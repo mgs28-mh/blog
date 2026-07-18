@@ -1,7 +1,8 @@
 import Hero from "@/components/blog/hero";
 import { Metadata } from "next";
 import Link from "next/link";
-import { getArticlesByCategory } from "@/lib/api";
+import { getArticlesByCategory, getArticlesPreview } from "@/lib/api";
+import { generateBlogSchema, generateJsonLd } from "@/lib/schema";
 import { HiOutlineArrowRight, HiOutlineChatBubbleLeftRight, HiOutlineComputerDesktop } from "react-icons/hi2";
 import { publicSans } from "@/lib/fonts";
 
@@ -63,6 +64,14 @@ export default async function Blog() {
   // Get article counts for each category
   const komunikasiData = await getArticlesByCategory("komunikasi", 1, 1);
   const teknologiData = await getArticlesByCategory("teknologi", 1, 1);
+  const recentArticles = await getArticlesPreview(10);
+
+  const blogSchema = generateBlogSchema(recentArticles, {
+    path: "/blog",
+    name: "Blog - Kata Komunika",
+    description:
+      "Pilih kategori blog yang ingin Anda baca: Komunikasi atau Teknologi. Dapatkan artikel, wawasan, dan tips terbaru.",
+  });
   
   const categories = [
     {
@@ -171,6 +180,10 @@ export default async function Blog() {
           </div>
         </div>
       </section>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={generateJsonLd(blogSchema)}
+      />
     </>
   );
 }

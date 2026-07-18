@@ -3,6 +3,7 @@ import Hero from "@/components/blog/hero";
 import PaginationLinks from "@/components/blog/pagination-links";
 import { Metadata } from "next";
 import { getArticlesByCategory } from "@/lib/api";
+import { generateBlogSchema, generateJsonLd } from "@/lib/schema";
 
 export async function generateMetadata(): Promise<Metadata> {
   try {
@@ -64,7 +65,14 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function BlogTeknologi() {
   // Get pagination data for head links
   const paginatedData = await getArticlesByCategory("teknologi", 1, 6);
-  
+
+  const blogSchema = generateBlogSchema(paginatedData.articles, {
+    path: "/blog/teknologi",
+    name: "Blog Teknologi - Kata Komunika",
+    description:
+      "Dapatkan artikel, wawasan, dan tips seputar perkembangan teknologi komunikasi dan informasi terbaru.",
+  });
+
   return (
     <>
       <PaginationLinks
@@ -76,7 +84,11 @@ export default async function BlogTeknologi() {
       />
       <>
         <Hero />
-        <BlogList currentPage={1} category="teknologi" />
+        <BlogList paginatedData={paginatedData} category="teknologi" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={generateJsonLd(blogSchema)}
+        />
       </>
     </>
   );

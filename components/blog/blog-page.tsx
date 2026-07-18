@@ -2,51 +2,21 @@
 
 import { motion, Variants } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 import { HiOutlineArrowRight, HiChevronLeft, HiChevronRight } from "react-icons/hi";
-import { Article, getArticlesPaginated, getArticlesByCategory, PaginatedArticles } from "@/lib/api";
+import { Article, PaginatedArticles } from "@/lib/api";
 import Link from "next/link";
 import { publicSans } from "@/lib/fonts";
 
 interface BlogListProps {
-  currentPage: number;
+  paginatedData: PaginatedArticles;
   category?: string;
 }
 
-export default function BlogList({ currentPage, category }: BlogListProps) {
+export default function BlogList({ paginatedData, category }: BlogListProps) {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
-  const [paginatedData, setPaginatedData] = useState<PaginatedArticles>({
-    articles: [],
-    pagination: {
-      currentPage: 1,
-      totalPages: 1,
-      totalItems: 0,
-      hasNextPage: false,
-      hasPreviousPage: false,
-      itemsPerPage: 6,
-    },
-  });
-  const [loading, setLoading] = useState(false);
-
-  const fetchArticles = async (page: number) => {
-    setLoading(true);
-    try {
-      const data = category
-        ? await getArticlesByCategory(category, page, 6)
-        : await getArticlesPaginated(page, 6);
-      setPaginatedData(data);
-    } catch (error) {
-      console.error("Error fetching articles:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchArticles(currentPage);
-  }, [currentPage, category]);
 
   const { articles, pagination } = paginatedData;
 
@@ -104,30 +74,9 @@ export default function BlogList({ currentPage, category }: BlogListProps) {
             </p>
           </div>
 
-          {/* Loading State */}
-          {loading && (
-            <div className="space-y-5">
-              {[...Array(6)].map((_, index) => (
-                <div key={index} className="animate-pulse grid grid-cols-1 lg:grid-cols-3 gap-8 py-5">
-                  <div className="w-full h-64 lg:h-72 bg-gray-200 rounded" />
-                  <div className="flex flex-col col-span-2 justify-center space-y-4">
-                    <div className="h-4 bg-gray-200 rounded mb-3 w-24" />
-                    <div className="h-6 bg-gray-200 rounded mb-4 w-3/4" />
-                    <div className="h-5 bg-gray-200 rounded w-full mb-2" />
-                    <div className="h-5 bg-gray-200 rounded w-2/3 mb-4" />
-                    <div className="pt-4">
-                      <div className="h-6 bg-gray-200 rounded w-32" />
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-
           {/* Articles List */}
-          {!loading && (
-            <div className="space-y-5">
-              {articles.map((post: Article) => (
+          <div className="space-y-5">
+            {articles.map((post: Article) => (
                 <Link key={post.sys.id} href={`/blog/${post.slug}`}>
                   <motion.article
                     variants={cardVariants}
@@ -188,11 +137,10 @@ export default function BlogList({ currentPage, category }: BlogListProps) {
                   </motion.article>
                 </Link>
               ))}
-            </div>
-          )}
+          </div>
 
           {/* Pagination Controls */}
-          {!loading && pagination.totalPages > 1 && (
+          {pagination.totalPages > 1 && (
             <motion.div
               variants={cardVariants}
               className="flex flex-col sm:flex-row items-center justify-between mt-12 lg:mt-16 gap-4"

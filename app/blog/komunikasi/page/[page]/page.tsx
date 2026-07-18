@@ -3,6 +3,7 @@ import Hero from "@/components/blog/hero";
 import PaginationLinks from "@/components/blog/pagination-links";
 import { Metadata } from "next";
 import { getArticlesByCategory } from "@/lib/api";
+import { generateBlogSchema, generateJsonLd } from "@/lib/schema";
 import { notFound } from "next/navigation";
 
 interface BlogKomunikasiPageProps {
@@ -102,7 +103,18 @@ export default async function BlogKomunikasiPage({ params }: BlogKomunikasiPageP
         category="komunikasi"
       />
       <Hero />
-      <BlogList currentPage={page} category="komunikasi" />
+      <BlogList paginatedData={paginatedData} category="komunikasi" />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={generateJsonLd(
+          generateBlogSchema(paginatedData.articles, {
+            path: `/blog/komunikasi/page/${page}`,
+            name: `Blog Komunikasi - Halaman ${page} - Kata Komunika`,
+            description:
+              "Dapatkan artikel, wawasan, dan tips seputar komunikasi digital maupun klasik.",
+          })
+        )}
+      />
     </>
   );
 }

@@ -3,6 +3,7 @@ import Hero from "@/components/blog/hero";
 import PaginationLinks from "@/components/blog/pagination-links";
 import { Metadata } from "next";
 import { getArticlesByCategory } from "@/lib/api";
+import { generateBlogSchema, generateJsonLd } from "@/lib/schema";
 import { notFound } from "next/navigation";
 
 interface BlogTeknologiPageProps {
@@ -102,7 +103,18 @@ export default async function BlogTeknologiPage({ params }: BlogTeknologiPagePro
         category="teknologi"
       />
       <Hero />
-      <BlogList currentPage={page} category="teknologi" />
+      <BlogList paginatedData={paginatedData} category="teknologi" />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={generateJsonLd(
+          generateBlogSchema(paginatedData.articles, {
+            path: `/blog/teknologi/page/${page}`,
+            name: `Blog Teknologi - Halaman ${page} - Kata Komunika`,
+            description:
+              "Dapatkan artikel, wawasan, dan tips seputar perkembangan teknologi komunikasi dan informasi terbaru.",
+          })
+        )}
+      />
     </>
   );
 }
