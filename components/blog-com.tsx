@@ -1,180 +1,49 @@
-"use client";
-
-import { motion, Variants } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
-import { HiOutlineArrowRight } from "react-icons/hi";
-import { Article, getArticlesByCategory, getFeaturedArticlesByCategory } from "@/lib/api";
-import Link from "next/link";
-import BlogFeature from "./com/feature";
-import BlogPost from "./com/post";
+import { getArticlesByCategory, getFeaturedArticlesByCategory } from "@/lib/api";
 import { publicSans } from "@/lib/fonts";
+import BlogComClient from "./com/blog-com-client";
 
-export default function BlogComSection() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.2 });
-  const [articles, setArticles] = useState<Article[]>([]);
-  const [featuredArticles, setFeaturedArticles] = useState<Article[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+export default async function BlogComSection() {
+  let regularPosts: Awaited<ReturnType<typeof getArticlesByCategory>>["articles"] = [];
+  let featuredArticles: Awaited<ReturnType<typeof getFeaturedArticlesByCategory>> = [];
+  let error = false;
 
-  useEffect(() => {
-    const fetchArticles = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const regularData = await getArticlesByCategory("komunikasi", 1, 5);
-        const featuredData = await getFeaturedArticlesByCategory("komunikasi", 2);
-        setArticles(regularData.articles);
-        setFeaturedArticles(featuredData);
-      } catch (err) {
-        setError('Failed to load articles');
-        console.error('Error fetching articles:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchArticles();
-  }, []);
-
-  const regularPosts = articles.filter((post) => !post.featured);
-
-  // Error state component
-  const ErrorState = () => (
-    <div className="text-center py-12">
-      <p className={`${publicSans.className} text-red-600 text-lg mb-4`}>Gagal memuat artikel</p>
-      <button 
-        onClick={() => window.location.reload()} 
-        className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
-      >
-        Coba Lagi
-      </button>
-    </div>
-  );
-
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
-      },
-    },
-  };
-
-  const cardVariants: Variants = {
-    hidden: {
-      opacity: 0,
-      y: 30,
-      scale: 0.95,
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.5,
-        ease: [0.25, 0.1, 0.25, 1],
-      },
-    },
-  };
+  try {
+    const [regularData, featured] = await Promise.all([
+      getArticlesByCategory("komunikasi", 1, 5),
+      getFeaturedArticlesByCategory("komunikasi", 2),
+    ]);
+    regularPosts = regularData.articles.filter((post) => !post.featured);
+    featuredArticles = featured;
+  } catch (err) {
+    error = true;
+    console.error("Error fetching articles:", err);
+  }
 
   return (
-    <section ref={ref} className="relative bg-white py-16 sm:py-20 lg:py-24">
+    <section className="relative bg-white py-16 sm:py-20 lg:py-24">
       <div className="max-w-6xl mx-auto px-6">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-        >
-          {/* Section Header */}
-          <div className="mb-6 text-center">
-            <h2 className="text-3xl md:text-6xl font-bold text-slate-900 mb-2">
-              Artikel <span className="text-red-600">Komunikasi</span>
-            </h2>
-            <p className={`${publicSans.className} text-xl text-neutral-900 mt-5 mb-10`}>
-              Mengupas teori, praktik, dan fenomena komunikasi dari berbagai
-              sudut pandang.
-            </p>
-          </div>
+        {/* Section Header */}
+        <div className="mb-6 text-center">
+          <h2 className="text-3xl md:text-6xl font-bold text-slate-900 mb-2">
+            Artikel <span className="text-red-600">Komunikasi</span>
+          </h2>
+          <p className={`${publicSans.className} text-xl text-neutral-900 mt-5 mb-10`}>
+            Mengupas teori, praktik, dan fenomena komunikasi dari berbagai
+            sudut pandang.
+          </p>
+        </div>
 
-          {/* Error State */}
-          {error && <ErrorState />}
+        {/* Error State */}
+        {error && (
+          <p className={`${publicSans.className} text-center text-red-600 text-lg py-12`}>
+            Gagal memuat artikel
+          </p>
+        )}
 
-          {/* Loading State */}
-          {loading && !error && (
-            <>
-              <BlogFeature featuredPosts={[]} cardVariants={cardVariants} />
-              <BlogPost regularPosts={[]} cardVariants={cardVariants} />
-            </>
-          )}
-
-          {/* Actual Content */}
-          {!loading && !error && (
-            <>
-              {/* Featured Posts */}
-              <BlogFeature featuredPosts={featuredArticles} cardVariants={cardVariants} />
-
-              {/* Regular Posts Header */}
-              {regularPosts.length > 0 && (
-                <motion.div
-                  variants={cardVariants}
-                  className="mb-8 mt-12"
-                >
-                  <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-                    <div className="text-left">
-                      <h3 className="text-2xl md:text-3xl font-bold text-slate-900 mb-3">
-                        Artikel Terbaru
-                      </h3>
-                      <p className={`${publicSans.className} text-lg text-neutral-700`}>
-                        Temukan artikel komunikasi terbaru dan terkini
-                      </p>
-                    </div>
-                    
-                    {/* View All Posts Button - Desktop Only */}
-                    <Link
-                      href={`/blog/komunikasi`}
-                      className="hidden md:inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-slate-950 hover:text-red-500 transition-all duration-300 cursor-pointer mt-4 md:mt-0"
-                    >
-                      Lihat Semua
-                      <motion.span
-                        className="ml-2 inline-block"
-                        whileHover={{ x: 4 }}
-                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                      >
-                        <HiOutlineArrowRight className="w-5 h-5" />
-                      </motion.span>
-                    </Link>
-                  </div>
-                </motion.div>
-              )}
-
-              {/* Regular Posts */}
-              <BlogPost regularPosts={regularPosts} cardVariants={cardVariants} />
-
-              {/* Tombol Lihat Semua - Mobile */}
-              <motion.div
-                variants={cardVariants}
-                className="text-center mt-12 lg:mt-16 md:hidden"
-              >
-                <Link
-                  href={`/blog/komunikasi`}
-                  className="inline-flex items-center justify-center px-6 py-3 text-base sm:text-lg font-semibold text-red-600 bg-white border-2 border-red-600 hover:bg-red-600 hover:text-white transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-red-500/50 cursor-pointer"
-                >
-                  Lihat Semua
-                  <motion.span
-                    className="ml-2 inline-block"
-                    whileHover={{ x: 4 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  >
-                    <HiOutlineArrowRight className="w-5 h-5" />
-                  </motion.span>
-                </Link>
-              </motion.div>
-            </>
-          )}
-        </motion.div>
+        {/* Content */}
+        {!error && (
+          <BlogComClient regularPosts={regularPosts} featuredArticles={featuredArticles} />
+        )}
       </div>
     </section>
   );

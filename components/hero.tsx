@@ -1,4 +1,5 @@
 import { publicSans } from "@/lib/fonts";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -41,6 +42,14 @@ export default function Hero() {
 
             {/* Thin separator */}
             <div className="w-12 h-px bg-gray-700" />
+
+            {/* CTA */}
+            <Link
+              href="/blog"
+              className="inline-flex items-center gap-2 w-fit px-6 py-3 text-sm font-semibold text-white bg-red-600 hover:bg-red-500 transition-colors duration-300"
+            >
+              Baca Artikel Terbaru
+            </Link>
           </div>
 
           {/* Right — Decorative typographic 'K' */}

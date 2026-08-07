@@ -1,186 +1,49 @@
-"use client";
-
-import { motion, Variants } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
-import { HiOutlineArrowRight } from "react-icons/hi";
-import { Article, getArticlesByCategory, getFeaturedArticlesByCategory } from "@/lib/api";
-import Link from "next/link";
-import BlogFeature from "./tech/feature";
-import BlogPost from "./tech/post";
+import { getArticlesByCategory, getFeaturedArticlesByCategory } from "@/lib/api";
 import { publicSans } from "@/lib/fonts";
+import BlogTechClient from "./tech/blog-tech-client";
 
-export default function BlogTechSection() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.2 });
-  const [articles, setArticles] = useState<Article[]>([]);
-  const [featuredArticles, setFeaturedArticles] = useState<Article[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+export default async function BlogTechSection() {
+  let regularPosts: Awaited<ReturnType<typeof getArticlesByCategory>>["articles"] = [];
+  let featuredArticles: Awaited<ReturnType<typeof getFeaturedArticlesByCategory>> = [];
+  let error = false;
 
-  useEffect(() => {
-    const fetchArticles = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        // Get teknologi category articles
-        const regularData = await getArticlesByCategory("teknologi", 1, 10);
-        const featuredData = await getFeaturedArticlesByCategory("teknologi", 2);
-        
-        setArticles(regularData.articles);
-        setFeaturedArticles(featuredData);
-      } catch (err) {
-        setError('Failed to load articles');
-        console.error('Error fetching articles:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchArticles();
-  }, []);
-
-  const regularPosts = articles.filter((post) => !post.featured);
-
-  // Error state component
-  const ErrorState = () => (
-    <div className="text-center py-20">
-      <p className={`${publicSans.className} text-gray-600 text-lg mb-6`}>Gagal memuat artikel saat ini</p>
-      <button
-        onClick={() => window.location.reload()}
-        className="px-6 py-3 bg-gray-900 text-white hover:bg-gray-800 transition-colors duration-200 font-medium"
-      >
-        Coba Lagi
-      </button>
-    </div>
-  );
-
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
-      },
-    },
-  };
-
-  const cardVariants: Variants = {
-    hidden: {
-      opacity: 0,
-      y: 30,
-      scale: 0.95,
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.5,
-        ease: [0.25, 0.1, 0.25, 1],
-      },
-    },
-  };
+  try {
+    const [regularData, featured] = await Promise.all([
+      getArticlesByCategory("teknologi", 1, 10),
+      getFeaturedArticlesByCategory("teknologi", 2),
+    ]);
+    regularPosts = regularData.articles.filter((post) => !post.featured);
+    featuredArticles = featured;
+  } catch (err) {
+    error = true;
+    console.error("Error fetching articles:", err);
+  }
 
   return (
-    <section ref={ref} className="py-16 sm:py-20 lg:py-24 bg-neutral-50">
+    <section className="py-16 sm:py-20 lg:py-24 bg-neutral-50">
       <div className="max-w-6xl mx-auto px-6">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-        >
-          {/* Section Header - Always visible */}
-          <div className="mb-6 text-center">
-            <h2 className="text-3xl md:text-6xl font-bold text-slate-900 mb-2">
-              Artikel <span className="text-red-600">Teknologi</span>
-            </h2>
-            <p className={`${publicSans.className} text-xl text-neutral-900 mt-5 mb-10`}>
-              Mengupas tips dan fenomena teknologi dari berbagai
-              sudut pandang.
-            </p>
+        {/* Section Header - Always visible */}
+        <div className="mb-6 text-center">
+          <h2 className="text-3xl md:text-6xl font-bold text-slate-900 mb-2">
+            Artikel <span className="text-red-600">Teknologi</span>
+          </h2>
+          <p className={`${publicSans.className} text-xl text-neutral-900 mt-5 mb-10`}>
+            Mengupas tips dan fenomena teknologi dari berbagai
+            sudut pandang.
+          </p>
+        </div>
+
+        {/* Error State */}
+        {error && (
+          <div className="text-center py-20">
+            <p className={`${publicSans.className} text-gray-600 text-lg`}>Gagal memuat artikel saat ini</p>
           </div>
+        )}
 
-          {/* Error State */}
-          {error && <ErrorState />}
-
-          {/* Loading State - Only for content, not header */}
-          {loading && !error && (
-            <>
-              {/* Featured Post Skeleton */}
-              <BlogFeature featuredPosts={[]} cardVariants={cardVariants} />
-              {/* Regular Posts Skeleton */}
-              <BlogPost regularPosts={[]} cardVariants={cardVariants} />
-            </>
-          )}
-
-          {/* Actual Content */}
-          {!loading && !error && (
-            <>
-              {/* Featured Post - Two Large Posts */}
-              {featuredArticles.length > 0 && (
-                <BlogFeature featuredPosts={featuredArticles.slice(0, 2)} cardVariants={cardVariants} />
-              )}
-
-              {/* Regular Posts Header */}
-              {regularPosts.length > 0 && (
-                <motion.div
-                  variants={cardVariants}
-                  className="mb-8 mt-12"
-                >
-                  <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-                    <div className="text-left">
-                      <h3 className="text-2xl md:text-3xl font-bold text-slate-900 mb-3">
-                        Artikel Terbaru
-                      </h3>
-                      <p className={`${publicSans.className} text-lg text-neutral-700`}>
-                        Temukan artikel teknologi terbaru dan terkini
-                      </p>
-                    </div>
-
-                    {/* Tombol Lihat Semua - Desktop */}
-                    <Link
-                      href={`/blog/teknologi`}
-                      className="hidden md:inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-slate-950 hover:text-red-500 transition-all duration-300 cursor-pointer mt-4 md:mt-0"
-                    >
-                      Lihat Semua
-                      <motion.span
-                        className="ml-2 inline-block"
-                        whileHover={{ x: 4 }}
-                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                      >
-                        <HiOutlineArrowRight className="w-5 h-5" />
-                      </motion.span>
-                    </Link>
-                  </div>
-                </motion.div>
-              )}
-
-              {/* Regular Posts - Two Column Layout */}
-              <BlogPost regularPosts={regularPosts.slice(0, 3)} cardVariants={cardVariants} />
-
-              {/* Tombol Lihat Semua - Mobile */}
-              <motion.div
-                variants={cardVariants}
-                className="text-center mt-12 lg:mt-16 md:hidden"
-              >
-                <Link
-                  href={`/blog/teknologi`}
-                  className="inline-flex items-center justify-center px-6 py-3 text-base sm:text-lg font-semibold text-red-600 bg-white border-2 border-red-600 hover:bg-red-600 hover:text-white transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-red-500/50 cursor-pointer"
-                >
-                  Lihat Semua
-                  <motion.span
-                    className="ml-2 inline-block"
-                    whileHover={{ x: 4 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  >
-                    <HiOutlineArrowRight className="w-5 h-5" />
-                  </motion.span>
-                </Link>
-              </motion.div>
-            </>
-          )}
-        </motion.div>
+        {/* Content */}
+        {!error && (
+          <BlogTechClient regularPosts={regularPosts} featuredArticles={featuredArticles} />
+        )}
       </div>
     </section>
   );
