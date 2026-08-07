@@ -1,36 +1,158 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Kata Komunika
 
-## Getting Started
+Blog tentang komunikasi dan teknologi. Dibangun dengan **Next.js 15**, **Contentful** (headless CMS), **TypeScript**, **Tailwind CSS v4**, dan **Framer Motion**.
 
-First, run the development server:
+Domain: [katakomunika.web.id](https://katakomunika.web.id)
+Penulis: **Galang Saputra**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Fitur
+
+- **Headless CMS** — Konten dikelola via Contentful, di-render dengan GraphQL API
+- **Kategori** — Artikel terbagi dalam Komunikasi dan Teknologi
+- **Rich Text** — Contentful rich text dengan kustom render (heading anchor, embedded images, code, blockquote)
+- **Pagination** — Halaman kategori dengan navigasi halaman
+- **Featured Articles** — Artikel unggulan di halaman depan
+- **Search** — Pencarian artikel via GraphQL
+- **Reading Time** — Estimasi waktu baca otomatis
+- **Related Articles** — Artikel terkait berdasarkan kategori
+- **Table of Contents** — Daftar isi sticky dari heading artikel
+- **Social Share** — Bagikan artikel ke X, Facebook, LinkedIn, copy link
+- **SEO** — Metadata dinamis, Open Graph, Twitter Card, JSON-LD Schema (Artikel, Breadcrumb, Organisasi, Person, Blog), sitemap.xml, robots.txt
+- **llms.txt** — Halaman `/llms.txt` untuk AI crawler
+- **On-Demand ISR** — Revalidasi cache via Contentful webhook
+- **Custom 404** — Halaman tidak ditemukan dengan animasi
+- **Animasi** — Framer Motion untuk scroll-triggered entry, staggered cards
+- **Responsive** — Layout mobile-first dengan grid dan collapsible ToC
+
+## Tech Stack
+
+| Teknologi | Kegunaan |
+|---|---|
+| Next.js 15 (App Router) | Framework React |
+| TypeScript | Type safety |
+| Tailwind CSS v4 | Utility-first styling |
+| Framer Motion | Animasi scroll & entry |
+| Contentful | Headless CMS (GraphQL) |
+| Lucide React / React Icons | Icon set |
+| @contentful/rich-text-react-renderer | Render rich text |
+
+## Struktur Projek
+
+```
+blog/
+├── app/
+│   ├── about/          # Halaman tentang
+│   ├── api/
+│   │   └── revalidate/ # On-demand ISR webhook
+│   ├── blog/
+│   │   ├── [slug]/     # Detail artikel
+│   │   ├── komunikasi/ # Kategori komunikasi (dengan pagination)
+│   │   └── teknologi/  # Kategori teknologi (dengan pagination)
+│   │   └── page.tsx    # Indeks blog
+│   ├── llms.txt/       # llms.txt route
+│   ├── layout.tsx      # Root layout (Navbar + Footer)
+│   ├── page.tsx        # Beranda (Hero + Blog Sections)
+│   ├── not-found.tsx   # Custom 404
+│   ├── sitemap.ts      # Dynamic sitemap
+│   └── robots.ts       # robots.txt
+├── components/
+│   ├── about/          # Komponen halaman tentang
+│   ├── blog/           # Blog list hero, blog-page, pagination-links
+│   ├── com/            # BlogFeature + BlogPost (kategori komunikasi)
+│   ├── tech/           # BlogFeature + BlogPost (kategori teknologi)
+│   ├── ui/             # Navbar, Footer, RelatedArticles, SocialShare, TableOfContents
+│   ├── about.tsx       # About section
+│   ├── blog-com.tsx    # Homepage komunikasi section
+│   ├── blog-tech.tsx   # Homepage teknologi section
+│   ├── cta.tsx         # CTA banner
+│   └── hero.tsx        # Homepage hero
+├── lib/
+│   ├── api.ts          # Contentful GraphQL client
+│   ├── contentful-renderer.tsx  # Rich text render options
+│   ├── fonts.ts        # Google Fonts (Bricolage Grotesque, Public Sans)
+│   ├── schema.ts       # JSON-LD structured data generators
+│   └── utils.ts        # Reading time, text extraction
+├── public/             # Gambar statis
+└── globals.css         # Tailwind v4 entry
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Environment Variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Buat file `.env.local` di root projek:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```env
+CONTENTFUL_SPACE_ID=your_space_id
+CONTENTFUL_ACCESS_TOKEN=your_cda_token
+CONTENTFUL_PREVIEW_ACCESS_TOKEN=your_cpa_token     # optional, untuk draft mode
+REVALIDATION_SECRET=your_webhook_secret             # untuk on-demand revalidation
+```
 
-## Learn More
+## Memulai
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm install
+npm run dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Buka [http://localhost:3000](http://localhost:3000).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Script lain:
 
-## Deploy on Vercel
+| Script | Perintah |
+|---|---|
+| Dev server | `npm run dev` |
+| Build | `npm run build` |
+| Production | `npm start` |
+| Lint | `npm run lint` |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Setup Contentful
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Buat space di [contentful.com](https://contentful.com)
+2. Buat content model `artikelPost` dengan field:
+   - `title` (Short text)
+   - `slug` (Short text, unique)
+   - `excerpt` (Long text)
+   - `details` (Rich text)
+   - `date` (Date)
+   - `image` (Media)
+   - `featured` (Boolean)
+   - `category` (Short text — value: `komunikasi`/`teknologi`)
+3. Generate CDA token (Settings > API Keys)
+4. Isi `.env.local`
+
+## On-Demand Revalidation
+
+Contentful webhook → `POST /api/revalidate`.
+
+Setup di Contentful:
+1. Settings > Webhooks > Add webhook
+2. URL: `https://your-domain.com/api/revalidate`
+3. Header: `x-revalidate-secret` = value dari `REVALIDATION_SECRET`
+4. Trigger: Entry publish, unpublish, delete
+
+## Halaman
+
+| Route | Halaman |
+|---|---|
+| `/` | Beranda |
+| `/about` | Tentang |
+| `/blog` | Indeks blog (kategori cards) |
+| `/blog/komunikasi` | Artikel komunikasi |
+| `/blog/teknologi` | Artikel teknologi |
+| `/blog/komunikasi/page/[page]` | Pagination komunikasi |
+| `/blog/teknologi/page/[page]` | Pagination teknologi |
+| `/blog/[slug]` | Detail artikel |
+| `/api/revalidate` | Webhook revalidasi |
+| `/llms.txt` | AI crawler index |
+| `/sitemap.xml` | Sitemap |
+| `/robots.txt` | Robots |
+
+## Deploy
+
+Deploy ke Vercel:
+
+```bash
+npm run build
+```
+
+Set environment variables di Vercel dashboard (sama dengan `.env.local`).
