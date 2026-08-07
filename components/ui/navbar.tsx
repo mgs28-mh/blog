@@ -293,7 +293,7 @@ export default function Navbar() {
     "text-2xl font-bold transition-all duration-200 hover:text-red-400 rounded-lg px-2 py-1";
 
   const searchButtonClasses =
-    "p-2 rounded-lg transition-all duration-200 hover:text-red-400 text-white hover:bg-gray-800";
+    "min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg transition-all duration-200 hover:text-red-400 text-white hover:bg-gray-800";
 
   return (
     <>

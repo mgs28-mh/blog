@@ -6,9 +6,16 @@ import { Suspense } from "react";
 import Link from "next/link";
 import { Calendar, Clock, User, Share2, List, ChevronDown } from "lucide-react";
 import { draftMode } from "next/headers";
+import dynamic from "next/dynamic";
 import SocialShareButtons from "@/components/ui/social";
 import RelatedArticles from "@/components/ui/related";
 import TableOfContents from "@/components/ui/table-of-contents";
+
+// Below-fold / collapsed-by-default instances of the same widgets are code-split
+// out of the initial hydration bundle — the hero share buttons and desktop sticky
+// ToC stay as regular imports since they're visible immediately on load.
+const SocialShareButtonsBelowFold = dynamic(() => import("@/components/ui/social"));
+const TableOfContentsMobile = dynamic(() => import("@/components/ui/table-of-contents"));
 import { generateArticleSchema, generateBreadcrumbSchema, generateJsonLd } from "@/lib/schema";
 import { richTextRenderOptions } from "@/lib/contentful-renderer";
 import { calculateReadingTime } from "@/lib/utils";
@@ -327,7 +334,7 @@ export default async function BlogPostArticlePage(
               <ChevronDown className="w-4 h-4 ml-auto text-gray-400 transition-transform duration-200 group-open:rotate-180" />
             </summary>
             <div className="mt-4">
-              <TableOfContents content={article.details.json} variant="inline" />
+              <TableOfContentsMobile content={article.details.json} variant="inline" />
             </div>
           </details>
 
@@ -346,7 +353,7 @@ export default async function BlogPostArticlePage(
               <div className="mt-12 pt-8 border-t border-gray-200">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                   <p className="text-gray-900 font-bold">Suka artikel ini? Bagikan ke temanmu!</p>
-                  <SocialShareButtons
+                  <SocialShareButtonsBelowFold
                     url={articleUrl}
                     title={article.title}
                     variant="inline"
