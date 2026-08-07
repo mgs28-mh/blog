@@ -1,8 +1,5 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 
 import { publicSans } from "@/lib/fonts";
 
@@ -12,13 +9,7 @@ export default function AboutSection() {
       <div className="max-w-6xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
           {/* Left - Image */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="relative col-span-1 flex justify-start"
-          >
+          <div className="relative col-span-1 flex justify-start">
             <div className="relative w-full h-96 max-w-sm aspect-[3/4] overflow-hidden">
               <Image
                 src="/about-me.jpg"
@@ -29,23 +20,17 @@ export default function AboutSection() {
                 priority
               />
             </div>
-          </motion.div>
+          </div>
 
           {/* Right - Content */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="space-y-8 col-span-1 lg:col-span-2"
-          >
+          <div className="space-y-8 col-span-1 lg:col-span-2">
             <div className="space-y-4">
               <h2 className="text-3xl lg:text-4xl font-bold text-neutral-900 leading-tight">
                 Halo, saya{" "}
                 <span className="bg-gradient-to-r from-red-600 to-red-400 bg-clip-text text-transparent">
                   Galang Saputra
                 </span>
-                
+
               </h2>
               <p className={`${publicSans.className} text-md lg:text-lg text-slate-900 leading-relaxed`}>
                 Seorang penulis dan pengembang yang senang berbagi wawasan
@@ -57,12 +42,7 @@ export default function AboutSection() {
               </p>
             </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              viewport={{ once: true }}
-            >
+            <div>
               <Link
                 href="https://mgalangs.web.id"
                 target="_blank"
@@ -71,8 +51,8 @@ export default function AboutSection() {
               >
                 Hubungi Saya
               </Link>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

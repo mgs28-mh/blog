@@ -1,8 +1,3 @@
-"use client";
-
-import { motion, Variants } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
 import Image from "next/image";
 import { HiOutlineArrowRight, HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import { Article, PaginatedArticles } from "@/lib/api";
@@ -15,47 +10,12 @@ interface BlogListProps {
 }
 
 export default function BlogList({ paginatedData, category }: BlogListProps) {
-  const ref = useRef<HTMLElement>(null);
-  const isInView = useInView(ref, { once: true, amount: 0.2 });
-
   const { articles, pagination } = paginatedData;
 
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
-      },
-    },
-  };
-
-  const cardVariants: Variants = {
-    hidden: {
-      opacity: 0,
-      y: 30,
-      scale: 0.95,
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.5,
-        ease: [0.25, 0.1, 0.25, 1],
-      },
-    },
-  };
-
   return (
-    <section ref={ref} className="py-16 sm:py-20 lg:py-24 bg-white">
+    <section className="py-16 sm:py-20 lg:py-24 bg-white">
       <div className="max-w-6xl mx-auto px-6">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-        >
+        <div>
           {/* Section Header */}
           <div className="mb-8 text-center">
             <h2 className="text-3xl md:text-6xl font-bold text-slate-900 mb-2">
@@ -78,10 +38,7 @@ export default function BlogList({ paginatedData, category }: BlogListProps) {
           <div className="space-y-5">
             {articles.map((post: Article) => (
                 <Link key={post.sys.id} href={`/blog/${post.slug}`}>
-                  <motion.article
-                    variants={cardVariants}
-                    className="group grid grid-cols-1 lg:grid-cols-12 gap-8 py-5 transition-colors duration-200 cursor-pointer"
-                  >
+                  <article className="group grid grid-cols-1 lg:grid-cols-12 gap-8 py-5 transition-colors duration-200 cursor-pointer">
                     {/* Large Image - Left Side */}
                     <div className="w-full h-full overflow-hidden col-span-5">
                       <Image
@@ -120,31 +77,20 @@ export default function BlogList({ paginatedData, category }: BlogListProps) {
 
                       {/* Read More Button */}
                       <div className="pt-4">
-                        <motion.button
-                          className="inline-flex items-center text-gray-900 font-medium hover:text-gray-700 transition-colors duration-200 cursor-pointer"
-                          whileHover={{ x: 4 }}
-                          transition={{
-                            type: "spring",
-                            stiffness: 300,
-                            damping: 20,
-                          }}
-                        >
+                        <div className="inline-flex items-center text-gray-900 font-medium transition-all duration-200 group-hover:translate-x-1">
                           <span className="text-lg">Baca Artikel</span>
                           <HiOutlineArrowRight className="ml-2 w-5 h-5" />
-                        </motion.button>
+                        </div>
                       </div>
                     </div>
-                  </motion.article>
+                  </article>
                 </Link>
               ))}
           </div>
 
           {/* Pagination Controls */}
           {pagination.totalPages > 1 && (
-            <motion.div
-              variants={cardVariants}
-              className="flex flex-col sm:flex-row items-center justify-between mt-12 lg:mt-16 gap-4"
-            >
+            <div className="flex flex-col sm:flex-row items-center justify-between mt-12 lg:mt-16 gap-4">
               {/* Page Info */}
               <div className="text-sm text-gray-600">
                 Halaman {pagination.currentPage} dari {pagination.totalPages}
@@ -238,9 +184,9 @@ export default function BlogList({ paginatedData, category }: BlogListProps) {
                   </button>
                 )}
               </div>
-            </motion.div>
+            </div>
           )}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
