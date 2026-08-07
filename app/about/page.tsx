@@ -1,7 +1,7 @@
 import AboutSection from "@/components/about";
 import Hero from "@/components/about/hero";
 import { Metadata } from "next";
-import { generateJsonLd, generatePersonSchema } from "@/lib/schema";
+import { generateBreadcrumbSchema, generateJsonLd, generateOrganizationSchema, generatePersonSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Profile - Kata Komunika",
@@ -47,6 +47,11 @@ export const metadata: Metadata = {
 
 export default function About() {
     const personSchema = generatePersonSchema();
+    const organizationSchema = generateOrganizationSchema();
+    const breadcrumbSchema = generateBreadcrumbSchema([
+        { name: "Beranda", url: "/" },
+        { name: "Tentang", url: "/about" },
+    ]);
 
     return (
         <>
@@ -55,6 +60,14 @@ export default function About() {
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={generateJsonLd(personSchema)}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={generateJsonLd(organizationSchema)}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={generateJsonLd(breadcrumbSchema)}
             />
         </>
     );

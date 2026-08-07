@@ -9,7 +9,13 @@ interface SchemaConfig {
   };
   publisher: {
     name: string;
-    logo: string;
+    url: string;
+    logo: {
+      url: string;
+      width: number;
+      height: number;
+    };
+    sameAs: string[];
   };
 }
 
@@ -22,9 +28,40 @@ const defaultConfig: SchemaConfig = {
   },
   publisher: {
     name: "Kata Komunika",
-    logo: "https://katakomunika.web.id/logo.webp",
+    url: "https://katakomunika.web.id",
+    logo: {
+      url: "https://katakomunika.web.id/logo.webp",
+      width: 3300,
+      height: 3300,
+    },
+    sameAs: [
+      "https://x.com/katakomunika",
+      "https://facebook.com/katakomunika",
+      "https://linkedin.com/company/kata-komunika",
+      "https://instagram.com/katakomunika",
+      "https://youtube.com/@katakomunika",
+    ],
   },
 };
+
+// Shared Organization node — reused by generateWebsiteSchema, generateBlogSchema,
+// generateArticleSchema, and generateOrganizationSchema so the @id-merged graph
+// stays consistent everywhere instead of duplicating a thinner copy per call site.
+function buildPublisherOrganization(config: SchemaConfig) {
+  return {
+    "@type": "Organization",
+    "@id": `${config.baseUrl}/#organization`,
+    name: config.publisher.name,
+    url: config.publisher.url,
+    logo: {
+      "@type": "ImageObject",
+      url: config.publisher.logo.url,
+      width: config.publisher.logo.width,
+      height: config.publisher.logo.height,
+    },
+    sameAs: config.publisher.sameAs,
+  };
+}
 
 // Website Schema (for homepage and main pages)
 export function generateWebsiteSchema(config: Partial<SchemaConfig> = {}) {
@@ -38,15 +75,7 @@ export function generateWebsiteSchema(config: Partial<SchemaConfig> = {}) {
     url: finalConfig.baseUrl,
     description:
       "Dapatkan artikel, wawasan, dan tips komunikasi dan informasi teknologi.",
-    publisher: {
-      "@type": "Organization",
-      "@id": `${finalConfig.baseUrl}/#organization`,
-      name: finalConfig.publisher.name,
-      logo: {
-        "@type": "ImageObject",
-        url: finalConfig.publisher.logo,
-      },
-    },
+    publisher: buildPublisherOrganization(finalConfig),
   };
 }
 
@@ -75,15 +104,7 @@ export function generateBlogSchema(
       name: finalConfig.author.name,
       url: finalConfig.author.url,
     },
-    publisher: {
-      "@type": "Organization",
-      "@id": `${finalConfig.baseUrl}/#organization`,
-      name: finalConfig.publisher.name,
-      logo: {
-        "@type": "ImageObject",
-        url: finalConfig.publisher.logo,
-      },
-    },
+    publisher: buildPublisherOrganization(finalConfig),
     isPartOf: {
       "@id": `${finalConfig.baseUrl}/#website`,
     },
@@ -135,15 +156,7 @@ export function generateArticleSchema(
       name: article.author || finalConfig.author.name,
       url: finalConfig.author.url,
     },
-    publisher: {
-      "@type": "Organization",
-      "@id": `${finalConfig.baseUrl}/#organization`,
-      name: finalConfig.publisher.name,
-      logo: {
-        "@type": "ImageObject",
-        url: finalConfig.publisher.logo,
-      },
-    },
+    publisher: buildPublisherOrganization(finalConfig),
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": articleUrl,
@@ -199,23 +212,9 @@ export function generateOrganizationSchema(config: Partial<SchemaConfig> = {}) {
 
   return {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "@id": `${finalConfig.baseUrl}/#organization`,
-    name: finalConfig.publisher.name,
-    url: finalConfig.baseUrl,
-    logo: {
-      "@type": "ImageObject",
-      url: finalConfig.publisher.logo,
-    },
+    ...buildPublisherOrganization(finalConfig),
     description:
       "Dapatkan artikel, wawasan, dan tips komunikasi dan informasi teknologi.",
-    sameAs: [
-      "https://x.com/katakomunika",
-      "https://facebook.com/katakomunika",
-      "https://linkedin.com/company/kata-komunika",
-      "https://instagram.com/katakomunika",
-      "https://youtube.com/@katakomunika",
-    ],
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "layanan pelanggan",

@@ -3,7 +3,7 @@ import Hero from "@/components/blog/hero";
 import PaginationLinks from "@/components/blog/pagination-links";
 import { Metadata } from "next";
 import { getArticlesByCategory } from "@/lib/api";
-import { generateBlogSchema, generateJsonLd } from "@/lib/schema";
+import { generateBlogSchema, generateBreadcrumbSchema, generateJsonLd } from "@/lib/schema";
 
 export async function generateMetadata(): Promise<Metadata> {
   try {
@@ -73,6 +73,12 @@ export default async function BlogKomunikasi() {
       "Dapatkan artikel, wawasan, dan tips seputar komunikasi digital maupun klasik.",
   });
 
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Beranda", url: "/" },
+    { name: "Blog", url: "/blog" },
+    { name: "Komunikasi", url: "/blog/komunikasi" },
+  ]);
+
   return (
     <>
       <PaginationLinks
@@ -88,6 +94,10 @@ export default async function BlogKomunikasi() {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={generateJsonLd(blogSchema)}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={generateJsonLd(breadcrumbSchema)}
         />
       </>
     </>

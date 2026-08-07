@@ -2,7 +2,7 @@ import Hero from "@/components/blog/hero";
 import { Metadata } from "next";
 import Link from "next/link";
 import { getArticlesByCategory, getArticlesPreview } from "@/lib/api";
-import { generateBlogSchema, generateJsonLd } from "@/lib/schema";
+import { generateBlogSchema, generateBreadcrumbSchema, generateJsonLd } from "@/lib/schema";
 import { HiOutlineArrowRight, HiOutlineChatBubbleLeftRight, HiOutlineComputerDesktop } from "react-icons/hi2";
 import { publicSans } from "@/lib/fonts";
 
@@ -72,7 +72,12 @@ export default async function Blog() {
     description:
       "Pilih kategori blog yang ingin Anda baca: Komunikasi atau Teknologi. Dapatkan artikel, wawasan, dan tips terbaru.",
   });
-  
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Beranda", url: "/" },
+    { name: "Blog", url: "/blog" },
+  ]);
+
   const categories = [
     {
       title: "Komunikasi",
@@ -183,6 +188,10 @@ export default async function Blog() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={generateJsonLd(blogSchema)}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={generateJsonLd(breadcrumbSchema)}
       />
     </>
   );
