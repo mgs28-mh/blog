@@ -3,6 +3,11 @@ import { MetadataRoute } from "next";
 
 const baseUrl = 'https://katakomunika.web.id';
 
+// Fixed "last verified" date for /about — its content doesn't change when new
+// articles are published, so it shouldn't track a rolling date. Update this
+// manually whenever the About page content is actually edited.
+const ABOUT_LAST_MODIFIED = new Date("2026-08-08");
+
 async function getRoutes(): Promise<MetadataRoute.Sitemap> {
 
   let routes: MetadataRoute.Sitemap = [];
@@ -16,18 +21,21 @@ async function getRoutes(): Promise<MetadataRoute.Sitemap> {
     { path: "/blog/teknologi", priority: 0.9, changeFrequency: "weekly" as const },
   ];
 
-  // Add static routes
-  routes = staticRoutes.map(route => ({
-    url: `${baseUrl}${route.path}`,
-    lastModified: new Date(),
-    changeFrequency: route.changeFrequency,
-    priority: route.priority,
-  }));
-
   try {
-    // Add dynamic blog article routes (canonical URLs only)
+    // Fetch once, reuse both for blog routes and as a proxy lastmod for the
+    // listing/home pages (they surface whatever the newest article is).
     const articles = await getAllArticleSitemap(100);
+    const mostRecentDate = articles[0]?.date ? new Date(articles[0].date) : new Date();
 
+    // Add static routes
+    routes = staticRoutes.map(route => ({
+      url: `${baseUrl}${route.path}`,
+      lastModified: route.path === "/about" ? ABOUT_LAST_MODIFIED : mostRecentDate,
+      changeFrequency: route.changeFrequency,
+      priority: route.priority,
+    }));
+
+    // Add dynamic blog article routes (canonical URLs only)
     const blogRoutes: MetadataRoute.Sitemap = articles
       .filter(article => article.slug)
       .map(article => {
@@ -46,6 +54,13 @@ async function getRoutes(): Promise<MetadataRoute.Sitemap> {
     routes = [...routes, ...blogRoutes];
   } catch (error) {
     console.error("Failed to fetch blog articles for sitemap:", error);
+    // Fall back to static routes with a plain timestamp if the article fetch fails.
+    routes = staticRoutes.map(route => ({
+      url: `${baseUrl}${route.path}`,
+      lastModified: route.path === "/about" ? ABOUT_LAST_MODIFIED : new Date(),
+      changeFrequency: route.changeFrequency,
+      priority: route.priority,
+    }));
   }
 
   return routes;
