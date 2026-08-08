@@ -10,6 +10,13 @@ interface BlogKomunikasiPageProps {
   params: Promise<{ page: string }>;
 }
 
+export async function generateStaticParams(): Promise<{ page: string }[]> {
+  const { pagination } = await getArticlesByCategory("komunikasi", 1, 6);
+  return Array.from({ length: pagination.totalPages }, (_, i) => ({
+    page: String(i + 1),
+  }));
+}
+
 export async function generateMetadata({ params }: BlogKomunikasiPageProps): Promise<Metadata> {
   const { page: pageParam } = await params;
   const page = parseInt(pageParam, 10);

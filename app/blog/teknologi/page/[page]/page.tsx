@@ -10,6 +10,13 @@ interface BlogTeknologiPageProps {
   params: Promise<{ page: string }>;
 }
 
+export async function generateStaticParams(): Promise<{ page: string }[]> {
+  const { pagination } = await getArticlesByCategory("teknologi", 1, 6);
+  return Array.from({ length: pagination.totalPages }, (_, i) => ({
+    page: String(i + 1),
+  }));
+}
+
 export async function generateMetadata({ params }: BlogTeknologiPageProps): Promise<Metadata> {
   const { page: pageParam } = await params;
   const page = parseInt(pageParam, 10);
