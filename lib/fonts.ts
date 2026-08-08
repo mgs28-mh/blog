@@ -1,6 +1,6 @@
-import { Bricolage_Grotesque, Public_Sans } from "next/font/google";
+import { Public_Sans, Figtree} from "next/font/google";
 
-export const bricolage = Bricolage_Grotesque({
+export const bricolage = Figtree({
   subsets: ["latin"],
   display: "swap",
   preload: true,
