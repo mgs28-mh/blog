@@ -9,13 +9,11 @@ import { draftMode } from "next/headers";
 import dynamic from "next/dynamic";
 import SocialShareButtons from "@/components/ui/social";
 import RelatedArticles from "@/components/ui/related";
-import TableOfContents from "@/components/ui/table-of-contents";
 
 // Below-fold / collapsed-by-default instances of the same widgets are code-split
 // out of the initial hydration bundle — the hero share buttons and desktop sticky
 // ToC stay as regular imports since they're visible immediately on load.
 const SocialShareButtonsBelowFold = dynamic(() => import("@/components/ui/social"));
-const TableOfContentsMobile = dynamic(() => import("@/components/ui/table-of-contents"));
 import { generateArticleSchema, generateBreadcrumbSchema, generateJsonLd } from "@/lib/schema";
 import { richTextRenderOptions } from "@/lib/contentful-renderer";
 import { calculateReadingTime } from "@/lib/utils";
@@ -326,22 +324,10 @@ export default async function BlogPostArticlePage(
             </div>
           )}
 
-          {/* Daftar Isi - collapsible di mobile & tablet */}
-          <details className="xl:hidden mb-8 group rounded-xl border border-gray-200 bg-gray-50 px-5 py-4 open:pb-5">
-            <summary className="flex items-center gap-2 cursor-pointer select-none font-semibold text-gray-900 list-none [&::-webkit-details-marker]:hidden">
-              <List className="w-4 h-4 text-red-500" />
-              <span className="text-sm uppercase tracking-wider">Daftar Isi</span>
-              <ChevronDown className="w-4 h-4 ml-auto text-gray-400 transition-transform duration-200 group-open:rotate-180" />
-            </summary>
-            <div className="mt-4">
-              <TableOfContentsMobile content={article.details.json} variant="inline" />
-            </div>
-          </details>
-
           {/* Layout 2 kolom: Artikel + ToC */}
           <div className="flex flex-col xl:flex-row gap-8 xl:gap-12">
             {/* Artikel Utama */}
-            <article className="w-full max-w-3xl mx-auto xl:mx-0 xl:flex-1">
+            <article className="w-full max-w-5xl mx-auto xl:mx-0 xl:flex-1">
               <div>
                 {documentToReactComponents(
                   article.details.json,
@@ -361,11 +347,6 @@ export default async function BlogPostArticlePage(
                 </div>
               </div>
             </article>
-
-            {/* Table of Contents - Sticky di kanan (hidden on mobile) */}
-            <aside className="hidden xl:block w-64 shrink-0 self-start sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto scrollbar-thin">
-              <TableOfContents content={article.details.json} />
-            </aside>
           </div>
 
           {/* Artikel Terkait */}
