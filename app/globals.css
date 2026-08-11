@@ -3,14 +3,53 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Brand red — standar tunggal untuk CTA/link, menggantikan campuran
+     red-400/500/600/700 yang sebelumnya dipakai ad hoc di tiap komponen. */
+  --color-brand: #dc2626; /* red-600 */
+  --color-brand-hover: #b91c1c; /* red-700 */
+  --color-brand-subtle: #fef2f2; /* red-50 */
+  --color-brand-subtle-text: #dc2626; /* red-600 */
+
+  /* Surface gelap editorial (hero/nav/footer) */
+  --color-ink: #111827; /* gray-900 */
+  --color-ink-border: #1f2937; /* gray-800 */
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-brand: var(--color-brand);
+  --color-brand-hover: var(--color-brand-hover);
+  --color-brand-subtle: var(--color-brand-subtle);
+  --color-brand-subtle-text: var(--color-brand-subtle-text);
+  --color-ink: var(--color-ink);
+  --color-ink-border: var(--color-ink-border);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
+}
+
+/* Ritme vertikal section — pakai konsisten di seluruh halaman:
+   py-16 sm:py-20 lg:py-24  -> section konten standar
+   py-12 md:py-16           -> hero editorial (page-level)
+*/
+
+@layer utilities {
+  .focus-ring {
+    outline: none;
+  }
+  .focus-ring:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--background), 0 0 0 4px var(--color-brand);
+  }
+  .focus-ring-dark {
+    outline: none;
+  }
+  .focus-ring-dark:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--color-ink), 0 0 0 4px var(--color-brand);
+  }
 }
