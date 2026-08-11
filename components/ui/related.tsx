@@ -6,25 +6,83 @@ import { Calendar, ArrowRight } from "lucide-react";
 interface RelatedArticlesProps {
   currentSlug: string;
   currentCategory?: string;
+  variant?: "grid" | "sidebar";
 }
 
 export default async function RelatedArticles({
   currentSlug,
   currentCategory,
+  variant = "grid",
 }: RelatedArticlesProps) {
   const allArticles = await getAllArticles();
-  
+
   // Prioritaskan artikel dari kategori yang sama
   const sameCategoryArticles = allArticles
     .filter((article) => article.slug !== currentSlug && article.category === currentCategory);
-  
+
   const otherArticles = allArticles
     .filter((article) => article.slug !== currentSlug && article.category !== currentCategory);
-  
+
   // Gabungkan: kategori sama dulu, sisanya dari kategori lain
-  const relatedArticles = [...sameCategoryArticles, ...otherArticles].slice(0, 3);
+  const relatedArticles = [...sameCategoryArticles, ...otherArticles].slice(0, variant === "sidebar" ? 4 : 3);
 
   if (relatedArticles.length === 0) return null;
+
+  if (variant === "sidebar") {
+    return (
+      <section aria-label="Artikel terkait">
+        <div className="flex items-center gap-2 mb-5 text-gray-400">
+          <span className="text-xs font-semibold uppercase tracking-wider">
+            Artikel Terkait
+          </span>
+        </div>
+
+        <div className="flex flex-col gap-5">
+          {relatedArticles.map((article) => (
+            <Link
+              key={article.slug}
+              href={`/blog/${article.slug}`}
+              className="focus-ring group flex gap-3"
+            >
+              {article.image && (
+                <div className="w-24 h-18 shrink-0 relative overflow-hidden rounded">
+                  <Image
+                    src={article.image.url}
+                    alt={article.title}
+                    fill
+                    sizes="80px"
+                    className="object-cover"
+                  />
+                </div>
+              )}
+              <div className="flex flex-col min-w-0">
+                {article.category && (
+                  <span
+                    className={`text-[10px] font-semibold uppercase tracking-wider mb-1 ${
+                      article.category === "teknologi" ? "text-blue-600" : "text-brand"
+                    }`}
+                  >
+                    {article.category}
+                  </span>
+                )}
+                <h3 className="text-sm font-semibold text-gray-900 line-clamp-2 leading-snug group-hover:underline decoration-1 underline-offset-2">
+                  {article.title}
+                </h3>
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        <Link
+          href="/blog"
+          className="focus-ring mt-6 inline-flex items-center gap-2 text-sm font-medium text-gray-900 hover:text-brand transition-colors"
+        >
+          Lihat semua artikel
+          <ArrowRight className="w-4 h-4" />
+        </Link>
+      </section>
+    );
+  }
 
   return (
     <section className="bg-white">

@@ -1,18 +1,18 @@
 import { getAllArticles, getArticle } from "@/lib/api";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import Link from "next/link";
-import { Calendar, Clock, User, Share2, List, ChevronDown } from "lucide-react";
+import { Calendar, Clock, User, Share2, } from "lucide-react";
 import { draftMode } from "next/headers";
 import dynamic from "next/dynamic";
 import SocialShareButtons from "@/components/ui/social";
 import RelatedArticles from "@/components/ui/related";
+import PageHero, { HeroGridShell } from "@/components/ui/page-hero";
 
 // Below-fold / collapsed-by-default instances of the same widgets are code-split
-// out of the initial hydration bundle — the hero share buttons and desktop sticky
-// ToC stay as regular imports since they're visible immediately on load.
+// out of the initial hydration bundle — the hero share buttons stay as a
+// regular import since it's visible immediately on load.
 const SocialShareButtonsBelowFold = dynamic(() => import("@/components/ui/social"));
 import { generateArticleSchema, generateBreadcrumbSchema, generateJsonLd } from "@/lib/schema";
 import { richTextRenderOptions } from "@/lib/contentful-renderer";
@@ -83,65 +83,55 @@ export async function generateMetadata({ params }: GenerateMetadataProps): Promi
 function ArticleSkeletonLoading() {
   return (
     <div className="animate-pulse bg-white">
-      {/* Hero Section Skeleton */}
-      <div className="relative bg-gray-900 py-16 overflow-hidden">
-        {/* Decorative background elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute inset-0 opacity-5">
-            <div className="absolute inset-0" style={{
-              backgroundImage: `linear-gradient(to right, #fff 1px, transparent 1px),
-                               linear-gradient(to bottom, #fff 1px, transparent 1px)`,
-              backgroundSize: '4rem 4rem'
-            }} />
-          </div>
-        </div>
-        <div className="relative z-10 container mx-auto px-6 max-w-6xl">
-          <div className="flex flex-col justify-center items-center text-center">
-            {/* Breadcrumb Skeleton */}
-            <div className="flex items-center gap-2 mb-6 justify-center">
-              <div className="h-4 w-16 bg-gray-700 rounded"></div>
-              <div className="h-4 w-1 bg-gray-700 rounded"></div>
-              <div className="h-4 w-12 bg-gray-700 rounded"></div>
-              <div className="h-4 w-1 bg-gray-700 rounded"></div>
-              <div className="h-4 w-32 bg-gray-700 rounded"></div>
-            </div>
+      {/* Hero Section Skeleton — shares the same shell as the real PageHero */}
+      <HeroGridShell className="py-8 sm:py-10 md:py-12">
+        <div className="relative z-10 max-w-6xl mx-auto px-6">
+          <div className="flex flex-col lg:flex-row lg:items-stretch gap-8 lg:gap-12">
+            <div className="flex-1">
+              {/* Breadcrumb Skeleton */}
+              <div className="flex items-center gap-2 mb-4">
+                <div className="h-4 w-16 bg-gray-700 rounded"></div>
+                <div className="h-4 w-1 bg-gray-700 rounded"></div>
+                <div className="h-4 w-12 bg-gray-700 rounded"></div>
+              </div>
 
-            {/* Category Badge Skeleton */}
-            <div className="h-6 w-24 bg-red-500/10 rounded-full mb-4"></div>
+              {/* Category Label Skeleton */}
+              <div className="h-3 w-20 bg-gray-700 rounded mb-4"></div>
 
-            {/* Title Skeleton */}
-            <div className="h-12 w-3/4 max-w-4xl bg-gray-700 rounded-lg mb-4 mx-auto"></div>
-            <div className="h-12 w-2/3 max-w-3xl bg-gray-700 rounded-lg mb-6 mx-auto"></div>
+              {/* Title Skeleton */}
+              <div className="h-9 w-full max-w-md bg-gray-700 rounded-lg mb-3"></div>
+              <div className="h-9 w-2/3 max-w-sm bg-gray-700 rounded-lg mb-6"></div>
 
-            {/* Metadata Skeleton */}
-            <div className="flex items-center gap-4 mb-6 justify-center">
-              <div className="h-5 w-32 bg-gray-700 rounded-md"></div>
-              <div className="w-1 h-1 rounded-full bg-gray-600"></div>
-              <div className="h-5 w-24 bg-gray-700 rounded-md"></div>
-              <div className="w-1 h-1 rounded-full bg-gray-600"></div>
-              <div className="h-5 w-28 bg-gray-700 rounded-md"></div>
-            </div>
+              {/* Metadata Skeleton */}
+              <div className="flex items-center gap-4 mb-6">
+                <div className="h-5 w-32 bg-gray-700 rounded-md"></div>
+                <div className="w-1 h-1 rounded-full bg-gray-600"></div>
+                <div className="h-5 w-24 bg-gray-700 rounded-md"></div>
+              </div>
 
-            {/* Social Share Skeleton */}
-            <div className="flex items-center gap-4 justify-center">
-              <div className="h-5 w-5 bg-gray-700 rounded"></div>
-              <div className="flex gap-2">
-                <div className="h-8 w-8 bg-gray-700 rounded"></div>
-                <div className="h-8 w-8 bg-gray-700 rounded"></div>
-                <div className="h-8 w-8 bg-gray-700 rounded"></div>
+              {/* Social Share Skeleton */}
+              <div className="flex items-center gap-4">
+                <div className="h-5 w-5 bg-gray-700 rounded"></div>
+                <div className="flex gap-2">
+                  <div className="h-8 w-8 bg-gray-700 rounded"></div>
+                  <div className="h-8 w-8 bg-gray-700 rounded"></div>
+                  <div className="h-8 w-8 bg-gray-700 rounded"></div>
+                </div>
               </div>
             </div>
+
+            {/* Featured Image Skeleton */}
+            <div className="w-full lg:w-80 xl:w-96 shrink-0">
+              <div className="aspect-[16/10] lg:aspect-auto lg:h-full bg-gray-700"></div>
+            </div>
           </div>
         </div>
-      </div>
+      </HeroGridShell>
 
       {/* Content Skeleton */}
       <div className="max-w-6xl mx-auto px-6 py-12">
-        {/* Featured Image Skeleton */}
-        <div className="aspect-[3/2] w-full bg-gray-200 rounded-lg mb-10"></div>
-
         {/* Layout 2 kolom */}
-        <div className="flex gap-12">
+        <div className="flex gap-8">
           {/* Article Content Skeleton */}
           <div className="flex-1 max-w-3xl space-y-6">
             {[...Array(5)].map((_, i) => (
@@ -154,15 +144,19 @@ function ArticleSkeletonLoading() {
             ))}
           </div>
 
-          {/* ToC Skeleton */}
-          <div className="hidden xl:block w-64 shrink-0 self-start sticky top-24">
-            <div className="space-y-3">
-              <div className="h-4 w-20 bg-gray-200 rounded mb-4"></div>
-              <div className="h-3 w-40 bg-gray-200 rounded"></div>
-              <div className="h-3 w-36 bg-gray-200 rounded"></div>
-              <div className="h-3 w-44 bg-gray-200 rounded"></div>
-              <div className="h-3 w-32 bg-gray-200 rounded"></div>
-            </div>
+          {/* Sidebar Skeleton */}
+          <div className="hidden xl:block w-72 shrink-0 xl:pl-8 xl:border-l xl:border-gray-200 space-y-5">
+            <div className="h-3 w-24 bg-gray-200 rounded mb-2"></div>
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="flex gap-3">
+                <div className="w-20 h-16 shrink-0 bg-gray-200 rounded"></div>
+                <div className="flex-1 space-y-2 pt-1">
+                  <div className="h-3 w-16 bg-gray-200 rounded"></div>
+                  <div className="h-3 w-full bg-gray-200 rounded"></div>
+                  <div className="h-3 w-3/4 bg-gray-200 rounded"></div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -214,62 +208,53 @@ export default async function BlogPostArticlePage(
     <div className="min-h-screen bg-white">
       <Suspense fallback={<ArticleSkeletonLoading />}>
         {/* Hero Section */}
-        <div className="relative bg-gray-900 py-16 overflow-hidden">
-          {/* Decorative background elements */}
-          <div className="absolute inset-0 overflow-hidden">
-            {/* Grid pattern */}
-            <div className="absolute inset-0 opacity-5">
-              <div className="absolute inset-0" style={{
-                backgroundImage: `linear-gradient(to right, #fff 1px, transparent 1px),
-                                 linear-gradient(to bottom, #fff 1px, transparent 1px)`,
-                backgroundSize: '4rem 4rem'
-              }} />
-            </div>
-
-            {/* Decorative lines */}
-            <div className="absolute top-0 left-1/3 w-px h-full bg-gradient-to-b from-transparent via-slate-700/50 to-transparent" />
-            <div className="absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-transparent via-slate-700/50 to-transparent" />
-          </div>
-
-          <div className="relative z-10 container mx-auto px-6 max-w-6xl">
-            <div className="flex flex-col justify-center items-center text-center">
-              {/* Breadcrumb */}
-              <div className="mb-6 text-sm text-gray-400 flex gap-2 justify-center items-center flex-wrap">
-                <Link href="/" className="hover:underline text-gray-300 hover:text-red-400 transition-colors">
+        <PageHero
+          size="md"
+          align="left"
+          headline={article.title}
+          image={article.image ? { url: article.image.url, alt: article.title } : undefined}
+          breadcrumb={
+            <>
+              <div className="mb-1 text-sm text-gray-400 flex gap-2 items-center flex-wrap">
+                <Link href="/" className="focus-ring-dark hover:underline text-gray-300 hover:text-brand transition-colors">
                   Beranda
                 </Link>
                 <span className="text-gray-600">/</span>
-                <Link href="/blog" className="hover:underline text-gray-300 hover:text-red-400 transition-colors">
+                <Link href="/blog" className="focus-ring-dark hover:underline text-gray-300 hover:text-brand transition-colors">
                   Blog
                 </Link>
                 {article.category && (
                   <>
                     <span className="text-gray-600">/</span>
-                    <Link href={`/blog/${article.category}`} className="hover:underline text-gray-300 hover:text-red-400 transition-colors capitalize">
+                    <Link href={`/blog/${article.category}`} className="focus-ring-dark hover:underline text-gray-300 hover:text-brand transition-colors capitalize">
                       {article.category}
                     </Link>
                   </>
                 )}
-                <span className="text-gray-600">/</span>
               </div>
 
-              {/* Kategori Badge */}
               {article.category && (
                 <Link
                   href={`/blog/${article.category}`}
-                  className="inline-block px-3 py-1 mb-4 text-xs font-semibold uppercase tracking-wider text-red-400 bg-red-500/10 rounded-full hover:bg-red-500/20 transition-colors"
+                  className={`focus-ring-dark group inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider transition-colors ${
+                    article.category === "teknologi"
+                      ? "text-blue-400 hover:text-blue-300"
+                      : "text-brand hover:text-brand-hover"
+                  }`}
                 >
+                  <span
+                    className={`h-px w-6 transition-colors ${
+                      article.category === "teknologi" ? "bg-blue-400" : "bg-brand"
+                    }`}
+                  />
                   {article.category}
                 </Link>
               )}
-
-              {/* Title */}
-              <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-4 sm:mb-6 leading-tight sm:leading-snug max-w-4xl px-2 sm:px-0">
-                {article.title}
-              </h1>
-
-              {/* Metadata */}
-              <div className="flex items-center gap-4 text-gray-400 text-sm flex-wrap justify-center mb-6">
+            </>
+          }
+          meta={
+            <>
+              <div className="flex items-center gap-4 text-gray-400 text-sm flex-wrap">
                 <span className="flex items-center gap-1">
                   <Calendar className="w-4 h-4" />
                   {new Date(article.date).toLocaleDateString("id-ID", {
@@ -290,7 +275,6 @@ export default async function BlogPostArticlePage(
                 </span>
               </div>
 
-              {/* Social Share Buttons in Hero */}
               <div className="flex items-center gap-4">
                 <Share2 className="w-5 h-5 text-gray-400" />
                 <SocialShareButtons
@@ -299,35 +283,17 @@ export default async function BlogPostArticlePage(
                   variant="hero"
                 />
               </div>
-            </div>
-          </div>
-        </div>
+            </>
+          }
+        />
 
-        {/* Konten Artikel */}
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-          {/* Featured Image */}
-          {article.image && (
-            <div className="mb-6 sm:mb-10">
-              <figure className="overflow-hidden rounded-none">
-                <div className="aspect-[16/10] sm:aspect-[3/2] w-full relative">
-                  <Image
-                    src={article.image.url}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1024px"
-                    alt={article.title}
-                    priority
-                    quality={75}
-                    className="object-cover"
-                  />
-                </div>
-              </figure>
-            </div>
-          )}
-
-          {/* Layout 2 kolom: Artikel + ToC */}
-          <div className="flex flex-col xl:flex-row gap-8 xl:gap-12">
-            {/* Artikel Utama */}
-            <article className="w-full max-w-5xl mx-auto xl:mx-0 xl:flex-1">
+        {/* Konten Artikel — kontainer selebar hero (max-w-6xl) supaya tepi kiri
+            sejajar dengan judul di atas, bukan ikut ke tengah halaman. */}
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+          {/* Layout 2 kolom: Artikel + Artikel Terkait */}
+          <div className="flex flex-col xl:flex-row gap-8">
+            {/* Artikel Utama — lebar dibatasi untuk kenyamanan baca */}
+            <article className="w-full max-w-3xl">
               <div>
                 {documentToReactComponents(
                   article.details.json,
@@ -347,10 +313,21 @@ export default async function BlogPostArticlePage(
                 </div>
               </div>
             </article>
+
+            {/* Artikel Terkait — sidebar kanan, garis pemisah membentang sepanjang artikel */}
+            <aside className="hidden xl:block w-72 shrink-0 xl:pl-8 xl:border-l xl:border-gray-200">
+              <div className="pb-8 border-b border-gray-200">
+                <RelatedArticles
+                  currentSlug={params.slug}
+                  currentCategory={article.category}
+                  variant="sidebar"
+                />
+              </div>
+            </aside>
           </div>
 
-          {/* Artikel Terkait */}
-          <div className="mt-16">
+          {/* Artikel Terkait — versi grid untuk mobile/tablet (sidebar disembunyikan di bawah xl) */}
+          <div className="mt-16 pb-12 border-b border-gray-200 xl:hidden">
             <RelatedArticles currentSlug={params.slug} currentCategory={article.category} />
           </div>
         </div>
