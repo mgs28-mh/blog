@@ -38,7 +38,7 @@ export default function BlogFeature({ featuredPosts }: BlogFeatureProps) {
         <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8 text-white">
           <div className="space-y-3">
             {/* Meta Information */}
-            <span className="text-xs font-medium text-white/80 uppercase tracking-wider">
+            <span className="text-xs font-medium text-blue-300 uppercase tracking-wider">
               {new Date(post.date).toLocaleDateString("en-US", {
                 year: "numeric",
                 month: "short",

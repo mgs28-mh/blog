@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { HiOutlineArrowRight } from "react-icons/hi";
 import { Article } from "@/lib/api";
 import Link from "next/link";
@@ -15,30 +16,18 @@ export default function BlogFeature({ featuredPosts }: BlogFeatureProps) {
     );
   }
 
-  const FeaturedCard = ({ post }: { post: Article }) => (
+  const FeaturedCard = ({ post, index }: { post: Article; index: number }) => (
     <Link href={`/blog/${post.slug}`} aria-label={`Read full article: ${post.title}`}>
-      <article className="group relative h-[350px] lg:h-[400px] overflow-hidden cursor-pointer shadow-xl">
+      <article className="group relative h-[300px] lg:h-[400px] overflow-hidden cursor-pointer">
         {/* Background Image */}
         <div className="absolute inset-0">
-          <img
-            src={
-              post.image?.url
-                ? `${post.image.url.startsWith("//") ? "https:" : ""}${post.image.url}?w=800&fm=webp&q=80`
-                : "/fallback.jpg"
-            }
-            srcSet={
-              post.image?.url
-                ? `
-                  ${post.image.url.startsWith("//") ? "https:" : ""}${post.image.url}?w=400&fm=webp&q=80 400w,
-                  ${post.image.url.startsWith("//") ? "https:" : ""}${post.image.url}?w=800&fm=webp&q=80 800w
-                `
-                : undefined
-            }
-            sizes="(max-width: 640px) 400px, 800px"
-            alt=""
-            className="object-cover w-full h-full absolute inset-0 transition-transform duration-500 group-hover:scale-105"
-            loading="eager"
-            fetchPriority="high"
+          <Image
+            src={post.image?.url || "/fallback.jpg"}
+            alt="" // dekoratif karena judul sudah ada
+            fill
+            className="object-cover"
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            priority={index === 0}
           />
         </div>
 
@@ -48,6 +37,15 @@ export default function BlogFeature({ featuredPosts }: BlogFeatureProps) {
         {/* Content Overlay */}
         <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8 text-white">
           <div className="space-y-3">
+            {/* Meta Information */}
+            <span className="text-xs font-medium text-red-300 uppercase tracking-wider">
+              {new Date(post.date).toLocaleDateString("id-ID", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </span>
+
             {/* Title */}
             <h2 className="text-xl lg:text-2xl font-bold text-white leading-tight line-clamp-2 group-hover:text-white/90 transition-colors duration-200">
               {post.title}
@@ -68,9 +66,9 @@ export default function BlogFeature({ featuredPosts }: BlogFeatureProps) {
   );
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
-      {featuredPosts.slice(0, 2).map((post) => (
-        <FeaturedCard key={post.sys.id} post={post} />
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-20">
+      {featuredPosts.slice(0, 2).map((post, index) => (
+        <FeaturedCard key={post.sys.id} post={post} index={index} />
       ))}
     </div>
   );

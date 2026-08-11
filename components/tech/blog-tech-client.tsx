@@ -34,7 +34,7 @@ export default function BlogTechClient({ regularPosts, featuredArticles }: BlogT
             {/* Tombol Lihat Semua - Desktop */}
             <Link
               href={`/blog/teknologi`}
-              className="hidden md:inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-slate-950 hover:text-red-500 transition-all duration-300 cursor-pointer mt-4 md:mt-0 group"
+              className="hidden md:inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-slate-950 hover:text-blue-600 transition-all duration-300 cursor-pointer mt-4 md:mt-0 group"
             >
               Lihat Semua
               <span className="ml-2 inline-block transition-transform duration-200 group-hover:translate-x-1">
@@ -52,7 +52,7 @@ export default function BlogTechClient({ regularPosts, featuredArticles }: BlogT
       <div className="text-center mt-12 lg:mt-16 md:hidden">
         <Link
           href={`/blog/teknologi`}
-          className="group inline-flex items-center justify-center px-6 py-3 text-base sm:text-lg font-semibold text-red-600 bg-white border-2 border-red-600 hover:bg-red-600 hover:text-white transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-red-500/50 cursor-pointer"
+          className="group inline-flex items-center justify-center px-6 py-3 text-base sm:text-lg font-semibold text-blue-600 bg-white border-2 border-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-500/50 cursor-pointer"
         >
           Lihat Semua
           <span className="ml-2 inline-block transition-transform duration-200 group-hover:translate-x-1">

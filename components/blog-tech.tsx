@@ -22,12 +22,12 @@ export default async function BlogTechSection() {
   return (
     <section className="py-16 sm:py-20 lg:py-24 bg-neutral-50">
       <div className="max-w-6xl mx-auto px-6">
-        {/* Section Header - Always visible */}
-        <div className="mb-6 text-center">
-          <h2 className="text-3xl md:text-6xl font-bold text-slate-900 mb-2">
-            Artikel <span className="text-red-600">Teknologi</span>
+        {/* Section Header — dua kolom di desktop: judul kiri, subjudul kanan */}
+        <div className="mb-10 md:mb-14 flex flex-col md:flex-row md:items-end md:justify-between gap-3 md:gap-10">
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-slate-900">
+            Artikel <span className="text-blue-600">Teknologi</span>
           </h2>
-          <p className={`${publicSans.className} text-xl text-neutral-900 mt-5 mb-10`}>
+          <p className={`${publicSans.className} text-base md:text-lg text-neutral-600 md:max-w-sm md:text-right md:pb-1`}>
             Mengupas tips dan fenomena teknologi dari berbagai
             sudut pandang.
           </p>
