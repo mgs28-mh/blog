@@ -4,7 +4,6 @@ export default function Hero() {
   return (
     <PageHero
       size="xl"
-      mark="K"
       eyebrow="Jurnal · Komunikasi · Teknologi"
       headline={
         <>

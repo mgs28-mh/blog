@@ -10,7 +10,6 @@ interface SizeConfig {
   section: string;
   headline: string;
   subhead: string;
-  mark: string;
 }
 
 const SIZE_CONFIG: Record<HeroSize, SizeConfig> = {
@@ -19,20 +18,17 @@ const SIZE_CONFIG: Record<HeroSize, SizeConfig> = {
     headline:
       "text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-[1.2]",
     subhead: "text-sm md:text-base",
-    mark: "text-[5rem] sm:text-[7rem] lg:text-[12rem] xl:text-[14rem]",
   },
   lg: {
     section: "py-12 md:py-16",
     headline: "text-3xl sm:text-4xl md:text-5xl leading-tight",
     subhead: "text-sm md:text-base",
-    mark: "text-[6rem] sm:text-[8rem] lg:text-[12rem] xl:text-[14rem]",
   },
   md: {
     section: "py-8 sm:py-10 md:py-12",
     headline:
       "text-2xl sm:text-3xl md:text-4xl leading-tight sm:leading-snug",
     subhead: "text-sm md:text-base",
-    mark: "text-[5rem] sm:text-[6rem] lg:text-[8rem]",
   },
 };
 
@@ -66,7 +62,6 @@ interface PageHeroProps {
   breadcrumb?: ReactNode;
   meta?: ReactNode;
   align?: "left" | "center";
-  mark?: string;
   image?: { url: string; alt: string };
 }
 
@@ -79,7 +74,6 @@ export default function PageHero({
   breadcrumb,
   meta,
   align = "left",
-  mark,
   image,
 }: PageHeroProps) {
   const config = SIZE_CONFIG[size];
@@ -147,19 +141,6 @@ export default function PageHero({
                   className="object-cover"
                 />
               </div>
-            </div>
-          )}
-
-          {mark && !centered && !hasImage && (
-            <div
-              className="hidden md:flex items-center justify-center select-none pointer-events-none shrink-0"
-              aria-hidden="true"
-            >
-              <span
-                className={`${config.mark} font-bold leading-none text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.12)] -mr-8`}
-              >
-                {mark}
-              </span>
             </div>
           )}
         </div>

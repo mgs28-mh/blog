@@ -4,7 +4,6 @@ export default function Hero() {
   return (
     <PageHero
       size="lg"
-      mark="A"
       align="center"
       eyebrow="Profil · Kreator · Penulis"
       headline={
