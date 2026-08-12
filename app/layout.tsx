@@ -67,9 +67,18 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
 
+        {/* Skip link — memungkinkan pengguna keyboard melompati navbar
+            langsung ke konten utama, tanpa perlu tab satu-satu. */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:rounded-lg focus:bg-brand focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white"
+        >
+          Lewati ke konten utama
+        </a>
+
         {/* Layout */}
         <Navbar />
-        <main className="min-h-screen">{children}</main>
+        <main id="main-content" className="min-h-screen">{children}</main>
         <Footer />
       </body>
     </html>

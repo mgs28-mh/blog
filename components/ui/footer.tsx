@@ -1,8 +1,7 @@
-"use client";
-
 import Link from "next/link";
 import { FaFacebook, FaGithub, FaInstagram, FaXTwitter } from "react-icons/fa6";
 import { publicSans } from "@/lib/fonts";
+import GridPatternBg from "@/components/ui/grid-pattern-bg";
 
 interface SocialLink {
   href: string;
@@ -41,13 +40,7 @@ export default function Footer() {
       {/* Decorative background elements (Bg and Pattern kept unchanged as requested) */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Grid pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `linear-gradient(to right, #fff 1px, transparent 1px),
-                             linear-gradient(to bottom, #fff 1px, transparent 1px)`,
-            backgroundSize: '4rem 4rem'
-          }} />
-        </div>
+        <GridPatternBg opacityClassName="opacity-5" />
 
         {/* Decorative lines */}
         <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-slate-700/50 to-transparent" />
@@ -59,8 +52,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 pb-12 border-b border-gray-800">
           {/* Brand Column */}
           <div className="col-span-12 md:col-span-6 flex flex-col gap-4">
-            <Link href="/" className="text-xl md:text-2xl font-bold tracking-tight text-white leading-none">
-              kata<span className="text-red-500">.</span>komunika
+            <Link href="/" className="focus-ring-dark text-xl md:text-2xl font-bold tracking-tight text-white leading-none">
+              kata<span className="text-brand-on-dark">.</span>komunika
             </Link>
             <p className={`${publicSans.className} text-sm text-gray-400 max-w-sm leading-relaxed`}>
               Jurnal pribadi yang membahas ide, wawasan, opini, dan tren seputar ilmu komunikasi, teknologi informasi, serta perkembangan media digital.
@@ -69,22 +62,22 @@ export default function Footer() {
 
           {/* Column — Kategori */}
           <div className="col-span-6 md:col-span-3 flex flex-col gap-4">
-            <span className={`${publicSans.className} text-xs font-mono uppercase tracking-wider text-gray-500`}>
+            <span className={`${publicSans.className} text-xs font-mono uppercase tracking-wider text-gray-400`}>
               Kategori
             </span>
             <ul className="flex flex-col gap-3">
               <li>
-                <Link href="/blog/komunikasi" className={`${publicSans.className} text-sm text-gray-300 hover:text-red-500 transition-colors`}>
+                <Link href="/blog/komunikasi" className={`${publicSans.className} focus-ring-dark text-sm text-gray-300 hover:text-brand-on-dark-hover transition-colors`}>
                   Komunikasi
                 </Link>
               </li>
               <li>
-                <Link href="/blog/teknologi" className={`${publicSans.className} text-sm text-gray-300 hover:text-red-500 transition-colors`}>
+                <Link href="/blog/teknologi" className={`${publicSans.className} focus-ring-dark text-sm text-gray-300 hover:text-brand-on-dark-hover transition-colors`}>
                   Teknologi
                 </Link>
               </li>
               <li>
-                <Link href="/blog" className={`${publicSans.className} text-sm text-gray-300 hover:text-red-500 transition-colors`}>
+                <Link href="/blog" className={`${publicSans.className} focus-ring-dark text-sm text-gray-300 hover:text-brand-on-dark-hover transition-colors`}>
                   Blog
                 </Link>
               </li>
@@ -93,22 +86,22 @@ export default function Footer() {
 
           {/* Column — Navigasi */}
           <div className="col-span-6 md:col-span-3 flex flex-col gap-4">
-            <span className={`${publicSans.className} text-xs font-mono uppercase tracking-wider text-gray-500`}>
+            <span className={`${publicSans.className} text-xs font-mono uppercase tracking-wider text-gray-400`}>
               Navigasi
             </span>
             <ul className="flex flex-col gap-3">
               <li>
-                <Link href="/" className={`${publicSans.className} text-sm text-gray-300 hover:text-red-500 transition-colors`}>
+                <Link href="/" className={`${publicSans.className} focus-ring-dark text-sm text-gray-300 hover:text-brand-on-dark-hover transition-colors`}>
                   Beranda
                 </Link>
               </li>
               <li>
-                <Link href="/about" className={`${publicSans.className} text-sm text-gray-300 hover:text-red-500 transition-colors`}>
+                <Link href="/about" className={`${publicSans.className} focus-ring-dark text-sm text-gray-300 hover:text-brand-on-dark-hover transition-colors`}>
                   Tentang Saya
                 </Link>
               </li>
               <li>
-                <a href="https://mgalangs.web.id" target="_blank" rel="noopener noreferrer" className={`${publicSans.className} text-sm text-gray-300 hover:text-red-500 transition-colors`}>
+                <a href="https://mgalangs.vercel.app" target="_blank" rel="noopener noreferrer" className={`${publicSans.className} focus-ring-dark text-sm text-gray-300 hover:text-brand-on-dark-hover transition-colors`}>
                   Portofolio
                 </a>
               </li>
@@ -130,7 +123,7 @@ export default function Footer() {
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 text-gray-400 hover:text-red-500 hover:bg-gray-800/30 transition-all rounded-lg"
+                className="focus-ring-dark p-2 text-gray-400 hover:text-brand-on-dark-hover hover:bg-gray-800/30 transition-all rounded-lg"
                 aria-label={social.label}
               >
                 {social.icon}

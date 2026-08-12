@@ -32,6 +32,10 @@ export default function Navbar() {
   const [mobileDropdowns, setMobileDropdowns] = useState<string[]>([]);
   const pathname = usePathname();
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const isFirstRender = useRef(true);
 
   // Handle scroll effect for navbar background
   useEffect(() => {
@@ -94,6 +98,49 @@ export default function Navbar() {
     };
   }, [isOpen]);
 
+  // Move focus into/out of the mobile panel on open/close, so keyboard
+  // users don't lose their place — skip on mount since isOpen starts false.
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    if (isOpen) {
+      closeButtonRef.current?.focus();
+    } else {
+      menuButtonRef.current?.focus();
+    }
+  }, [isOpen]);
+
+  // Trap Tab focus inside the mobile panel while it's open, so tabbing
+  // can't reach the page content sitting behind the overlay.
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleTabKey = (event: KeyboardEvent) => {
+      if (event.key !== "Tab" || !panelRef.current) return;
+
+      const focusable = panelRef.current.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleTabKey);
+    return () => document.removeEventListener("keydown", handleTabKey);
+  }, [isOpen]);
+
   const isActiveLink = (href: string) => {
     if (href === "/") return pathname === "/";
     return pathname.startsWith(href);
@@ -118,8 +165,8 @@ export default function Navbar() {
     const hasChildren = item.children && item.children.length > 0;
 
     const baseClasses =
-      "px-3 py-2 transition-all duration-200 hover:text-red-400";
-    const activeClasses = active ? "text-red-400" : "";
+      "px-3 py-2 transition-all duration-200 hover:text-brand-on-dark-hover";
+    const activeClasses = active ? "text-brand-on-dark" : "";
     const mobileClasses = mobile ? "block w-full text-left" : "";
 
     if (hasChildren && !mobile) {
@@ -134,15 +181,16 @@ export default function Navbar() {
             {/* Main Link - Clickable */}
             <Link
               href={item.href}
-              className={`${baseClasses} ${activeClasses} text-white hover:text-red-400 pr-0`}
+              className={`focus-ring-dark ${baseClasses} ${activeClasses} text-white hover:text-brand-on-dark-hover pr-0`}
               onClick={(e) => e.stopPropagation()}
+              aria-current={active ? "page" : undefined}
             >
               {item.label}
             </Link>
 
             {/* Dropdown Button - Separate from link */}
             <button
-              className={`flex items-center px-1 py-2 transition-all duration-200 hover:text-red-400 ${activeClasses} ${activeDropdown === item.label ? 'text-red-400' : 'text-white'}`}
+              className={`focus-ring-dark flex items-center px-1 py-2 transition-all duration-200 hover:text-brand-on-dark-hover ${activeClasses} ${activeDropdown === item.label ? 'text-brand-on-dark' : 'text-white'}`}
               onClick={(e) => {
                 e.stopPropagation();
                 setActiveDropdown(
@@ -171,7 +219,7 @@ export default function Navbar() {
             <div className="py-2">
               {item.children?.map((child, index) => {
                 const childActive = isActiveLink(child.href);
-                const childClasses = `block px-4 py-2 text-sm transition-all duration-300 hover:text-red-400 hover:bg-gray-700/50 transform text-gray-300 ${childActive ? "text-red-400 bg-gray-700" : ""
+                const childClasses = `block px-4 py-2 text-sm transition-all duration-300 hover:text-brand-on-dark-hover hover:bg-gray-700/50 transform text-gray-300 ${childActive ? "text-brand-on-dark bg-gray-700" : ""
                   } ${activeDropdown === item.label
                     ? "translate-x-0 opacity-100"
                     : "translate-x-2 opacity-0"
@@ -181,7 +229,8 @@ export default function Navbar() {
                   <Link
                     key={child.href}
                     href={child.href}
-                    className={childClasses}
+                    className={`focus-ring-dark ${childClasses}`}
+                    aria-current={childActive ? "page" : undefined}
                     style={{
                       transitionDelay:
                         activeDropdown === item.label
@@ -209,15 +258,16 @@ export default function Navbar() {
             {/* Main Link - Clickable */}
             <Link
               href={item.href}
-              className={`flex-1 px-4 py-3 text-left transition-colors hover:text-red-400 hover:bg-gray-800/50 rounded-l-lg ${activeClasses}`}
+              className={`focus-ring-dark flex-1 px-4 py-3 text-left transition-colors hover:text-brand-on-dark-hover hover:bg-gray-800/50 rounded-l-lg ${activeClasses}`}
               onClick={() => setIsOpen(false)}
+              aria-current={active ? "page" : undefined}
             >
               <span className="text-base font-medium text-gray-100">{item.label}</span>
             </Link>
 
             {/* Dropdown Toggle Button */}
             <button
-              className="px-3 py-3 text-gray-400 transition-colors hover:text-red-400 hover:bg-gray-800/50 rounded-r-lg min-w-[50px] flex justify-center"
+              className="focus-ring-dark px-3 py-3 text-gray-400 transition-colors hover:text-brand-on-dark-hover hover:bg-gray-800/50 rounded-r-lg min-w-[50px] flex justify-center"
               onClick={() => toggleMobileDropdown(item.label)}
               aria-expanded={isExpanded}
               aria-label={`Toggle ${item.label} submenu`}
@@ -247,11 +297,12 @@ export default function Navbar() {
                   <Link
                     key={child.href}
                     href={child.href}
-                    className={`block px-4 py-3 text-sm text-gray-300 transition-all duration-200 hover:text-red-400 hover:bg-gray-700/50 first:rounded-t-lg last:rounded-b-lg transform ${childActive ? "text-red-400 bg-gray-700/50" : ""
+                    className={`focus-ring-dark block px-4 py-3 text-sm text-gray-300 transition-all duration-200 hover:text-brand-on-dark-hover hover:bg-gray-700/50 first:rounded-t-lg last:rounded-b-lg transform ${childActive ? "text-brand-on-dark bg-gray-700/50" : ""
                       } ${isExpanded
                         ? "translate-x-0 opacity-100"
                         : "translate-x-4 opacity-0"
                       }`}
+                    aria-current={childActive ? "page" : undefined}
                     style={{
                       transitionDelay: isExpanded ? `${index * 100}ms` : "0ms",
                     }}
@@ -268,15 +319,16 @@ export default function Navbar() {
 
     const linkClasses = `${baseClasses} ${activeClasses} ${mobileClasses}`;
     const mobileLinkClasses = mobile
-      ? "block px-4 py-3 text-base font-medium text-gray-100 transition-colors hover:text-red-400 hover:bg-gray-800/50 rounded-lg"
+      ? "block px-4 py-3 text-base font-medium text-gray-100 transition-colors hover:text-brand-on-dark-hover hover:bg-gray-800/50 rounded-lg"
       : linkClasses;
 
     return (
       <Link
         href={item.href}
-        className={
+        className={`focus-ring-dark ${
           mobile ? `${mobileLinkClasses} ${activeClasses}` : linkClasses
-        }
+        }`}
+        aria-current={active ? "page" : undefined}
       >
         {item.label}
       </Link>
@@ -290,36 +342,21 @@ export default function Navbar() {
     }`;
 
   const logoClasses =
-    "text-2xl font-bold transition-all duration-200 hover:text-red-400 rounded-lg px-2 py-1";
+    "focus-ring-dark text-2xl font-bold transition-all duration-200 hover:text-brand-on-dark-hover rounded-lg px-2 py-1";
 
   const searchButtonClasses =
-    "min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg transition-all duration-200 hover:text-red-400 text-white hover:bg-gray-800";
+    "focus-ring-dark min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg transition-all duration-200 hover:text-brand-on-dark-hover text-white hover:bg-gray-800";
 
   return (
     <>
-      <style jsx>{`
-        @keyframes slideDown {
-          from {
-            transform: translateY(-100%);
-            opacity: 0;
-          }
-          to {
-            transform: translateY(0);
-            opacity: 1;
-          }
-        }
-        .animate-slideDown {
-          animation: slideDown 0.3s ease-out;
-        }
-      `}</style>
-      <nav className={navClasses}>
+      <nav className={navClasses} aria-label="Navigasi utama">
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex items-center justify-between h-18">
             {/* Left - Logo */}
             <div className="flex items-center">
               <Link href="/" className={`${logoClasses} flex items-center gap-3`}>
                 <span className="text-xl md:text-2xl font-bold text-white tracking-tight leading-tight">
-                  kata<span className="text-red-500">.</span>komunika
+                  kata<span className="text-brand-on-dark">.</span>komunika
                 </span>
               </Link>
             </div>
@@ -335,7 +372,8 @@ export default function Navbar() {
             <div className="flex items-center space-x-2">
               {/* Mobile Menu Button */}
               <button
-                className={menuButtonClasses}
+                ref={menuButtonRef}
+                className={`focus-ring-dark ${menuButtonClasses}`}
                 onClick={() => setIsOpen(!isOpen)}
                 aria-expanded={isOpen}
                 aria-label="Toggle navigation menu"
@@ -377,7 +415,11 @@ export default function Navbar() {
 
       {/* Mobile Slide Panel */}
       <div
-        className={`fixed top-0 left-0 h-full w-80 bg-gray-900 z-50 lg:hidden transform transition-transform duration-300 ease-in-out shadow-2xl ${isOpen ? "translate-x-0" : "-translate-x-full"
+        ref={panelRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menu navigasi"
+        className={`fixed top-0 left-0 h-full w-80 max-w-[85vw] bg-gray-900 z-50 lg:hidden transform transition-transform duration-300 ease-in-out shadow-2xl ${isOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         style={{
           position: 'fixed',
@@ -389,14 +431,15 @@ export default function Navbar() {
         <div className="flex items-center justify-between p-4 border-b border-gray-800">
           <Link
             href="/"
-            className="text-xl font-bold text-white hover:text-red-400 transition-colors"
+            className="focus-ring-dark text-xl font-bold text-white hover:text-brand-on-dark-hover transition-colors"
             onClick={() => setIsOpen(false)}
           >
             kata komunika
           </Link>
           <button
+            ref={closeButtonRef}
             onClick={() => setIsOpen(false)}
-            className="p-2 rounded-lg text-gray-300 hover:text-white hover:bg-gray-800 transition-colors"
+            className="focus-ring-dark p-2 rounded-lg text-gray-300 hover:text-white hover:bg-gray-800 transition-colors"
             aria-label="Close menu"
           >
             <X size={24} />
@@ -405,7 +448,7 @@ export default function Navbar() {
 
         {/* Panel Navigation */}
         <div className="py-4 overflow-y-auto h-[calc(100%-72px)]">
-          <nav className="space-y-1 px-2">
+          <nav className="space-y-1 px-2" aria-label="Navigasi mobile">
             {navItems.map((item) => (
               <NavLink key={item.href} item={item} mobile />
             ))}
@@ -413,7 +456,7 @@ export default function Navbar() {
 
           {/* Additional mobile menu items */}
           <div className="mt-8 mx-2 pt-4 border-t border-gray-800">
-            <button className="flex items-center gap-3 w-full px-4 py-3 text-base text-gray-300 transition-colors hover:text-red-400 hover:bg-gray-800/50 rounded-lg">
+            <button className="focus-ring-dark flex items-center gap-3 w-full px-4 py-3 text-base text-gray-300 transition-colors hover:text-brand-on-dark-hover hover:bg-gray-800/50 rounded-lg">
               <Search size={20} />
               Cari Artikel
             </button>
