@@ -3,6 +3,8 @@
 import { Home, Search, ArrowLeft, FileQuestion } from "lucide-react";
 import Link from "next/link";
 import { publicSans } from "@/lib/fonts";
+import GridPatternBg from "@/components/ui/grid-pattern-bg";
+import { buttonClasses } from "@/components/ui/button";
 
 export default function NotFound() {
   return (
@@ -10,16 +12,7 @@ export default function NotFound() {
       {/* Decorative background elements */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Grid pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `linear-gradient(to right, #fff 1px, transparent 1px),
-                               linear-gradient(to bottom, #fff 1px, transparent 1px)`,
-              backgroundSize: "4rem 4rem",
-            }}
-          />
-        </div>
+        <GridPatternBg opacityClassName="opacity-5" />
 
         {/* Decorative lines */}
         <div className="absolute top-0 left-1/3 w-px h-full bg-gradient-to-b from-transparent via-slate-700/50 to-transparent" />
@@ -29,15 +22,15 @@ export default function NotFound() {
       <div className="relative z-10 max-w-3xl mx-auto px-6 text-center">
         {/* Icon */}
         <div className="mb-8">
-          <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-red-500/10 border border-red-500/20">
-            <FileQuestion className="w-12 h-12 text-red-500" />
+          <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-brand/10 border border-brand/20">
+            <FileQuestion className="w-12 h-12 text-brand-on-dark" />
           </div>
         </div>
 
         {/* 404 Text */}
         <div className="mb-6">
           <h1 className="text-7xl md:text-9xl font-black text-white mb-2">
-            4<span className="text-red-500">0</span>4
+            4<span className="text-brand-on-dark">0</span>4
           </h1>
         </div>
 
@@ -60,10 +53,7 @@ export default function NotFound() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
             href="/"
-            className="group relative inline-flex justify-center items-center text-center gap-2
-                       bg-red-500 hover:bg-red-600 text-white font-semibold
-                       px-6 py-3 rounded-lg transition-all duration-300
-                       shadow-lg shadow-red-500/25 hover:shadow-red-500/40"
+            className={`${buttonClasses({ variant: "primary", size: "md", dark: true })} shadow-lg shadow-brand/25 hover:shadow-brand/40`}
           >
             <Home className="w-5 h-5" />
             Kembali ke Beranda
@@ -71,7 +61,7 @@ export default function NotFound() {
 
           <Link
             href="/blog"
-            className="group relative inline-flex justify-center items-center text-center gap-2
+            className="focus-ring-dark group relative inline-flex justify-center items-center text-center gap-2
                        bg-transparent border border-gray-600 hover:border-gray-500
                        text-gray-300 hover:text-white font-semibold
                        px-6 py-3 rounded-lg transition-all duration-300"
@@ -85,7 +75,7 @@ export default function NotFound() {
         <div className="mt-10">
           <button
             onClick={() => window.history.back()}
-            className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-300
+            className="focus-ring-dark inline-flex items-center gap-2 text-gray-500 hover:text-gray-300
                        text-sm transition-colors duration-200"
           >
             <ArrowLeft className="w-4 h-4" />

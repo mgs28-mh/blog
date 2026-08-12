@@ -1,7 +1,9 @@
-import { getAllArticles } from "@/lib/api";
+import { getArticlesPreview } from "@/lib/api";
 import Image from "next/image";
 import Link from "next/link";
 import { Calendar, ArrowRight } from "lucide-react";
+import CategoryBadge from "@/components/ui/badge";
+import { buttonClasses } from "@/components/ui/button";
 
 interface RelatedArticlesProps {
   currentSlug: string;
@@ -14,7 +16,11 @@ export default async function RelatedArticles({
   currentCategory,
   variant = "grid",
 }: RelatedArticlesProps) {
-  const allArticles = await getAllArticles();
+  // Ambil dari kumpulan artikel yang lebih besar (bukan cuma 6 terbaru) supaya
+  // prioritas kategori yang sama di bawah punya kandidat yang cukup, dan pakai
+  // field set ringan (tanpa rich-text body) karena hanya kartu ringkasan yang
+  // dirender di sini.
+  const allArticles = await getArticlesPreview(20);
 
   // Prioritaskan artikel dari kategori yang sama
   const sameCategoryArticles = allArticles
@@ -57,13 +63,7 @@ export default async function RelatedArticles({
               )}
               <div className="flex flex-col min-w-0">
                 {article.category && (
-                  <span
-                    className={`text-[10px] font-semibold uppercase tracking-wider mb-1 ${
-                      article.category === "teknologi" ? "text-blue-600" : "text-brand"
-                    }`}
-                  >
-                    {article.category}
-                  </span>
+                  <CategoryBadge category={article.category} variant="text" className="mb-1" />
                 )}
                 <h3 className="text-sm font-semibold text-gray-900 line-clamp-2 leading-snug group-hover:underline decoration-1 underline-offset-2">
                   {article.title}
@@ -84,13 +84,14 @@ export default async function RelatedArticles({
     );
   }
 
+
   return (
     <section className="bg-white">
       <div className="flex items-center justify-between mb-8">
         <h2 className="text-3xl font-bold text-gray-900">Artikel Terkait</h2>
         <Link
           href="/blog"
-          className="hidden md:flex items-center gap-2 text-red-600 hover:text-red-700 transition-colors text-sm font-medium"
+          className="focus-ring hidden md:flex items-center gap-2 text-brand hover:text-brand-hover transition-colors text-sm font-medium"
         >
           Lihat semua artikel
           <ArrowRight className="w-4 h-4" />
@@ -119,9 +120,7 @@ export default async function RelatedArticles({
 
             <div className="p-4">
               {article.category && (
-                <span className="inline-block px-2 py-0.5 mb-2 text-xs font-medium uppercase tracking-wider text-red-600 bg-red-50 rounded">
-                  {article.category}
-                </span>
+                <CategoryBadge category={article.category} variant="chip" className="mb-2" />
               )}
               <div className="flex items-center gap-4 mb-2 text-sm text-gray-500">
                 <span className="flex items-center gap-1">
@@ -133,7 +132,7 @@ export default async function RelatedArticles({
                   })}
                 </span>
               </div>
-              <h3 className="font-semibold text-gray-900 mb-3 group-hover:text-red-600 group-hover:underline decoration-red-600 underline-offset-4 transition-all leading-snug">
+              <h3 className="font-semibold text-gray-900 mb-3 group-hover:text-brand group-hover:underline decoration-brand underline-offset-4 transition-all leading-snug">
                 {article.title}
               </h3>
             </div>
@@ -144,7 +143,7 @@ export default async function RelatedArticles({
       <div className="md:hidden mt-8 flex justify-center">
         <Link
           href="/blog"
-          className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-md transition"
+          className={buttonClasses({ variant: "primary", size: "sm" })}
         >
           Lihat semua artikel
           <ArrowRight className="w-4 h-4" />

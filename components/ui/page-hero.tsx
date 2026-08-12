@@ -1,7 +1,8 @@
 import { ReactNode } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import { publicSans } from "@/lib/fonts";
+import GridPatternBg from "@/components/ui/grid-pattern-bg";
+import Button from "@/components/ui/button";
 
 type HeroSize = "xl" | "lg" | "md";
 
@@ -49,16 +50,7 @@ export function HeroGridShell({
   return (
     <section className={`relative bg-gray-900 overflow-hidden ${className}`}>
       <div className="absolute inset-0">
-        <div className="absolute inset-0 opacity-[0.07]">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `linear-gradient(to right, #fff 1px, transparent 1px),
-                               linear-gradient(to bottom, #fff 1px, transparent 1px)`,
-              backgroundSize: "4rem 4rem",
-            }}
-          />
-        </div>
+        <GridPatternBg />
       </div>
       {children}
     </section>
@@ -136,18 +128,15 @@ export default function PageHero({
             {(cta || !centered) && <div className="w-12 h-px bg-gray-700" />}
 
             {cta && (
-              <Link
-                href={cta.href}
-                className="focus-ring-dark inline-flex items-center gap-2 w-fit px-6 py-3 text-sm font-semibold text-white bg-brand hover:bg-brand-hover transition-colors duration-300"
-              >
+              <Button href={cta.href} variant="primary" size="md" dark className="w-fit">
                 {cta.label}
-              </Link>
+              </Button>
             )}
           </div>
 
           {hasImage && image && (
-            <div className="w-full lg:w-80 xl:w-96 shrink-0">
-              <div className="aspect-[16/10] lg:aspect-auto lg:h-full relative overflow-hidden">
+            <div className="w-full lg:w-80 xl:w-96 shrink-0 mt-2 lg:mt-0">
+              <div className="aspect-[16/10] lg:aspect-[4/3] relative overflow-hidden rounded-2xl ring-1 ring-white/10">
                 <Image
                   src={image.url}
                   alt={image.alt}
@@ -174,19 +163,6 @@ export default function PageHero({
             </div>
           )}
         </div>
-
-        {mark && !hasImage && (
-          <div
-            className="flex md:hidden justify-center mt-4 select-none pointer-events-none"
-            aria-hidden="true"
-          >
-            <span
-              className="text-[3.5rem] font-bold leading-none text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.12)]"
-            >
-              {mark}
-            </span>
-          </div>
-        )}
       </div>
     </HeroGridShell>
   );

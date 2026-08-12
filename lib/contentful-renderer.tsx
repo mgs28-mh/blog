@@ -36,15 +36,22 @@ function generateSlugId(text: string): string {
 export const richTextRenderOptions: Options = {
   renderNode: {
     [BLOCKS.PARAGRAPH]: (_node, children: ReactNode) => (
-      <p className={`mb-5 text-[1.0625rem] sm:text-lg leading-[1.8] text-slate-600 ${publicSans.className}`}>
+      <p className={`mb-5 text-[1.0625rem] sm:text-lg leading-[1.8] text-slate-700 ${publicSans.className}`}>
         {children}
       </p>
     ),
-    [BLOCKS.HEADING_1]: (_node, children: ReactNode) => (
-      <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mt-12 sm:mt-16 mb-6 text-gray-900">
-        {children}
-      </h1>
-    ),
+    // Dirender sebagai <h2>, bukan <h1> — halaman artikel sudah punya <h1>
+    // sendiri (judul artikel di hero), jadi heading level tertinggi di body
+    // konten harus tetap <h2> agar hierarki heading per halaman tidak ganda.
+    [BLOCKS.HEADING_1]: (node, children: ReactNode) => {
+      const text = getHeadingText(node);
+      const id = generateSlugId(text);
+      return (
+        <h2 id={id} className="text-3xl sm:text-4xl font-bold tracking-tight mt-12 sm:mt-16 mb-6 text-gray-900 scroll-mt-24">
+          {children}
+        </h2>
+      );
+    },
     [BLOCKS.HEADING_2]: (node, children: ReactNode) => {
       const text = getHeadingText(node);
       const id = generateSlugId(text);
@@ -67,12 +74,12 @@ export const richTextRenderOptions: Options = {
       <h4 className="text-lg sm:text-xl font-semibold tracking-tight mt-6 sm:mt-8 mb-3 text-gray-900">{children}</h4>
     ),
     [BLOCKS.UL_LIST]: (_node, children: ReactNode) => (
-      <ul className="list-disc pl-5 mb-6 space-y-2.5 marker:text-red-500">
+      <ul className="list-disc pl-5 mb-6 space-y-2.5 marker:text-brand">
         {children}
       </ul>
     ),
     [BLOCKS.OL_LIST]: (_node, children: ReactNode) => (
-      <ol className="list-decimal pl-5 mb-6 space-y-2.5 marker:text-red-500 marker:font-semibold">
+      <ol className="list-decimal pl-5 mb-6 space-y-2.5 marker:text-brand marker:font-semibold">
         {children}
       </ol>
     ),
@@ -80,7 +87,7 @@ export const richTextRenderOptions: Options = {
       <li className={`text-[1.0625rem] sm:text-lg leading-[1.75] text-slate-800 pl-1 [&>p]:mb-2 ${publicSans.className}`}>{children}</li>
     ),
     [BLOCKS.QUOTE]: (_node, children: ReactNode) => (
-      <blockquote className="border-l-4 border-red-500 bg-red-50/70 rounded-r-lg px-5 py-4 my-8 italic text-slate-800 [&>p]:mb-0 [&>p:not(:last-child)]:mb-3">
+      <blockquote className="border-l-4 border-brand bg-brand-subtle/70 rounded-r-lg px-5 py-4 my-8 italic text-slate-800 [&>p]:mb-0 [&>p:not(:last-child)]:mb-3">
         {children}
       </blockquote>
     ),
@@ -125,7 +132,7 @@ export const richTextRenderOptions: Options = {
     [INLINES.HYPERLINK]: (node, children: ReactNode) => (
       <Link
         href={node.data.uri}
-        className="text-red-700 underline decoration-red-300 decoration-[1.5px] underline-offset-[3px] hover:decoration-red-600 transition-colors duration-200"
+        className="text-brand-hover underline decoration-brand/40 decoration-[1.5px] underline-offset-[3px] hover:decoration-brand transition-colors duration-200"
         target="_blank"
         rel="noopener noreferrer"
       >

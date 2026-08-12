@@ -25,7 +25,7 @@ export default async function BlogComSection() {
         {/* Section Header — dua kolom di desktop: judul kiri, subjudul kanan */}
         <div className="mb-10 md:mb-14 flex flex-col md:flex-row md:items-end md:justify-between gap-3 md:gap-10">
           <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-slate-900">
-            Artikel <span className="text-red-600">Komunikasi</span>
+            Artikel <span className="text-brand">Komunikasi</span>
           </h2>
           <p className={`${publicSans.className} text-base md:text-lg text-neutral-600 md:max-w-sm md:text-right md:pb-1`}>
             Mengupas teori, praktik, dan fenomena komunikasi dari berbagai
@@ -35,7 +35,7 @@ export default async function BlogComSection() {
 
         {/* Error State */}
         {error && (
-          <p className={`${publicSans.className} text-center text-red-600 text-lg py-12`}>
+          <p className={`${publicSans.className} text-center text-brand text-lg py-12`}>
             Gagal memuat artikel
           </p>
         )}

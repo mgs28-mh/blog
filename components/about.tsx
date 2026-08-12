@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { publicSans } from "@/lib/fonts";
+import { buttonClasses } from "@/components/ui/button";
 
 export default function AboutSection() {
   return (
@@ -47,7 +48,7 @@ export default function AboutSection() {
                 href="https://mgalangs.web.id"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center px-4 py-4 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                className={buttonClasses({ variant: "primary", size: "md" })}
               >
                 Hubungi Saya
               </Link>

@@ -9,8 +9,8 @@ export default function Hero() {
       headline={
         <>
           Ide dan wawasan seputar{" "}
-          <span className="text-brand">komunikasi</span>,{" "}
-          <span className="text-brand">teknologi</span>, dan dunia digital.
+          <span className="text-brand-on-dark">komunikasi</span>,{" "}
+          <span className="text-brand-on-dark">teknologi</span>, dan dunia digital.
         </>
       }
       subhead="Menulis tentang cara pesan bekerja, kenapa teknologi penting, dan hal-hal yang menarik di antaranya."

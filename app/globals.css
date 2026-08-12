@@ -9,7 +9,20 @@
   --color-brand: #dc2626; /* red-600 */
   --color-brand-hover: #b91c1c; /* red-700 */
   --color-brand-subtle: #fef2f2; /* red-50 */
-  --color-brand-subtle-text: #dc2626; /* red-600 */
+  --color-brand-subtle-text: #b91c1c; /* red-700 — kontras cukup (>4.5:1) di atas brand-subtle */
+
+  /* Varian brand untuk teks di atas surface gelap (hero/nav/footer) — versi
+     merah yang lebih terang supaya kontrasnya lolos WCAG AA (>=4.5:1) di atas
+     --color-ink. --color-brand sendiri hanya ~3.67:1 di atas gray-900. */
+  --color-brand-on-dark: #f87171; /* red-400 */
+  --color-brand-on-dark-hover: #fca5a5; /* red-300 */
+
+  /* Blue aksen — standar tunggal untuk kategori Teknologi, menggantikan
+     campuran blue-400/500/600 yang dipakai ad hoc di tiap komponen. */
+  --color-accent: #2563eb; /* blue-600 */
+  --color-accent-hover: #1d4ed8; /* blue-700 */
+  --color-accent-subtle: #eff6ff; /* blue-50 */
+  --color-accent-subtle-text: #2563eb; /* blue-600 */
 
   /* Surface gelap editorial (hero/nav/footer) */
   --color-ink: #111827; /* gray-900 */
@@ -23,6 +36,12 @@
   --color-brand-hover: var(--color-brand-hover);
   --color-brand-subtle: var(--color-brand-subtle);
   --color-brand-subtle-text: var(--color-brand-subtle-text);
+  --color-brand-on-dark: var(--color-brand-on-dark);
+  --color-brand-on-dark-hover: var(--color-brand-on-dark-hover);
+  --color-accent: var(--color-accent);
+  --color-accent-hover: var(--color-accent-hover);
+  --color-accent-subtle: var(--color-accent-subtle);
+  --color-accent-subtle-text: var(--color-accent-subtle-text);
   --color-ink: var(--color-ink);
   --color-ink-border: var(--color-ink-border);
 }

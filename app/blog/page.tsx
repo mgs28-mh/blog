@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { getArticlesByCategory, getArticlesPreview } from "@/lib/api";
 import { generateBlogSchema, generateBreadcrumbSchema, generateJsonLd } from "@/lib/schema";
-import { HiOutlineArrowRight, HiOutlineChatBubbleLeftRight, HiOutlineComputerDesktop } from "react-icons/hi2";
+import { ArrowRight, MessagesSquare, Monitor } from "lucide-react";
 import { publicSans } from "@/lib/fonts";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -83,19 +83,19 @@ export default async function Blog() {
       title: "Komunikasi",
       description: "Mengupas teori, praktik, dan strategi komunikasi dari berbagai sudut pandang.",
       href: "/blog/komunikasi",
-      icon: HiOutlineChatBubbleLeftRight,
+      icon: MessagesSquare,
       count: komunikasiData.pagination.totalItems,
-      gradient: "from-blue-600 to-indigo-600",
-      hoverGradient: "from-blue-700 to-indigo-700",
+      gradient: "from-brand to-rose-600",
+      hoverGradient: "from-brand-hover to-rose-700",
     },
     {
       title: "Teknologi",
       description: "Mengupas perkembangan teknologi komunikasi dan informasi terbaru.",
       href: "/blog/teknologi",
-      icon: HiOutlineComputerDesktop,
+      icon: Monitor,
       count: teknologiData.pagination.totalItems,
-      gradient: "from-red-600 to-rose-600",
-      hoverGradient: "from-red-700 to-rose-700",
+      gradient: "from-accent to-indigo-600",
+      hoverGradient: "from-accent-hover to-indigo-700",
     },
   ];
   
@@ -162,7 +162,7 @@ export default async function Blog() {
                         </span>
                         <div className="flex items-center space-x-2 text-white group-hover:translate-x-1 transition-transform duration-200">
                           <span className="text-sm">Lihat Semua</span>
-                          <HiOutlineArrowRight className="w-5 h-5" />
+                          <ArrowRight className="w-5 h-5" />
                         </div>
                       </div>
                     </div>

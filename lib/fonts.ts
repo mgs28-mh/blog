@@ -1,4 +1,4 @@
-import { Public_Sans, Figtree} from "next/font/google";
+import { Figtree, Mulish} from "next/font/google";
 
 export const bricolage = Figtree({
   subsets: ["latin"],
@@ -7,10 +7,10 @@ export const bricolage = Figtree({
   weight: ["400", "500", "700", "800"],
 });
 
-export const publicSans = Public_Sans({
+export const publicSans = Mulish({
   subsets: ["latin"],
   display: "swap",
   preload: true,
-  weight: ["300", "400", "700"],
+  weight: ["400", "500", "700", "800"],
   variable: "--font-public-sans",
 });
