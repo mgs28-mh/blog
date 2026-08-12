@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { HiOutlineArrowRight } from "react-icons/hi";
+import { ArrowRight } from "lucide-react";
 import { Article } from "@/lib/api";
 import Link from "next/link";
 
@@ -39,16 +39,16 @@ export default function BlogPost({ regularPosts }: BlogPostProps) {
           {/* Category/Date */}
           <div>
             <span className="text-sm font-medium text-gray-500 uppercase tracking-wider">
-              {new Date(post.date).toLocaleDateString("en-US", {
+              {new Date(post.date).toLocaleDateString("id-ID", {
                 year: "numeric",
-                month: "short",
+                month: "long",
                 day: "numeric",
               })}
             </span>
           </div>
 
           {/* Title */}
-          <h3 className="text-xl lg:text-3xl font-bold text-gray-900 line-clamp-3 lg:line-clamp-2 group-hover:text-blue-600 group-hover:underline group-hover:underline-offset-4 transition-colors duration-200 leading-tight">
+          <h3 className="text-xl lg:text-3xl font-bold text-gray-900 line-clamp-3 lg:line-clamp-2 group-hover:text-accent group-hover:underline group-hover:underline-offset-4 transition-colors duration-200 leading-tight">
             {post.title}
           </h3>
 
@@ -61,7 +61,7 @@ export default function BlogPost({ regularPosts }: BlogPostProps) {
           <div className="pt-4">
             <div className="inline-flex items-center text-gray-900 font-medium transition-all duration-200 group-hover:translate-x-1">
               <span className="text-lg">Baca Artikel</span>
-              <HiOutlineArrowRight className="ml-2 w-5 h-5" />
+              <ArrowRight className="ml-2 w-5 h-5" />
             </div>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { HiOutlineArrowRight } from "react-icons/hi";
+import { ArrowRight } from "lucide-react";
 import { Article } from "@/lib/api";
 import Link from "next/link";
 
@@ -39,9 +39,9 @@ export default function BlogFeature({ featuredPosts }: BlogFeatureProps) {
           <div className="space-y-3">
             {/* Meta Information */}
             <span className="text-xs font-medium text-blue-300 uppercase tracking-wider">
-              {new Date(post.date).toLocaleDateString("en-US", {
+              {new Date(post.date).toLocaleDateString("id-ID", {
                 year: "numeric",
-                month: "short",
+                month: "long",
                 day: "numeric",
               })}
             </span>
@@ -57,7 +57,7 @@ export default function BlogFeature({ featuredPosts }: BlogFeatureProps) {
               className="inline-flex items-center text-white/90 font-medium hover:text-white transition-all duration-200 pt-2 group-hover:translate-x-1"
             >
               <span className="text-sm">Baca Artikel</span>
-              <HiOutlineArrowRight className="ml-2 w-4 h-4" />
+              <ArrowRight className="ml-2 w-4 h-4" />
             </div>
           </div>
         </div>

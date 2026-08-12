@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { FaFacebookF, FaLinkedinIn, FaLink, FaCheck } from "react-icons/fa";
+import { Link2, Check } from "lucide-react";
+import { FaFacebookF, FaLinkedinIn } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 
 interface SocialShareButtonsProps {
@@ -34,7 +35,7 @@ export default function SocialShareButtons({
     }
   };
 
-  const CopyIcon = copied ? FaCheck : FaLink;
+  const CopyIcon = copied ? Check : Link2;
   const copyTitle = copied ? "Tersalin!" : "Salin tautan";
 
   const iconClass = "w-4 h-4";
@@ -52,7 +53,7 @@ export default function SocialShareButtons({
           rel="noopener noreferrer"
           title="Bagikan di Twitter"
           aria-label="Bagikan di Twitter"
-          className="w-10 h-10 rounded-full bg-gray-800 backdrop-blur-sm text-gray-300 hover:bg-red-500 hover:text-white flex items-center justify-center transition-all duration-200 transform hover:scale-105"
+          className="w-10 h-10 rounded-full bg-gray-800 backdrop-blur-sm text-gray-300 hover:bg-brand hover:text-white flex items-center justify-center transition-all duration-200 transform hover:scale-105"
         >
           <IconWrapper Icon={FaXTwitter} />
         </Link>
@@ -62,7 +63,7 @@ export default function SocialShareButtons({
           rel="noopener noreferrer"
           title="Bagikan di Facebook"
           aria-label="Bagikan di Facebook"
-          className="w-10 h-10 rounded-full bg-gray-800 backdrop-blur-sm text-gray-300 hover:bg-red-500 hover:text-white flex items-center justify-center transition-all duration-200 transform hover:scale-105"
+          className="w-10 h-10 rounded-full bg-gray-800 backdrop-blur-sm text-gray-300 hover:bg-brand hover:text-white flex items-center justify-center transition-all duration-200 transform hover:scale-105"
         >
           <IconWrapper Icon={FaFacebookF} />
         </Link>
@@ -72,7 +73,7 @@ export default function SocialShareButtons({
           rel="noopener noreferrer"
           title="Bagikan di LinkedIn"
           aria-label="Bagikan di LinkedIn"
-          className="w-10 h-10 rounded-full bg-gray-800 backdrop-blur-sm text-gray-300 hover:bg-red-500 hover:text-white flex items-center justify-center transition-all duration-200 transform hover:scale-105"
+          className="w-10 h-10 rounded-full bg-gray-800 backdrop-blur-sm text-gray-300 hover:bg-brand hover:text-white flex items-center justify-center transition-all duration-200 transform hover:scale-105"
         >
           <IconWrapper Icon={FaLinkedinIn} />
         </Link>
@@ -80,7 +81,7 @@ export default function SocialShareButtons({
           onClick={copyToClipboard}
           title={copyTitle}
           aria-label={copyTitle}
-          className="w-10 h-10 rounded-full bg-gray-800 backdrop-blur-sm text-gray-300 hover:bg-red-500 hover:text-white flex items-center justify-center transition-all duration-200 transform hover:scale-105 cursor-pointer"
+          className="w-10 h-10 rounded-full bg-gray-800 backdrop-blur-sm text-gray-300 hover:bg-brand hover:text-white flex items-center justify-center transition-all duration-200 transform hover:scale-105 cursor-pointer"
         >
           <CopyIcon className={iconClass} />
         </button>
@@ -97,7 +98,7 @@ export default function SocialShareButtons({
           rel="noopener noreferrer"
           title="Bagikan di Twitter"
           aria-label="Bagikan di Twitter"
-          className="w-8 h-8 rounded-full bg-black text-white hover:bg-red-500 flex items-center justify-center transition-all duration-200 transform hover:scale-105"
+          className="w-8 h-8 rounded-full bg-black text-white hover:bg-brand flex items-center justify-center transition-all duration-200 transform hover:scale-105"
         >
           <IconWrapper Icon={FaXTwitter} />
         </Link>
@@ -107,7 +108,7 @@ export default function SocialShareButtons({
           rel="noopener noreferrer"
           title="Bagikan di Facebook"
           aria-label="Bagikan di Facebook"
-          className="w-8 h-8 rounded-full bg-black text-white hover:bg-red-500 flex items-center justify-center transition-all duration-200 transform hover:scale-105"
+          className="w-8 h-8 rounded-full bg-black text-white hover:bg-brand flex items-center justify-center transition-all duration-200 transform hover:scale-105"
         >
           <IconWrapper Icon={FaFacebookF} />
         </Link>
@@ -117,7 +118,7 @@ export default function SocialShareButtons({
           rel="noopener noreferrer"
           title="Bagikan di LinkedIn"
           aria-label="Bagikan di LinkedIn"
-          className="w-8 h-8 rounded-full bg-black text-white hover:bg-red-500 flex items-center justify-center transition-all duration-200 transform hover:scale-105"
+          className="w-8 h-8 rounded-full bg-black text-white hover:bg-brand flex items-center justify-center transition-all duration-200 transform hover:scale-105"
         >
           <IconWrapper Icon={FaLinkedinIn} />
         </Link>
@@ -125,7 +126,7 @@ export default function SocialShareButtons({
           onClick={copyToClipboard}
           title={copyTitle}
           aria-label={copyTitle}
-          className="w-8 h-8 rounded-full bg-black text-white hover:bg-red-500 flex items-center justify-center transition-all duration-200 transform hover:scale-105 cursor-pointer"
+          className="w-8 h-8 rounded-full bg-black text-white hover:bg-brand flex items-center justify-center transition-all duration-200 transform hover:scale-105 cursor-pointer"
         >
           <CopyIcon className={iconClass} />
         </button>
@@ -170,7 +171,7 @@ export default function SocialShareButtons({
         onClick={copyToClipboard}
         title={copyTitle}
         aria-label={copyTitle}
-        className="w-8 h-8 rounded-full bg-black text-white hover:bg-red-500 flex items-center justify-center transition-all duration-200 transform hover:scale-105 cursor-pointer"
+        className="w-8 h-8 rounded-full bg-black text-white hover:bg-brand flex items-center justify-center transition-all duration-200 transform hover:scale-105 cursor-pointer"
       >
         <CopyIcon className={iconClass} />
       </button>
