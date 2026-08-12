@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: GenerateMetadataProps): Promi
 
   if (!article) {
     return {
-      title: "Artikel Tidak Ditemukan",
+      title: "Artikel Tidak Ditemukan | Kata Komunika",
       description: "Artikel yang Anda cari tidak ditemukan.",
     };
   }
@@ -44,9 +44,10 @@ export async function generateMetadata({ params }: GenerateMetadataProps): Promi
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://katakomunika.web.id";
   const canonicalUrl = `${siteUrl}/blog/${slug}`;
   const imageUrl = article.image?.url || `${siteUrl}/logo.webp`;
+  const title = `${article.title} | Kata Komunika`;
 
   return {
-    title: article.title,
+    title,
     description: article.excerpt,
     authors: [{ name: article.author || "Galang Saputra" }],
     keywords: article.category ? [article.category, "blog", "artikel"] : ["blog", "artikel"],
@@ -54,7 +55,7 @@ export async function generateMetadata({ params }: GenerateMetadataProps): Promi
       canonical: canonicalUrl,
     },
     openGraph: {
-      title: article.title,
+      title,
       description: article.excerpt,
       url: canonicalUrl,
       siteName: "Kata Komunika",
@@ -73,7 +74,7 @@ export async function generateMetadata({ params }: GenerateMetadataProps): Promi
     },
     twitter: {
       card: "summary_large_image",
-      title: article.title,
+      title,
       description: article.excerpt,
       images: [imageUrl],
     },
@@ -205,7 +206,7 @@ export default async function BlogPostArticlePage(
   ]);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white text-slate-900">
       <Suspense fallback={<ArticleSkeletonLoading />}>
         {/* Hero Section */}
         <PageHero
@@ -216,17 +217,17 @@ export default async function BlogPostArticlePage(
           breadcrumb={
             <>
               <div className="mb-1 text-sm text-gray-400 flex gap-2 items-center flex-wrap">
-                <Link href="/" className="focus-ring-dark hover:underline text-gray-300 hover:text-brand transition-colors">
+                <Link href="/" className="focus-ring-dark hover:underline text-gray-300 hover:text-brand-on-dark-hover transition-colors">
                   Beranda
                 </Link>
                 <span className="text-gray-600">/</span>
-                <Link href="/blog" className="focus-ring-dark hover:underline text-gray-300 hover:text-brand transition-colors">
+                <Link href="/blog" className="focus-ring-dark hover:underline text-gray-300 hover:text-brand-on-dark-hover transition-colors">
                   Blog
                 </Link>
                 {article.category && (
                   <>
                     <span className="text-gray-600">/</span>
-                    <Link href={`/blog/${article.category}`} className="focus-ring-dark hover:underline text-gray-300 hover:text-brand transition-colors capitalize">
+                    <Link href={`/blog/${article.category}`} className="focus-ring-dark hover:underline text-gray-300 hover:text-brand-on-dark-hover transition-colors capitalize">
                       {article.category}
                     </Link>
                   </>
@@ -239,12 +240,12 @@ export default async function BlogPostArticlePage(
                   className={`focus-ring-dark group inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider transition-colors ${
                     article.category === "teknologi"
                       ? "text-blue-400 hover:text-blue-300"
-                      : "text-brand hover:text-brand-hover"
+                      : "text-brand-on-dark hover:text-brand-on-dark-hover"
                   }`}
                 >
                   <span
                     className={`h-px w-6 transition-colors ${
-                      article.category === "teknologi" ? "bg-blue-400" : "bg-brand"
+                      article.category === "teknologi" ? "bg-blue-400" : "bg-brand-on-dark"
                     }`}
                   />
                   {article.category}
@@ -293,7 +294,7 @@ export default async function BlogPostArticlePage(
           {/* Layout 2 kolom: Artikel + Artikel Terkait */}
           <div className="flex flex-col xl:flex-row gap-8">
             {/* Artikel Utama — lebar dibatasi untuk kenyamanan baca */}
-            <article className="w-full max-w-3xl">
+            <article className="w-full max-w-2xl">
               <div>
                 {documentToReactComponents(
                   article.details.json,
@@ -315,7 +316,7 @@ export default async function BlogPostArticlePage(
             </article>
 
             {/* Artikel Terkait — sidebar kanan, garis pemisah membentang sepanjang artikel */}
-            <aside className="hidden xl:block w-72 shrink-0 xl:pl-8 xl:border-l xl:border-gray-200">
+            <aside className="hidden xl:block w-96 shrink-0 xl:pl-8 xl:border-l xl:border-gray-200">
               <div className="pb-8 border-b border-gray-200">
                 <RelatedArticles
                   currentSlug={params.slug}

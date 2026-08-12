@@ -4,7 +4,7 @@ import PaginationLinks from "@/components/blog/pagination-links";
 import { Metadata } from "next";
 import { getArticlesByCategory } from "@/lib/api";
 import { generateBlogSchema, generateJsonLd } from "@/lib/schema";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 
 interface BlogTeknologiPageProps {
   params: Promise<{ page: string }>;
@@ -12,8 +12,10 @@ interface BlogTeknologiPageProps {
 
 export async function generateStaticParams(): Promise<{ page: string }[]> {
   const { pagination } = await getArticlesByCategory("teknologi", 1, 6);
-  return Array.from({ length: pagination.totalPages }, (_, i) => ({
-    page: String(i + 1),
+  // Halaman 1 di-redirect ke /blog/teknologi (lihat komponen di bawah), jadi
+  // tidak perlu di-generate secara statis sebagai halaman duplikat.
+  return Array.from({ length: Math.max(pagination.totalPages - 1, 0) }, (_, i) => ({
+    page: String(i + 2),
   }));
 }
 
@@ -91,7 +93,13 @@ export default async function BlogTeknologiPage({ params }: BlogTeknologiPagePro
   if (isNaN(page) || page < 1) {
     notFound();
   }
-  
+
+  // Halaman 1 identik dengan /blog/teknologi — redirect permanen supaya
+  // tidak ada dua URL ter-index dengan konten yang sama persis.
+  if (page === 1) {
+    permanentRedirect("/blog/teknologi");
+  }
+
   // Get pagination data for head links
   const paginatedData = await getArticlesByCategory("teknologi", page, 6);
   
